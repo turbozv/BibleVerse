@@ -13,7 +13,7 @@ function getLanguage(req) {
     lang = req.headers.language.toLowerCase();
   }
 
-  if (lang == 'chs' || lang == 'cht' || lang == 'eng') {
+  if (lang == 'cht' || lang == 'eng') {
     language = lang;
   } else {
     language = 'chs';
@@ -67,13 +67,18 @@ function getVerseRange(verse) {
   return { start: startIndex, end: endIndex };
 }
 
+function sendResult(res, result, raw) {
+  res.setHeader('content-type', 'application/json');
+  res.send(raw ? result : JSON.stringify(result));
+}
+
 // GET method route
 app.get('/verse/*', function (req, res) {
   const startTime = new Date();
   const query = req.path.substring('/verse/'.length);
   verseRange = getVerseRange(query);
   if (verseRange == null) {
-    res.send(JSON.stringify({ Error: "Invalid input" }));
+    sendResult(res, { Error: "Invalid input" });
   } else {
     let result = {
       paragraphs: []
@@ -111,8 +116,8 @@ app.get('/verse/*', function (req, res) {
         if (resultChapter.verses.length > 0) {
           result.paragraphs.push(resultChapter);
         }
-        res.setHeader('content-type', 'application/json');
-        res.send(JSON.stringify(result));
+
+        sendResult(res, result);
         const time = (new Date()) - startTime;
         console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time, verse: verseRange }));
       });
@@ -126,15 +131,12 @@ app.get('/lessons', function (req, res) {
   const language = getLanguage(req);
   fs.readFile('lessons/' + language + '/home.json', 'utf8', function (err, data) {
     if (err) {
-      res.setHeader('content-type', 'application/json');
-      res.send(JSON.stringify({ Error: err }));
-      return;
+      sendResult(res, { Error: err });
+    } else {
+      sendResult(res, data, true);
+      const time = (new Date()) - startTime;
+      console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time }));
     }
-
-    res.setHeader('content-type', 'application/json');
-    res.send(data);
-    const time = (new Date()) - startTime;
-    console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time }));
   });
 })
 
@@ -145,13 +147,11 @@ app.get('/lessons/*', function (req, res) {
   const id = req.path.substring('/lessons/'.length);
   fs.readFile('lessons/' + language + '/' + id + '.json', 'utf8', function (err, data) {
     if (err) {
-      res.setHeader('content-type', 'application/json');
-      res.send(JSON.stringify({ Error: err }));
+      sendResult(res, { Error: err });
       return;
     }
 
-    res.setHeader('content-type', 'application/json');
-    res.send(data);
+    sendResult(res, data, true);
     const time = (new Date()) - startTime;
     console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time }));
   });
