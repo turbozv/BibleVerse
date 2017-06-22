@@ -119,7 +119,7 @@ app.get('/verse/*', function (req, res) {
 
         sendResult(res, result);
         const time = (new Date()) - startTime;
-        console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time, verse: verseRange }));
+        console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time, verse: verseRange }));
       });
     });
   }
@@ -135,7 +135,7 @@ app.get('/lessons', function (req, res) {
     } else {
       sendResult(res, data, true);
       const time = (new Date()) - startTime;
-      console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time }));
+      console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time }));
     }
   });
 })
@@ -153,7 +153,7 @@ app.get('/lessons/*', function (req, res) {
 
     sendResult(res, data, true);
     const time = (new Date()) - startTime;
-    console.log(JSON.stringify({ date: new Date(), path: req.path, ip: req.ip, language, time }));
+    console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time }));
   });
 })
 
