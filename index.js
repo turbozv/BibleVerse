@@ -16,13 +16,17 @@ class Logger {
   }
 
   error(err) {
-    const time = (new Date()) - this.startTime;
+    const now = new Date();
+    const time = now - this.startTime;
+    const date = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
     console.log(JSON.stringify({ date: new Date(), path: this.req.path, ip: this.req.ip, lang: this.language, time, err: JSON.stringify(err) }));
   }
 
   succeed() {
-    const time = (new Date()) - this.startTime;
-    console.log(JSON.stringify({ date: new Date(), path: this.req.path, ip: this.req.ip, lang: this.language, time }));
+    const now = new Date();
+    const time = now - this.startTime;
+    const date = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+    console.log(JSON.stringify({ date, path: this.req.path, ip: this.req.ip, lang: this.language, time }));
   }
 }
 
@@ -186,7 +190,7 @@ app.get('/lessons/*', function (req, res) {
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client.language);
-  var comment = req.param('comment');
+  var comment = req.body.comment;
   if (!comment) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
