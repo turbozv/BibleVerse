@@ -1,25 +1,51 @@
 
 var sqlite3 = require('sqlite3');
-var db = new sqlite3.Database('bible.db');
+var dbBible = new sqlite3.Database('bible.db');
+var dbFeedback = new sqlite3.Database('feedback.db');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
+var jsonParser = bodyParser.json()
 
-function getLanguage(req) {
-  let lang;
-  if (req.query.lang) {
-    lang = req.query.lang.toLowerCase();
-  } else if (req.headers.language) {
-    lang = req.headers.language.toLowerCase();
+class Logger {
+  constructor(req, language) {
+    this.req = req;
+    this.language = language;
+    this.startTime = new Date();
   }
 
-  if (lang == 'cht' || lang == 'eng') {
-    language = lang;
-  } else {
+  error(err) {
+    const time = (new Date()) - this.startTime;
+    console.log(JSON.stringify({ date: new Date(), path: this.req.path, ip: this.req.ip, lang: this.language, time, err: JSON.stringify(err) }));
+  }
+
+  succeed() {
+    const time = (new Date()) - this.startTime;
+    console.log(JSON.stringify({ date: new Date(), path: this.req.path, ip: this.req.ip, lang: this.language, time }));
+  }
+}
+
+function getClientInfo(req) {
+  let language = '';
+  if (req.query.lang) {
+    language = req.query.lang.toLowerCase();
+  } else if (req.headers.language) {
+    language = req.headers.language.toLowerCase();
+  }
+
+  if (language != 'cht' && language != 'eng' && language != 'chs') {
     language = 'chs';
   }
 
-  return language;
+  let deviceId = '';
+  if (req.query.deviceId) {
+    deviceId = req.query.deviceId.toLowerCase();
+  } else if (req.headers.deviceId) {
+    deviceId = req.headers.deviceId.toLowerCase();
+  }
+
+  return { language, deviceId };
 }
 
 function getVerseRange(verse) {
@@ -67,59 +93,53 @@ function getVerseRange(verse) {
   return { start: startIndex, end: endIndex };
 }
 
-function sendResult(res, result, raw) {
+function sendResultText(res, result) {
   res.setHeader('content-type', 'application/json');
-  res.send(raw ? result : JSON.stringify(result));
+  res.send(result);
+}
+
+function sendResultObject(res, obj) {
+  res.setHeader('content-type', 'application/json');
+  res.send(JSON.stringify(obj));
+}
+
+function sendErrorObject(res, status, obj) {
+  res.setHeader('content-type', 'application/json');
+  res.status(status).send(JSON.stringify(obj));
 }
 
 // GET method route
 app.get('/verse/*', function (req, res) {
-  const startTime = new Date();
-  const query = req.path.substring('/verse/'.length);
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client.language);
+  const query = req.params[0];
   verseRange = getVerseRange(query);
   if (verseRange == null) {
-    sendResult(res, { Error: "Invalid input" });
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
   } else {
-    let result = {
-      paragraphs: []
-    };
+    let result = { paragraphs: [] };
+    let resultChapter = { id: parseInt(verseRange.start / 1000 % 1000), title: '', verses: [] }
 
-    let resultChapter = {
-      id: parseInt(verseRange.start / 1000 % 1000),
-      title: '',
-      verses: []
-    }
-
-    const language = getLanguage(req);
-    db.serialize(function () {
-      const sql = "SELECT * FROM " + language + " WHERE id>=" + verseRange.start + " AND id<=" + verseRange.end;
-      db.each(sql, function (err, row) {
+    dbBible.serialize(function () {
+      const sql = "SELECT * FROM " + client.language + " WHERE id>=" + verseRange.start + " AND id<=" + verseRange.end;
+      dbBible.each(sql, function (err, row) {
         const chapter = parseInt(row.id / 1000 % 1000);
+        const verse = chapter + ":" + row.id % 1000;
         const text = row.text.replace(/\n/g, '');
         if (chapter == resultChapter.id) {
-          resultChapter.verses.push({
-            verse: chapter + ":" + row.id % 1000,
-            text
-          });
+          resultChapter.verses.push({ verse, text });
         } else {
           result.paragraphs.push(resultChapter);
-          resultChapter = {
-            id: chapter,
-            title: '',
-            verses: [{
-              verse: chapter + ":" + row.id % 1000,
-              text
-            }]
-          }
+          resultChapter = { id: chapter, title: '', verses: [{ verse, text }] }
         }
       }, function () {
         if (resultChapter.verses.length > 0) {
           result.paragraphs.push(resultChapter);
         }
 
-        sendResult(res, result);
-        const time = (new Date()) - startTime;
-        console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time, verse: verseRange }));
+        sendResultObject(res, result);
+        logger.succeed();
       });
     });
   }
@@ -127,34 +147,62 @@ app.get('/verse/*', function (req, res) {
 
 // GET method route
 app.get('/lessons', function (req, res) {
-  const startTime = new Date();
-  const language = getLanguage(req);
-  fs.readFile('lessons/' + language + '/home.json', 'utf8', function (err, data) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client.language);
+  fs.readFile('lessons/' + client.language + '/home.json', 'utf8', function (err, data) {
     if (err) {
-      sendResult(res, { Error: err });
+      sendResultObject(res, { Error: err.errno });
+      logger.error(err);
     } else {
-      sendResult(res, data, true);
-      const time = (new Date()) - startTime;
-      console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time }));
+      sendResultText(res, data);
+      logger.succeed();
     }
   });
 })
 
 // GET method route
 app.get('/lessons/*', function (req, res) {
-  const startTime = new Date();
-  const language = getLanguage(req);
-  const id = req.path.substring('/lessons/'.length);
-  fs.readFile('lessons/' + language + '/' + id + '.json', 'utf8', function (err, data) {
-    if (err) {
-      sendResult(res, { Error: err });
-      return;
-    }
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client.language);
+  const id = req.params[0];
+  if (/[^a-zA-Z0-9\_\-]/.test(id)) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
 
-    sendResult(res, data, true);
-    const time = (new Date()) - startTime;
-    console.log(JSON.stringify({ date: (new Date()).toLocaleString(), path: req.path, ip: req.ip, language, time }));
+  fs.readFile('lessons/' + client.language + '/' + id + '.json', 'utf8', function (err, data) {
+    if (err) {
+      sendErrorObject(res, 500, { Error: err.errno });
+      logger.error(err);
+    } else {
+      sendResultText(res, data);
+      logger.succeed();
+    }
   });
 })
 
+// POST method route
+app.post('/feedback', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client.language);
+  var comment = req.param('comment');
+  if (!comment) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  console.log(JSON.stringify({ deviceId: client.deviceId, ip: req.ip, comment }));
+  dbFeedback.serialize(function () {
+    var stmt = dbFeedback.prepare("INSERT INTO feedback(deviceId, ip, comment) VALUES(?,?,?)");
+    stmt.run(client.deviceId, req.ip, comment);
+    stmt.finalize();
+
+  });
+  res.status(201).send({});
+  logger.succeed();
+})
+
+app.use(bodyParser.text());
 app.listen(3000)
