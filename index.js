@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 var jsonParser = bodyParser.json()
+var https = require('https');
 
 class Logger {
   constructor(req, client) {
@@ -67,8 +68,9 @@ function getClientInfo(req) {
   let sessionId = getRequestValue(req, 'sessionId');
   let platformOS = getRequestValue(req, 'platformOS');
   let deviceYearClass = getRequestValue(req, 'deviceYearClass');
+  let cellphone = getRequestValue(req, 'cellphone');
 
-  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass };
+  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone };
 }
 
 function getVerseRange(verse) {
@@ -226,6 +228,45 @@ app.get('/reports', function (req, res) {
       });
     });
   });
+})
+
+// GET method route
+app.get('/logon', function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  if (!client.cellphone) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  const options = {
+    host: 'resources.bsfinternational.org',
+    port: 443,
+    path: '/BSFAjaxUtils/Dispatch?action=AjaxGetClassMeetingInfo&phoneNumber=' + client.cellphone,
+    method: 'GET'
+  };
+
+  const bsfReq = https.request(options, (bsfRes) => {
+    bsfRes.on('data', (d) => {
+      const body = d.toString('utf8');
+      const result = JSON.parse(body);
+      if (result && result.length > 0) {
+        sendResultObject(res, { logon: true });
+        logger.succeed();
+      } else {
+        sendErrorObject(res, 404, { Error: "No such user" });
+        logger.error("No such user");
+      }
+    });
+  });
+
+  bsfReq.on('error', (e) => {
+    sendErrorObject(res, 404, { Error: e.message });
+    logger.error(e.message);
+  });
+
+  bsfReq.end();
 })
 
 // POST method route
