@@ -213,13 +213,13 @@ app.get('/reports', function (req, res) {
   dbFeedback.serialize(function () {
     const sql = "SELECT * FROM FeedbackView";
     dbFeedback.each(sql, function (err, row) {
-      feedback.push({ date: row.date, comment: row.comment });
+      feedback.push({ date: row.date, deviceId: row.deviceId, ip: row.ip, comment: row.comment });
     }, function () {
       var log = [];
       dbLog.serialize(function () {
         const sql = "SELECT * FROM LogView";
         dbLog.each(sql, function (err, row) {
-          log.push({ date: row.date, deviceId: row.deviceId, platformOS: row.platformOS, sessionId: row.sessionId, err: row.err });
+          log.push({ date: row.date, path: row.path, deviceId: row.deviceId, lang: row.lang, ip: row.ip, platformOS: row.platformOS, sessionId: row.sessionId, text: row.text });
         }, function () {
           sendResultObject(res, { feedback, log });
         });
