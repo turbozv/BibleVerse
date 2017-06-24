@@ -2,6 +2,7 @@
 var sqlite3 = require('sqlite3');
 var dbBible = new sqlite3.Database('bible.db');
 var dbFeedback = new sqlite3.Database('feedback.db');
+var dbLog = new sqlite3.Database('log.db');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -9,47 +10,65 @@ var app = express();
 var jsonParser = bodyParser.json()
 
 class Logger {
-  constructor(req, language) {
+  constructor(req, client) {
     this.req = req;
-    this.language = language;
+    this.client = client;
+    this.err = null;
     this.startTime = new Date();
   }
 
-  error(err) {
+  getTime() {
     const now = new Date();
-    const time = now - this.startTime;
-    const date = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-    console.log(JSON.stringify({ date: new Date(), path: this.req.path, ip: this.req.ip, lang: this.language, time, err: JSON.stringify(err) }));
+    return { date: now.toLocaleDateString() + ' ' + now.toLocaleTimeString(), time: now - this.startTime };
+  }
+
+  error(err) {
+    this.err = err;
+    this.log();
   }
 
   succeed() {
-    const now = new Date();
-    const time = now - this.startTime;
-    const date = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
-    console.log(JSON.stringify({ date, path: this.req.path, ip: this.req.ip, lang: this.language, time }));
+    this.err = null;
+    this.log();
+  }
+
+  log() {
+    const dt = this.getTime();
+    const data = { date: dt.date, time: dt.time, ip: this.req.ip, path: this.req.path, device: this.client, err: this.err };
+    console.log(JSON.stringify(data));
+
+    dbLog.serialize(function () {
+      var stmt = dbLog.prepare("INSERT INTO log(ip, path, deviceId, sessionId, lang, platformOS, text) VALUES(?,?,?,?,?,?,?)");
+      stmt.run(data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.err ? data.err : '');
+      stmt.finalize();
+    });
   }
 }
 
-function getClientInfo(req) {
-  let language = '';
-  if (req.query.lang) {
-    language = req.query.lang.toLowerCase();
-  } else if (req.headers.language) {
-    language = req.headers.language.toLowerCase();
+function getRequestValue(req, name) {
+  const nameLower = name.toLowerCase();
+  if (req.query[nameLower]) {
+    return req.query[nameLower];
   }
 
+  if (req.headers[nameLower]) {
+    return req.headers[nameLower];
+  }
+
+  return '';
+}
+
+function getClientInfo(req) {
+  let language = getRequestValue(req, 'lang');
   if (language != 'cht' && language != 'eng' && language != 'chs') {
     language = 'chs';
   }
+  let deviceId = getRequestValue(req, 'deviceId');
+  let sessionId = getRequestValue(req, 'sessionId');
+  let platformOS = getRequestValue(req, 'platformOS');
+  let deviceYearClass = getRequestValue(req, 'deviceYearClass');
 
-  let deviceId = '';
-  if (req.query.deviceId) {
-    deviceId = req.query.deviceId.toLowerCase();
-  } else if (req.headers.deviceId) {
-    deviceId = req.headers.deviceId.toLowerCase();
-  }
-
-  return { language, deviceId };
+  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass };
 }
 
 function getVerseRange(verse) {
@@ -74,8 +93,6 @@ function getVerseRange(verse) {
     return null;
   }
 
-  startIndex = book * 1000000 + chapter1 * 1000 + verse1;
-
   if (verseEnd == null) {
     chapter2 = chapter1;
     verse2 = verse1;
@@ -92,30 +109,27 @@ function getVerseRange(verse) {
     }
   }
 
-  endIndex = book * 1000000 + chapter2 * 1000 + verse2;
-
-  return { start: startIndex, end: endIndex };
+  return { start: book * 1000000 + chapter1 * 1000 + verse1, end: book * 1000000 + chapter2 * 1000 + verse2 };
 }
 
-function sendResultText(res, result) {
+function sendResultText(res, text) {
   res.setHeader('content-type', 'application/json');
-  res.send(result);
+  res.send(text);
 }
 
 function sendResultObject(res, obj) {
-  res.setHeader('content-type', 'application/json');
-  res.send(JSON.stringify(obj));
+  sendResultText(res, JSON.stringify(obj));
 }
 
 function sendErrorObject(res, status, obj) {
-  res.setHeader('content-type', 'application/json');
-  res.status(status).send(JSON.stringify(obj));
+  res.status(status);
+  sendResultText(res, JSON.stringify(obj));
 }
 
 // GET method route
 app.get('/verse/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client.language);
+  var logger = new Logger(req, client);
   const query = req.params[0];
   verseRange = getVerseRange(query);
   if (verseRange == null) {
@@ -152,7 +166,7 @@ app.get('/verse/*', function (req, res) {
 // GET method route
 app.get('/lessons', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client.language);
+  var logger = new Logger(req, client);
   fs.readFile('lessons/' + client.language + '/home.json', 'utf8', function (err, data) {
     if (err) {
       sendResultObject(res, { Error: err.errno });
@@ -167,7 +181,7 @@ app.get('/lessons', function (req, res) {
 // GET method route
 app.get('/lessons/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client.language);
+  var logger = new Logger(req, client);
   const id = req.params[0];
   if (/[^a-zA-Z0-9\_\-]/.test(id)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -189,7 +203,7 @@ app.get('/lessons/*', function (req, res) {
 // POST method route
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client.language);
+  var logger = new Logger(req, client);
   var comment = req.body.comment;
   if (!comment) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -202,7 +216,6 @@ app.post('/feedback', jsonParser, function (req, res) {
     var stmt = dbFeedback.prepare("INSERT INTO feedback(deviceId, ip, comment) VALUES(?,?,?)");
     stmt.run(client.deviceId, req.ip, comment);
     stmt.finalize();
-
   });
   res.status(201).send({});
   logger.succeed();
