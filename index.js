@@ -200,6 +200,34 @@ app.get('/lessons/*', function (req, res) {
   });
 })
 
+// GET method route
+app.get('/reports', function (req, res) {
+  const key = getRequestValue(req, 'key');
+  var config = require('./config.js');
+  if (key != config.reportsKey) {
+    res.status(404).send();
+    return;
+  }
+
+  var feedback = [];
+  dbFeedback.serialize(function () {
+    const sql = "SELECT * FROM FeedbackView";
+    dbFeedback.each(sql, function (err, row) {
+      feedback.push({ date: row.date, comment: row.comment });
+    }, function () {
+      var log = [];
+      dbLog.serialize(function () {
+        const sql = "SELECT * FROM LogView";
+        dbLog.each(sql, function (err, row) {
+          log.push({ date: row.date, deviceId: row.deviceId, platformOS: row.platformOS, sessionId: row.sessionId, err: row.err });
+        }, function () {
+          sendResultObject(res, { feedback, log });
+        });
+      });
+    });
+  });
+})
+
 // POST method route
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
@@ -217,7 +245,7 @@ app.post('/feedback', jsonParser, function (req, res) {
     stmt.run(client.deviceId, req.ip, comment);
     stmt.finalize();
   });
-  res.status(201).send({});
+  res.status(201).send();
   logger.succeed();
 })
 
