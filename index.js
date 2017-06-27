@@ -240,6 +240,13 @@ app.get('/logon', function (req, res) {
     return;
   }
 
+  // test account
+  if (cellphone == '4250000000') {
+    sendResultObject(res, { logon: true });
+    logger.succeed();
+    return;
+  }
+  
   const options = {
     host: 'resources.bsfinternational.org',
     port: 443,
