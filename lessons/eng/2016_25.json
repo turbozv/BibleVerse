@@ -5,15 +5,15 @@
 	"memoryVerse": "背誦經文：耶穌就對彼得說：“收刀入鞘吧，我父所給我的那杯，我豈可不喝呢？” - 約翰福音18:11",
 	"dayQuestions": {
 		"one": {
-			"title": "第一天：閱讀經文釋義及參考經文",
+			"title": "FIRST DAY: Read the notes and Scripture references.",
 			"questions": [{
 				"id": "2016-25-1",
-				"questionText": "1. 講課中哪些內容對你特別有意義？",
+				"questionText": "1. What was meaningful to you from the lecture? ",
 				"answer": "",
 				"quotes": []
 			}, {
 				"id": "2016-25-2",
-				"questionText": "2. 經文釋義對你有什麼幫助？",
+				"questionText": "2. What help did you receive from the notes?",
 				"answer": "",
 				"quotes": []
 			}]
