@@ -241,7 +241,7 @@ app.get('/logon', function (req, res) {
   }
 
   // test account
-  if (cellphone == '4250000000') {
+  if (client.cellphone == '4250000000') {
     sendResultObject(res, { logon: true });
     logger.succeed();
     return;
