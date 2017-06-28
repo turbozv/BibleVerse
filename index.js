@@ -1,14 +1,15 @@
-
 var sqlite3 = require('sqlite3');
-var dbBible = new sqlite3.Database('bible.db');
-var dbFeedback = new sqlite3.Database('feedback.db');
-var dbLog = new sqlite3.Database('log.db');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var express = require('express');
+var https = require('https');
+var excel = require('node-excel-export');
+
+var dbBible = new sqlite3.Database('bible.db');
+var dbFeedback = new sqlite3.Database('feedback.db');
+var dbLog = new sqlite3.Database('log.db');
 var app = express();
 var jsonParser = bodyParser.json()
-var https = require('https');
 
 class Logger {
   constructor(req, client) {
@@ -35,12 +36,12 @@ class Logger {
 
   log() {
     const dt = this.getTime();
-    const data = { date: dt.date, time: dt.time, ip: this.req.ip, path: this.req.path, device: this.client, err: this.err };
+    const data = { date: dt.date, cost: dt.time, ip: this.req.ip, path: this.req.path, device: this.client, err: this.err };
     console.log(JSON.stringify(data));
 
     dbLog.serialize(function () {
-      var stmt = dbLog.prepare("INSERT INTO log(ip, path, deviceId, sessionId, lang, platformOS, text) VALUES(?,?,?,?,?,?,?)");
-      stmt.run(data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.err ? data.err : '');
+      var stmt = dbLog.prepare("INSERT INTO log(cost, ip, path, deviceId, sessionId, lang, platformOS, text) VALUES(?,?,?,?,?,?,?,?)");
+      stmt.run(data.cost, data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.err ? data.err : '');
       stmt.finalize();
     });
   }
@@ -128,7 +129,7 @@ function sendErrorObject(res, status, obj) {
   sendResultText(res, JSON.stringify(obj));
 }
 
-// GET method route
+// Get Bible verse
 app.get('/verse/*', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
@@ -165,7 +166,7 @@ app.get('/verse/*', function (req, res) {
   }
 })
 
-// GET method route
+// Get lessons (home page)
 app.get('/lessons', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
@@ -180,7 +181,7 @@ app.get('/lessons', function (req, res) {
   });
 })
 
-// GET method route
+// Get each lesson
 app.get('/lessons/*', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
@@ -202,7 +203,7 @@ app.get('/lessons/*', function (req, res) {
   });
 })
 
-// GET method route
+// Get reports
 app.get('/reports', function (req, res) {
   const key = getRequestValue(req, 'key');
   var config = require('./config.js');
@@ -215,13 +216,13 @@ app.get('/reports', function (req, res) {
   dbFeedback.serialize(function () {
     const sql = "SELECT * FROM FeedbackView";
     dbFeedback.each(sql, function (err, row) {
-      feedback.push({ date: row.date, deviceId: row.deviceId, ip: row.ip, comment: row.comment });
+      feedback.push(row);
     }, function () {
       var log = [];
       dbLog.serialize(function () {
         const sql = "SELECT * FROM LogView";
         dbLog.each(sql, function (err, row) {
-          log.push({ date: row.date, path: row.path, deviceId: row.deviceId, lang: row.lang, ip: row.ip, platformOS: row.platformOS, sessionId: row.sessionId, text: row.text });
+          log.push(row);
         }, function () {
           sendResultObject(res, { feedback, log });
         });
@@ -230,7 +231,7 @@ app.get('/reports', function (req, res) {
   });
 })
 
-// GET method route
+// Get Logon
 app.get('/logon', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
@@ -246,7 +247,7 @@ app.get('/logon', function (req, res) {
     logger.succeed();
     return;
   }
-  
+
   const options = {
     host: 'resources.bsfinternational.org',
     port: 443,
@@ -276,7 +277,7 @@ app.get('/logon', function (req, res) {
   bsfReq.end();
 })
 
-// POST method route
+// Post feedback
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
