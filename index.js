@@ -3,7 +3,8 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var express = require('express');
 var https = require('https');
-var excel = require('node-excel-export');
+var json2csv = require('json2csv');
+var config = require('./config.js');
 
 var dbBible = new sqlite3.Database('bible.db');
 var dbFeedback = new sqlite3.Database('feedback.db');
@@ -124,6 +125,12 @@ function sendResultObject(res, obj) {
   sendResultText(res, JSON.stringify(obj));
 }
 
+function sendResultCsv(res, result, filename) {
+  res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+  res.setHeader("Content-Disposition", "attachment; filename=" + filename + ".csv");
+  res.send(result);
+}
+
 function sendErrorObject(res, status, obj) {
   res.status(status);
   sendResultText(res, JSON.stringify(obj));
@@ -205,9 +212,7 @@ app.get('/lessons/*', function (req, res) {
 
 // Get reports
 app.get('/reports', function (req, res) {
-  const key = getRequestValue(req, 'key');
-  var config = require('./config.js');
-  if (key != config.reportsKey) {
+  if (getRequestValue(req, 'key') != config.reportsKey) {
     res.status(404).send();
     return;
   }
@@ -227,6 +232,44 @@ app.get('/reports', function (req, res) {
           sendResultObject(res, { feedback, log });
         });
       });
+    });
+  });
+})
+
+// Get logs
+app.get('/logs', function (req, res) {
+  if (getRequestValue(req, 'key') != config.reportsKey) {
+    res.status(404).send();
+    return;
+  }
+
+  const fields = ['LocalDate', 'cost', 'ip', 'path', 'deviceId', 'sessionId', 'lang', 'platformOS', 'text'];
+  var data = [];
+  dbLog.serialize(function () {
+    const sql = "SELECT * FROM LogView";
+    dbLog.each(sql, function (err, row) {
+      data.push(row);
+    }, function () {
+      sendResultCsv(res, json2csv({ data, fields }), 'logs');
+    });
+  });
+})
+
+// Get feedbacks
+app.get('/feedbacks', function (req, res) {
+  if (getRequestValue(req, 'key') != config.reportsKey) {
+    res.status(404).send();
+    return;
+  }
+
+  const fields = ['LocalDate', 'deviceId', 'ip', 'comment'];
+  var data = [];
+  dbLog.serialize(function () {
+    const sql = "SELECT * FROM FeedbackView";
+    dbLog.each(sql, function (err, row) {
+      data.push(row);
+    }, function () {
+      sendResultCsv(res, json2csv({ data, fields }), 'feedbacks');
     });
   });
 })
