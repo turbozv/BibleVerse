@@ -71,7 +71,7 @@ function getClientInfo(req) {
   let deviceYearClass = getRequestValue(req, 'deviceYearClass');
   let cellphone = getRequestValue(req, 'cellphone');
   let bibleVersion = getRequestValue(req, 'bibleVersion');
-  if (['rcuvss', 'rcuvts', 'niv2011'].indexOf(bibleVersion.toLowerCase()) == -1) {
+  if (['rcuvss', 'rcuvts', 'niv2011', 'asv', 'kjv'].indexOf(bibleVersion.toLowerCase()) == -1) {
     bibleVersion = 'rcuvss';
   }
 
