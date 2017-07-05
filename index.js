@@ -52,9 +52,16 @@ function getRequestValue(req, name) {
   if (req.query[name]) {
     return req.query[name];
   }
+  const nameLower = name.toLowerCase();
+  if (req.query[nameLower]) {
+    return req.query[nameLower];
+  }
 
   if (req.headers[name]) {
     return req.headers[name];
+  }
+  if (req.headers[nameLower]) {
+    return req.headers[nameLower];
   }
 
   return '';
