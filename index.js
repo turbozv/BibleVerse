@@ -220,18 +220,22 @@ app.get('/reports', function (req, res) {
   }
 
   var feedback = [];
+  var html = "<hr>Feedbacks:<br>";
+  var index = 0;
   dbFeedback.serialize(function () {
     const sql = "SELECT * FROM FeedbackView";
     dbFeedback.each(sql, function (err, row) {
-      feedback.push(row);
+      html += "#" + (++index) + ":" + JSON.stringify(row) + "<br>";
     }, function () {
       var log = [];
+      html += "<hr>Logs:<br>";
+      index = 0;
       dbLog.serialize(function () {
         const sql = "SELECT * FROM LogView";
         dbLog.each(sql, function (err, row) {
-          log.push(row);
+          html += "#" + (++index) + ":" + JSON.stringify(row) + "<br>";
         }, function () {
-          sendResultObject(res, { feedback, log });
+          res.send(html);
         });
       });
     });
