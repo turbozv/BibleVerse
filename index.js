@@ -49,13 +49,12 @@ class Logger {
 }
 
 function getRequestValue(req, name) {
-  const nameLower = name.toLowerCase();
-  if (req.query[nameLower]) {
-    return req.query[nameLower];
+  if (req.query[name]) {
+    return req.query[name];
   }
 
-  if (req.headers[nameLower]) {
-    return req.headers[nameLower];
+  if (req.headers[name]) {
+    return req.headers[name];
   }
 
   return '';
@@ -63,7 +62,7 @@ function getRequestValue(req, name) {
 
 function getClientInfo(req) {
   let language = getRequestValue(req, 'lang');
-  if (language != 'cht' && language != 'eng' && language != 'chs') {
+  if (['chs', 'cht', 'eng'].indexOf(language.toLowerCase()) == -1) {
     language = 'chs';
   }
   let deviceId = getRequestValue(req, 'deviceId');
@@ -71,8 +70,12 @@ function getClientInfo(req) {
   let platformOS = getRequestValue(req, 'platformOS');
   let deviceYearClass = getRequestValue(req, 'deviceYearClass');
   let cellphone = getRequestValue(req, 'cellphone');
+  let bibleVersion = getRequestValue(req, 'bibleVersion');
+  if (['rcuvss', 'rcuvts', 'niv2011'].indexOf(bibleVersion.toLowerCase()) == -1) {
+    bibleVersion = 'rcuvss';
+  }
 
-  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone };
+  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion };
 }
 
 function getVerseRange(verse) {
@@ -148,9 +151,8 @@ app.get('/verse/*', function (req, res) {
   } else {
     let result = { paragraphs: [] };
     let resultChapter = { id: parseInt(verseRange.start / 1000 % 1000), title: '', verses: [] }
-
     dbBible.serialize(function () {
-      const sql = "SELECT * FROM " + client.language + " WHERE id>=" + verseRange.start + " AND id<=" + verseRange.end;
+      const sql = "SELECT * FROM " + client.bibleVersion + " WHERE id>=" + verseRange.start + " AND id<=" + verseRange.end;
       dbBible.each(sql, function (err, row) {
         const chapter = parseInt(row.id / 1000 % 1000);
         const verse = chapter + ":" + row.id % 1000;
@@ -264,9 +266,9 @@ app.get('/feedbacks', function (req, res) {
 
   const fields = ['LocalDate', 'deviceId', 'ip', 'comment'];
   var data = [];
-  dbLog.serialize(function () {
+  dbFeedback.serialize(function () {
     const sql = "SELECT * FROM FeedbackView";
-    dbLog.each(sql, function (err, row) {
+    dbFeedback.each(sql, function (err, row) {
       data.push(row);
     }, function () {
       sendResultCsv(res, json2csv({ data, fields }), 'feedbacks');
