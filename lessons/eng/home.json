@@ -1,5 +1,17 @@
 ﻿{
 	"booklist": [{
+			"title": "Romans 2017-2018",
+			"lessons": [{
+					"id": "2017_1",
+					"name": "Lesson1 Romans1:1-17 (09/18)"
+				},
+				{
+					"id": "2017_2",
+					"name": "Lesson1 Romans1:18-32 (09/25)"
+				}
+			]
+		},
+		{
 			"title": "John 2016-2017",
 			"lessons": [{
 					"id": "2016_25",
@@ -22,13 +34,6 @@
 					"name": "Lesson29 John21 (05/15)"
 				}
 			]
-		},
-		{
-			"title": "Romans 2017-2018",
-			"lessons": [{
-				"id": "2017_1",
-				"name": "Lesson1 Romans1:1-17 (09/18)"
-			}]
 		}
 	]
 }
