@@ -41,8 +41,8 @@ class Logger {
     console.log(JSON.stringify(data));
 
     dbLog.serialize(function () {
-      var stmt = dbLog.prepare("INSERT INTO log(cost, ip, path, deviceId, sessionId, lang, platformOS, text) VALUES(?,?,?,?,?,?,?,?)");
-      stmt.run(data.cost, data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.err ? data.err : '');
+      var stmt = dbLog.prepare("INSERT INTO log(cost, ip, path, deviceId, sessionId, lang, platformOS, deviceYearClass, text) VALUES(?,?,?,?,?,?,?,?,?)");
+      stmt.run(data.cost, data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.device.deviceYearClass, data.err ? data.err : '');
       stmt.finalize();
     });
   }
