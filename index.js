@@ -69,7 +69,7 @@ function getRequestValue(req, name) {
 
 function getClientInfo(req) {
   let language = getRequestValue(req, 'lang');
-  if (['chs', 'cht', 'eng'].indexOf(language.toLowerCase()) == -1) {
+  if (['chs', 'cht', 'eng', 'spa'].indexOf(language.toLowerCase()) == -1) {
     language = 'chs';
   }
   let deviceId = getRequestValue(req, 'deviceId');

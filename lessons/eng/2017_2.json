@@ -1,0 +1,184 @@
+﻿{
+	"id": "2017_2",
+	"name": "Romans Lesson 2",
+	"memoryVerse": "“For in the gospel the righteousness of God is revealed – a righteousness that is by faith from first to last, just as it is written: ‘The righteous will live by faith.’ ” – Romans 1:17",
+	"dayQuestions": {
+		"one": {
+			"title": "FIRST DAY: Read the notes and the references. ",
+			"questions": [{
+					"id": "2017_2_1",
+					"questionText": "1. What was meaningful to you in the lecture?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_2",
+					"questionText": "2. What help did you receive from the notes?",
+					"answer": "",
+					"quotes": []
+				}
+			]
+		},
+		"two": {
+			"title": "SECOND DAY: Read Romans 1:18-20.",
+			"readVerse": [{
+				"book": "Romans",
+				"verse": "1:18-20"
+			}],
+			"questions": [{
+					"id": "2017_2_3",
+					"questionText": "3．Define the word “wrath,” and explain from these verses why God is revealing His wrath at the present time.",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_4a",
+					"questionText": "4a What can we learn about God from the natural world, and how can this encourage your own personal worship and conversations with unbelievers?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_4b",
+					"questionText": "4b. What can we not learn about God from nature, and how may we learn these necessary truths?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_5",
+					"questionText": "5．Define the word “suppress.” What results of suppressing the truth do you see in your own life and what will you ask God to help you do about it? How might that impact others who suppress the truth?",
+					"answer": "",
+					"quotes": []
+				}
+			]
+		},
+		"three": {
+			"title": "THIRD DAY: Read Romans 1:21-23.",
+			"readVerse": [{
+				"book": "Romans",
+				"verse": "1:21-23"
+			}],
+			"questions": [{
+					"id": "2017_2_6",
+					"questionText": "6 From these verses, how has humanity rejected the knowledge of God that His creation reveals?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_7a",
+					"questionText": "7a．What is the first result of rejecting God, and why is this consequence appropriate?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_7b",
+					"questionText": "7b． What has God done about light in a dark world, and how can you bring God’s light to those around you who live in darkness?",
+					"answer": "",
+					"quotes": [{
+							"book": "John",
+							"verse": "1:4-9"
+						},
+						{
+							"book": "John",
+							"verse": "8:12"
+						},
+						{
+							"book": "Matthew",
+							"verse": "5:14-16"
+						}
+					]
+				},
+				{
+					"id": "2017_2_8",
+					"questionText": "8. In verses 22-23, what exchange has humanity made, and how do these verses, as well as today’s world, show this exchange leads to degrading practices?",
+					"answer": "",
+					"quotes": []
+				}
+			]
+		},
+		"four": {
+			"title": "FOURTH DAY: Read Romans 1:24-28.",
+			"readVerse": [{
+				"book": "Romans",
+				"verse": "1:24-28"
+			}],
+			"questions": [{
+					"id": "2017_2_9a",
+					"questionText": "9a．What truth about God do these verses indicate humanity has exchanged for a lie?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_9b",
+					"questionText": "9b．What substitutes for God could you be worshipping or serving, and how would your life be impacted if God removed those substitutes?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_10",
+					"questionText": "10. What are some of the reasons God links the sin of idolatry to sexual immorality?",
+					"answer": "",
+					"quotes": [{
+							"book": "Genesis",
+							"verse": "1:26-27"
+						},
+						{
+							"book": "Genesis",
+							"verse": "2:24-25"
+						},
+						{
+							"book": "Mark",
+							"verse": "10:8-9"
+						},
+						{
+							"book": "1 Corinthians",
+							"verse": "6:9-11"
+						},
+						{
+							"book": "1 Corinthians",
+							"verse": "6:18-20"
+						}
+					]
+				},
+				{
+					"id": "2017_2_11",
+					"questionText": "11．What phrase occurs three times to describe God’s action, and how does this repeated phrase change your thoughts about those who seem to get away with immorality and injustice?",
+					"answer": "",
+					"quotes": []
+				}
+			]
+		},
+		"five": {
+			"title": "FIFTH DAY: Read Romans 1:28-32.",
+			"readVerse": [{
+				"book": "Romans",
+				"verse": "1:28-32"
+			}],
+			"questions": [{
+					"id": "2017_2_12",
+					"questionText": "12. How is a “depraved” mind different from one that does “not think it worthwhile to retain knowledge of God”?",
+					"answer": "",
+					"quotes": []
+				},
+				{
+					"id": "2017_2_13",
+					"questionText": "13．Share how God has changed your thinking about a sin of which you previously approved.",
+					"answer": "",
+					"quotes": []
+				}
+			]
+		},
+		"six": {
+			"title": "SIXTH DAY: Review Romans 1:18-32.",
+			"readVerse": [{
+				"book": "Romans",
+				"verse": "1:18-32"
+			}],
+			"questions": [{
+				"id": "2017_2_14",
+				"questionText": "14．What have you learned about God in this week’s study? How may your group pray for you as you make this truth a part of your life?",
+				"answer": "",
+				"quotes": []
+			}]
+		}
+	}
+}
