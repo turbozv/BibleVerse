@@ -1,8 +1,7 @@
 var fetch = require('node-fetch');
 var fs = require('fs');
 
-
-let langs = ['en-US', 'es-MX', 'zh-CN', 'zh-TW'];
+let Languages = ['en-US', 'es-MX', 'zh-CN', 'zh-TW'];
 const DayTitlePrefix = {
     "en-US": ['FIRST DAY: ', 'SECOND DAY: ', 'THIRD DAY: ', 'FOURTH DAY: ', 'FIFTH DAY: ', 'SIXTH DAY: '],
     "es-MX": ['PRIMER DÍA: ', 'SEGUNDO DÍA: ', 'TERCER DÍA: ', 'CUARTO DÍA: ', 'QUINTO DÍA: ', 'SEXTO DÍA: '],
@@ -54,7 +53,12 @@ function getReadVerse(data) {
 function getDayQuestion(config, data, index) {
     const item = data[index];
     let result = {};
-    result.title = getDayTitlePrefix(config, index) + item.title;
+    dayPrefix = getDayTitlePrefix(config, index);
+    if (item.title.startsWith(dayPrefix)) {
+        result.title = item.title;
+    } else {
+        result.title = dayPrefix + item.title;
+    }
     const readVerse = getReadVerse(item);
     if (readVerse) {
         result.readVerse = readVerse;
@@ -64,13 +68,11 @@ function getDayQuestion(config, data, index) {
 }
 
 function getDir(lang) {
-    const index = ['en-US', 'es-MX', 'zh-CN', 'zh-TW'].indexOf(lang);
-    return ['eng', 'spa', 'chs', 'cht'][index];
+    return ['eng', 'spa', 'chs', 'cht'][Languages.indexOf(lang)];
 }
 
 function saveFile(dir, file, content) {
     fs.mkdir(dir, () => {
-        console.log('Create ' + dir);
         fs.writeFile(dir + '\\' + file, JSON.stringify(content), function (err) {
             console.log('Write to ' + dir + '\\' + file);
             if (err) {
@@ -120,6 +122,6 @@ function fetchContent(lang) {
         });
 }
 
-for (var i in langs) {
-    fetchContent(langs[i]);
+for (var i in Languages) {
+    fetchContent(Languages[i]);
 }
