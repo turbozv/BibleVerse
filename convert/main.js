@@ -68,10 +68,10 @@ function getDir(lang) {
     return ['eng', 'spa', 'chs', 'cht'][index];
 }
 
-function saveFile(dir, file) {
+function saveFile(dir, file, content) {
     fs.mkdir(dir, () => {
         console.log('Create ' + dir);
-        fs.writeFile(dir + '\\' + file, JSON.stringify(newContent), function (err) {
+        fs.writeFile(dir + '\\' + file, JSON.stringify(content), function (err) {
             console.log('Write to ' + dir + '\\' + file);
             if (err) {
                 return console.log(err);
@@ -106,7 +106,7 @@ function parse(content, currentLang) {
         };
 
         const dir = getDir(currentLang);
-        saveFile(dir, item.id + ".json");
+        saveFile(dir, item.id + ".json", newContent);
     }
 }
 
