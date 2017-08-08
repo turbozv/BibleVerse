@@ -1,4 +1,5 @@
 var sqlite3 = require('sqlite3-promise')
+var geoip = require('geoip-lite');
 
 async function init() {
     let summary = '';
@@ -70,6 +71,14 @@ async function init() {
     summary += "\nLanguage, DeviceCount, Percentage\n";
     for (var i in langs) {
         summary += (i + ', ' + langs[i] + ', ' + (langs[i] * 100 / totalDevices).toFixed(1) + '%') + "\n";
+    }
+
+    summary += "\nIP, Country, Region, City, Zip\n";
+    result = await db.allAsync("SELECT DISTINCT substr(ip, 8) AS IP FROM log ORDER BY IP ASC");
+    for (var i in result) {
+        const ip = result[i].IP;
+        const geo = geoip.lookup(ip);
+        summary += ip + ', ' + geo.country + ', ' + geo.region + ', ' + geo.city + ',' + geo.zip + '\n';
     }
 
     //console.log('===== Summary =====');
