@@ -85,6 +85,9 @@ function getClientInfo(req) {
     bibleVersion = 'rcuvss';
   }
 
+  if (bibleVersion == 'rcuvss') bibleVersion = 'cunpss';
+  if (bibleVersion == 'rcuvts') bibleVersion = 'cunpts';
+
   return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion };
 }
 
@@ -247,10 +250,10 @@ app.get('/reports', function (req, res) {
       index = 0;
       dbLog.serialize(function () {
         const sql = "SELECT * FROM LogView WHERE DATE(LocalDate)>='" + startDate + "' ORDER BY LocalDate DESC ";
-        html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
+        html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>Path<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
         dbLog.each(sql, function (err, row) {
           delete row.date;
-          html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.cost + "<td>" + row.ip.replace('::ffff:', '') + "<td>" + row.deviceId + "<td>" + row.sessionId + "<td>" + row.lang + "<td>" + row.platformOS + "<td>" + row.deviceYearClass + "<td>" + row.text;
+          html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.cost + "<td>" + row.ip.replace('::ffff:', '') + "<td>" + row.path + "<td>" + row.deviceId + "<td>" + row.sessionId + "<td>" + row.lang + "<td>" + row.platformOS + "<td>" + row.deviceYearClass + "<td>" + row.text;
         }, function () {
           res.send(html);
         });

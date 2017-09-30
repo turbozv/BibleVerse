@@ -24,7 +24,7 @@ async function init() {
     summary += ("Total sessions, " + totalSessions) + "\n";
     summary += ("Average response time, " + (totalCost / totalCount).toFixed(2) + "ms") + "\n";
 
-    details += "Date, Requests, Unique devices, Sessions\n";
+    details += "Date, Unique devices, Sessions, Requests\n";
     var start = new Date(startDate);
     var end = new Date(endDate);
     while (start <= end) {
@@ -39,7 +39,7 @@ async function init() {
                 Devices: resultDayDevices[0].Count,
                 Sessions: resultDaySessions[0].Count
             });
-            details += (date) + ", " + (resultDayCount[0].Count) + ", " + (resultDayDevices[0].Count) + ", " + (resultDaySessions[0].Count) + "\n";
+            details += (date) + ", " + (resultDayDevices[0].Count) + ", " + (resultDaySessions[0].Count) + ", " + (resultDayCount[0].Count) + "\n";
         }
 
         start.setDate(start.getDate() + 1);
@@ -73,12 +73,12 @@ async function init() {
         summary += (i + ', ' + langs[i] + ', ' + (langs[i] * 100 / totalDevices).toFixed(1) + '%') + "\n";
     }
 
-    summary += "\nIP, Country, Region, City, Zip\n";
+    details += "\nIP, Country, Region, City, Zip\n";
     result = await db.allAsync("SELECT DISTINCT substr(ip, 8) AS IP FROM log ORDER BY IP ASC");
     for (var i in result) {
         const ip = result[i].IP;
         const geo = geoip.lookup(ip);
-        summary += ip + ', ' + geo.country + ', ' + geo.region + ', ' + geo.city + ',' + geo.zip + '\n';
+        details += ip + ', ' + geo.country + ', ' + geo.region + ', ' + geo.city + ',' + geo.zip + '\n';
     }
 
     //console.log('===== Summary =====');
