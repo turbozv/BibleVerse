@@ -229,21 +229,28 @@ app.get('/reports', function (req, res) {
     return;
   }
 
+  var localDate = new Date();
+  localDate.setDate(localDate.getDate() - 14)
+  var startDate = localDate.toISOString().substring(0, 10);
+
   var feedback = [];
-  var html = "<hr>Feedbacks:<br>";
+  var html = "<style>table,td {border-collapse: collapse;border: 1px solid black;}</style>Feedbacks:<br><table>";
   var index = 0;
   dbFeedback.serialize(function () {
-    const sql = "SELECT * FROM FeedbackView";
+    const sql = "SELECT * FROM FeedbackView ORDER BY LocalDate DESC ";
     dbFeedback.each(sql, function (err, row) {
-      html += "#" + (++index) + ":" + JSON.stringify(row) + "<br>";
+      delete row.date;
+      html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.ip + "<td>" + row.deviceId + "<td>" + row.comment;
     }, function () {
       var log = [];
-      html += "<hr>Logs:<br>";
+      html += "</table><br>Logs since " + startDate + ":<br><table>";
       index = 0;
       dbLog.serialize(function () {
-        const sql = "SELECT * FROM LogView";
+        const sql = "SELECT * FROM LogView WHERE DATE(LocalDate)>='" + startDate + "' ORDER BY LocalDate DESC ";
+        html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
         dbLog.each(sql, function (err, row) {
-          html += "#" + (++index) + ":" + JSON.stringify(row) + "<br>";
+          delete row.date;
+          html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.cost + "<td>" + row.ip.replace('::ffff:', '') + "<td>" + row.deviceId + "<td>" + row.sessionId + "<td>" + row.lang + "<td>" + row.platformOS + "<td>" + row.deviceYearClass + "<td>" + row.text;
         }, function () {
           res.send(html);
         });
