@@ -57,6 +57,10 @@ async function init() {
     for (var i in devices) {
         const deviceId = devices[i];
         result = await db.allAsync("SELECT lang, LocalDate FROM logView WHERE deviceId='" + deviceId + "' AND path='/lessons/' ORDER BY date DESC LIMIT 1");
+        if (result.length != 1)
+        {
+            continue;
+        }
         const lang = result[0].lang;
         const lastSeen = result[0].LocalDate;
         var diffDays = Math.round(Math.abs((now.getTime() - (new Date(lastSeen)).getTime()) / oneDay));
