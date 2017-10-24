@@ -70,6 +70,37 @@ function getRequestValue(req, name) {
   return '';
 }
 
+function getVerseText(verseText) {
+  // Check to see if the first line is part of the bible
+  const firstLinePos = verseText.indexOf('\n');
+  if (firstLinePos != -1) {
+    const firstLine = verseText.substring(0, firstLinePos);
+    var annotation = true;
+    if (verseText.length > firstLinePos) {
+      // We have more than one lines
+      var words = firstLine.split(' ');
+      // It has to be more than one words
+      if (words.length > 1) {
+        // Check each word starts with upper case
+        for (var w in words) {
+          if (words[w][0] != words[w][0].toUpperCase()) {
+            // Not upper case, not an annotation
+            annotation = false;
+            break;
+          }
+        }
+
+        // Use "()" for annotation if found
+        if (annotation) {
+          verseText = '[' + firstLine + '] ' + verseText.substring(firstLinePos + 1);
+        }
+      }
+    }
+  }
+
+  return verseText;
+}
+
 function getClientInfo(req) {
   let language = getRequestValue(req, 'lang');
   if (ValidLanguages.indexOf(language.toLowerCase()) == -1) {
@@ -84,6 +115,9 @@ function getClientInfo(req) {
   if (ValidBibleVersions.indexOf(bibleVersion.toLowerCase()) == -1) {
     bibleVersion = 'rcuvss';
   }
+
+  if (bibleVersion == 'rcuvss') bibleVersion = 'cunpss';
+  if (bibleVersion == 'rcuvts') bibleVersion = 'cunpts';
 
   return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion };
 }
@@ -166,7 +200,7 @@ app.get('/verse/*', function (req, res) {
       dbBible.each(sql, function (err, row) {
         const chapter = parseInt(row.id / 1000 % 1000);
         const verse = chapter + ":" + row.id % 1000;
-        const text = row.text.replace(/\n/g, '');
+        const text = getVerseText(row.text).replace(/\n/g, ' ').replace(/&nbsp;/g, ' ');
         if (chapter == resultChapter.id) {
           resultChapter.verses.push({ verse, text });
         } else {
