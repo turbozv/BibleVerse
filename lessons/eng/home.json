@@ -1,7 +1,9 @@
 ﻿{
-	"booklist": [{
+	"booklist": [
+		{
 			"title": "Romans 2017-2018",
-			"lessons": [{
+			"lessons": [
+				{
 					"id": "2017_1",
 					"name": "Lesson1 Romans1:1-17 (09/18)"
 				},
@@ -28,6 +30,30 @@
 				{
 					"id": "2017_7",
 					"name": "Lesson7 Romans4 (10/30)"
+				},
+				{
+					"id": "2017_8",
+					"name": "Lesson8 Romans5:1-11 (11/6)"
+				},
+				{
+					"id": "2017_9",
+					"name": "Lesson9 Romans5:12-21 (11/13)"
+				},
+				{
+					"id": "2017_10",
+					"name": "Lesson10 Romans6:1-11 (11/20)"
+				},
+				{
+					"id": "2017_11",
+					"name": "Lesson11 Romans6:12-23 (11/27)"
+				},
+				{
+					"id": "2017_12",
+					"name": "Lesson12 Romans7 (12/4)"
+				},
+				{
+					"id": "2017_13",
+					"name": "Lesson13 Romans8:1-17 (12/11)"
 				}
 			]
 		}
