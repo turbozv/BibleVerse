@@ -1,7 +1,9 @@
 ﻿{
-	"booklist": [{
+	"booklist": [
+		{
 			"title": "Romanos 2017-2018",
-			"lessons": [{
+			"lessons": [
+				{
 					"id": "2017_1",
 					"name": "Lección1 Romanos1:1-17 (09/18)"
 				},
@@ -28,6 +30,46 @@
 				{
 					"id": "2017_7",
 					"name": "Lección7 Romanos4 (10/30)"
+				},
+				{
+					"id": "2017_8",
+					"name": "Lección7 Romanos5:1-11 (11/6)"
+				},
+				{
+					"id": "2017_9",
+					"name": "Lección7 Romanos5:12-21 (11/13)"
+				},
+				{
+					"id": "2017_10",
+					"name": "Lección7 Romanos6:1-11 (11/20)"
+				},
+				{
+					"id": "2017_11",
+					"name": "Lección7 Romanos6:12-23 (11/27)"
+				},
+				{
+					"id": "2017_12",
+					"name": "Lección7 Romanos7 (12/4)"
+				},
+				{
+					"id": "2017_13",
+					"name": "Lección7 Romanos8:1-17 (12/11)"
+				},
+				{
+					"id": "2017_14",
+					"name": "Lección7 Romanos8:18-27 (01/08)"
+				},
+				{
+					"id": "2017_15",
+					"name": "Lección7 Romanos8:28-39 (01/15)"
+				},
+				{
+					"id": "2017_16",
+					"name": "Lección7 Romanos9:1-29 (01/22)"
+				},
+				{
+					"id": "2017_17",
+					"name": "Lección7 Romanos9:30-10:13 (01/29)"
 				}
 			]
 		}
