@@ -33,7 +33,7 @@
 				},
 				{
 					"id": "2017_8",
-					"name": "Lesson8 Romans5:1-11 (11/6)"
+					"name": "Lesson8 Romans5:1-11 (11/06)"
 				},
 				{
 					"id": "2017_9",
@@ -49,11 +49,27 @@
 				},
 				{
 					"id": "2017_12",
-					"name": "Lesson12 Romans7 (12/4)"
+					"name": "Lesson12 Romans7 (12/04)"
 				},
 				{
 					"id": "2017_13",
 					"name": "Lesson13 Romans8:1-17 (12/11)"
+				},
+				{
+					"id": "2017_14",
+					"name": "Lesson14 Romans8:18-27 (01/08)"
+				},
+				{
+					"id": "2017_15",
+					"name": "Lesson15 Romans8:28-39 (01/15)"
+				},
+				{
+					"id": "2017_16",
+					"name": "Lesson16 Romans9:1-29 (01/22)"
+				},
+				{
+					"id": "2017_17",
+					"name": "Lesson17 Romans9:30-10:13 (01/29)"
 				}
 			]
 		}
