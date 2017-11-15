@@ -9,7 +9,7 @@ var mysql = require('mysql');
 var dbBible = new sqlite3.Database('bible.db');
 var app = express();
 var jsonParser = bodyParser.json()
-var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase });
+var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst' });
 
 // Keep connection open for fast speed
 mysqlConn.connect();
@@ -288,7 +288,7 @@ app.get('/reports', function (req, res) {
       index = 0;
       html += `</table><br>Recent 200 logs:<br><table>`;
       html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>Path<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
-      mysqlConn.query('SELECT * FROM log ORDER BY date LIMIT 200', function (error, results, fields) {
+      mysqlConn.query('SELECT * FROM log ORDER BY date DESC LIMIT 200', function (error, results, fields) {
         if (error) {
           res.send(JSON.stringify(error));
         } else {
