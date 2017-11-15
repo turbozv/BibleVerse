@@ -3,14 +3,16 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var express = require('express');
 var https = require('https');
-var json2csv = require('json2csv');
 var config = require('./config.js');
+var mysql = require('mysql');
 
 var dbBible = new sqlite3.Database('bible.db');
-var dbFeedback = new sqlite3.Database('feedback.db');
-var dbLog = new sqlite3.Database('log.db');
 var app = express();
 var jsonParser = bodyParser.json()
+var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase });
+
+// Keep connection open for fast speed
+mysqlConn.connect();
 
 const ValidLanguages = ["chs", "cht", "eng", "spa"];
 const ValidBibleVersions = ['afr53', 'afr83', 'akjv', 'alab', 'amp', 'ampc', 'apsd', 'arc09', 'asv', 'avddv', 'bcnd', 'bdc', 'bdk', 'bds', 'bhn', 'bhti', 'bimk', 'bjb', 'bk', 'bl92', 'bm', 'bmdc', 'bpt', 'bpv', 'bysb', 'ccb', 'ceb', 'cev', 'cevd', 'cjb', 'cnvs', 'cnvt', 'csbs', 'cunpss', 'cunpts', 'darby', 'dhh', 'dnb1930', 'dra', 'erv', 'ervar', 'ervhi', 'ervmr', 'ervne', 'ervor', 'ervpa', 'ervta', 'ervur', 'esv', 'exb', 'fnvdc', 'gnt', 'gnv', 'gw', 'hau', 'hcsb', 'hcv', 'hhh', 'hlgn', 'hnzri', 'htb', 'icb', 'igbob', 'isv', 'jnt', 'jub', 'kj21', 'kjv', 'kpxnt', 'leb', 'lsg', 'maori', 'mbb05', 'mev', 'mounce', 'msg', 'n11bm', 'n78bm', 'nabre', 'nasb', 'natwi', 'nav', 'nbg51', 'nblh', 'ncv', 'neg1979', 'net', 'ngude', 'nirv', 'niv1984', 'niv2011', 'nivuk', 'nkjv', 'nlt', 'nlt2013', 'nlv', 'nog', 'nr2006', 'nrsv', 'nrsva', 'nrt', 'nso00', 'nso51', 'ntlr', 'ntv', 'nvi', 'nvipt', 'ojb', 'okyb', 'ondb', 'phillips', 'pmpv', 'pnpv', 'rcpv', 'rcuvss', 'rcuvts', 'ripv', 'rnksv', 'rsv', 'rsvce', 'rvc', 'rvr1995', 'rvr60', 'rvr95', 'rvv11', 'rwv', 'sblgnt', 'sch2000', 'seb', 'sg21', 'snd', 'snd12', 'spynt', 'sso89so', 'suv', 'swt', 'synod', 'tb', 'tbov', 'tcl02', 'th1971', 'tla', 'tlb', 'tlv', 'tr1550', 'tr1894', 'tso29no', 'tso89', 'tsw08no', 'tsw70', 'urd', 'ven98', 'voice', 'web', 'webbe', 'wlc', 'wyc', 'xho75', 'xho96', 'ylt', 'zomi', 'zul59'];
@@ -40,14 +42,27 @@ class Logger {
   }
 
   log() {
+    const startTime = new Date();
     const dt = this.getTime();
-    const data = { date: dt.date, cost: dt.time, ip: this.req.ip, path: this.req.path, device: this.client, err: this.err };
-    console.log(JSON.stringify(data));
-
-    dbLog.serialize(function () {
-      var stmt = dbLog.prepare("INSERT INTO log(cost, ip, path, deviceId, sessionId, lang, platformOS, deviceYearClass, text) VALUES(?,?,?,?,?,?,?,?,?)");
-      stmt.run(data.cost, data.ip, data.path, data.device.deviceId, data.device.sessionId, data.device.language, data.device.platformOS, data.device.deviceYearClass, data.err ? data.err : '');
-      stmt.finalize();
+    const data = {
+      cost: dt.time,
+      ip: this.req.ip,
+      path: this.req.path,
+      deviceId: this.client.deviceId,
+      sessionId: this.client.sessionId,
+      lang: this.client.language,
+      platformOS: this.client.platformOS,
+      deviceYearClass: this.client.deviceYearClass,
+      text: this.err ? this.err : ''
+    };
+    mysqlConn.query('INSERT INTO log SET ?', data, function (error, results, fields) {
+      if (error) {
+        console.log(JSON.stringify(error));
+      }
+      else {
+        const now = new Date();
+        console.log("LogCost:" + (now - startTime) + ">" + JSON.stringify(data));
+      }
     });
   }
 }
@@ -173,12 +188,6 @@ function sendResultObject(res, obj) {
   sendResultText(res, JSON.stringify(obj));
 }
 
-function sendResultCsv(res, result, filename) {
-  res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-  res.setHeader("Content-Disposition", "attachment; filename=" + filename + ".csv");
-  res.send(result);
-}
-
 function sendErrorObject(res, status, obj) {
   res.status(status);
   sendResultText(res, JSON.stringify(obj));
@@ -264,71 +273,34 @@ app.get('/reports', function (req, res) {
     return;
   }
 
-  var localDate = new Date();
-  localDate.setDate(localDate.getDate() - 2);
-  var startDate = localDate.toISOString().substring(0, 10);
-
-  var feedback = [];
   var html = "<style>table,td {border-collapse: collapse;border: 1px solid black;}</style>Feedbacks:<br><table>";
   var index = 0;
-  dbFeedback.serialize(function () {
-    const sql = "SELECT * FROM FeedbackView ORDER BY LocalDate DESC ";
-    dbFeedback.each(sql, function (err, row) {
-      delete row.date;
-      html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.ip + "<td>" + row.deviceId + "<td>" + row.comment;
-    }, function () {
-      var log = [];
-      html += "</table><br>Logs since " + startDate + ":<br><table>";
+  mysqlConn.query('SELECT * FROM feedback ORDER BY date DESC', function (error, results, fields) {
+    if (error) {
+      res.send(JSON.stringify(error));
+    } else {
+      for (var i in results) {
+        const row = results[i];
+        const dateString = (new Date(row.date)).toLocaleString();
+        html += `<tr><td>#${++index}<td>${dateString}<td>${row.ip}<td>${row.deviceId}<td>${row.comment}`;
+      }
+
       index = 0;
-      dbLog.serialize(function () {
-        const sql = "SELECT * FROM LogView WHERE DATE(LocalDate)>='" + startDate + "' ORDER BY LocalDate DESC ";
-        html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>Path<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
-        dbLog.each(sql, function (err, row) {
-          delete row.date;
-          html += "<tr><td>#" + (++index) + "<td>" + row.LocalDate + "<td>" + row.cost + "<td>" + row.ip.replace('::ffff:', '') + "<td>" + row.path + "<td>" + row.deviceId + "<td>" + row.sessionId + "<td>" + row.lang + "<td>" + row.platformOS + "<td>" + row.deviceYearClass + "<td>" + row.text;
-        }, function () {
+      html += `</table><br>Recent 200 logs:<br><table>`;
+      html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>Path<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
+      mysqlConn.query('SELECT * FROM log ORDER BY date LIMIT 200', function (error, results, fields) {
+        if (error) {
+          res.send(JSON.stringify(error));
+        } else {
+          for (var i in results) {
+            const row = results[i];
+            const dateString = (new Date(row.date)).toLocaleString();
+            html += `<tr><td>#${(++index)}<td>${dateString}<td>${row.cost}<td>${row.ip.replace('::ffff:', '')}<td>${row.path}<td>${row.deviceId}<td>${row.sessionId}<td>${row.lang}<td>${row.platformOS}<td>${row.deviceYearClass}<td>${row.text}`;
+          }
           res.send(html);
-        });
+        }
       });
-    });
-  });
-})
-
-// Get logs
-app.get('/logs', function (req, res) {
-  if (getRequestValue(req, 'key') != config.reportsKey) {
-    res.status(404).send();
-    return;
-  }
-
-  const fields = ['LocalDate', 'cost', 'ip', 'path', 'deviceId', 'sessionId', 'lang', 'platformOS', 'text'];
-  var data = [];
-  dbLog.serialize(function () {
-    const sql = "SELECT * FROM LogView";
-    dbLog.each(sql, function (err, row) {
-      data.push(row);
-    }, function () {
-      sendResultCsv(res, json2csv({ data, fields }), 'logs');
-    });
-  });
-})
-
-// Get feedbacks
-app.get('/feedbacks', function (req, res) {
-  if (getRequestValue(req, 'key') != config.reportsKey) {
-    res.status(404).send();
-    return;
-  }
-
-  const fields = ['LocalDate', 'deviceId', 'ip', 'comment'];
-  var data = [];
-  dbFeedback.serialize(function () {
-    const sql = "SELECT * FROM FeedbackView";
-    dbFeedback.each(sql, function (err, row) {
-      data.push(row);
-    }, function () {
-      sendResultCsv(res, json2csv({ data, fields }), 'feedbacks');
-    });
+    }
   });
 })
 
@@ -389,14 +361,21 @@ app.post('/feedback', jsonParser, function (req, res) {
     return;
   }
 
-  console.log(JSON.stringify({ deviceId: client.deviceId, ip: req.ip, comment }));
-  dbFeedback.serialize(function () {
-    var stmt = dbFeedback.prepare("INSERT INTO feedback(deviceId, ip, comment) VALUES(?,?,?)");
-    stmt.run(client.deviceId, req.ip, comment);
-    stmt.finalize();
+  const data = {
+    ip: req.ip,
+    deviceId: client.deviceId,
+    comment
+  };
+  mysqlConn.query('INSERT INTO feedback SET ?', data, function (error, results, fields) {
+    if (error) {
+      sendResultObject(res, { Error: error });
+      logger.error(error);
+    }
+    else {
+      res.status(201).send();
+      logger.succeed();
+    }
   });
-  res.status(201).send();
-  logger.succeed();
 })
 
 app.use(bodyParser.text());

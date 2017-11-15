@@ -1,3 +1,6 @@
-var reportsKey = "foo4bar";
+exports.reportsKey = "<key>";
 
-exports.reportsKey = reportsKey;
+exports.mysqlServer = '<ip>';
+exports.mysqlUser = '<user>';
+exports.mysqlPassword = '<password>';
+exports.mysqlDatabase = '<database>';
