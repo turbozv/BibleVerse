@@ -61,7 +61,7 @@ class Logger {
       }
       else {
         const now = new Date();
-        console.log("LogCost:" + (now - startTime) + ">" + JSON.stringify(data));
+        console.log(`${now.toLocaleString()} LogCost:${now - startTime} ${JSON.stringify(data)}`);
       }
     });
   }
@@ -266,44 +266,6 @@ app.get('/lessons/*', function (req, res) {
   });
 })
 
-// Get reports
-app.get('/reports', function (req, res) {
-  if (getRequestValue(req, 'key') != config.reportsKey) {
-    res.status(404).send();
-    return;
-  }
-
-  var html = "<style>table,td {border-collapse: collapse;border: 1px solid black;}</style>Feedbacks:<br><table>";
-  var index = 0;
-  mysqlConn.query('SELECT * FROM feedback ORDER BY date DESC', function (error, results, fields) {
-    if (error) {
-      res.send(JSON.stringify(error));
-    } else {
-      for (var i in results) {
-        const row = results[i];
-        const dateString = (new Date(row.date)).toLocaleString();
-        html += `<tr><td>#${++index}<td>${dateString}<td>${row.ip}<td>${row.deviceId}<td>${row.comment}`;
-      }
-
-      index = 0;
-      html += `</table><br>Recent 200 logs:<br><table>`;
-      html += "<tr><td>Index<td>Date<td>Cost<td>Ip<td>Path<td>DeviceId<td>SessionId<td>Lang<td>PlatformOS<td>DeviceYearClass<td>Text";
-      mysqlConn.query('SELECT * FROM log ORDER BY date DESC LIMIT 200', function (error, results, fields) {
-        if (error) {
-          res.send(JSON.stringify(error));
-        } else {
-          for (var i in results) {
-            const row = results[i];
-            const dateString = (new Date(row.date)).toLocaleString();
-            html += `<tr><td>#${(++index)}<td>${dateString}<td>${row.cost}<td>${row.ip.replace('::ffff:', '')}<td>${row.path}<td>${row.deviceId}<td>${row.sessionId}<td>${row.lang}<td>${row.platformOS}<td>${row.deviceYearClass}<td>${row.text}`;
-          }
-          res.send(html);
-        }
-      });
-    }
-  });
-})
-
 // Get Logon
 app.get('/logon', function (req, res) {
   const client = getClientInfo(req);
@@ -311,13 +273,6 @@ app.get('/logon', function (req, res) {
   if (!client.cellphone) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
-    return;
-  }
-
-  // test account
-  if (client.cellphone == '4250000000') {
-    sendResultObject(res, { logon: true });
-    logger.succeed();
     return;
   }
 
