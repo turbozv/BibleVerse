@@ -12,9 +12,9 @@ const DayTitlePrefix = {
 function getQuestionId(config, text) {
     const index = parseInt(text);
     if (index != config.questionId) {
-        return index + "bcdefghijklmn"[questionSubId];;
+        return index + "bcdefghijklmn"[config.questionSubId++];
     } else {
-        questionSubId = 0;
+        config.questionSubId = 0;
         if (text.startsWith(index + '. a. ')) {
             return config.questionId++ + 'a';
         } else {
@@ -112,14 +112,12 @@ function parse(content, currentLang) {
     }
 }
 
-function fetchContent(lang) {
+async function fetchContent(lang) {
     const url = 'http://bsfapi.azurewebsites.net/material/' + lang + '/Lessons';
     console.log("Get: " + url);
-    fetch(url)
-        .then(res => res.json())
-        .then(json => {
-            parse(json, lang);
-        });
+    res = await fetch(url);
+    json = await res.json();
+    parse(json, lang);
 }
 
 for (var i in Languages) {

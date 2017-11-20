@@ -168,6 +168,7 @@ s=[
   "rcuvts",
   "cnvt",
   "esv",
+  "niv1984",
   "niv2011",
   "kjv",
   "rvr1995", 
