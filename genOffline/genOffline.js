@@ -6,7 +6,7 @@ var bookIds = require('./bookid.json');
 var globalCache = {};
 var globalCacheSize = 0;
 let Languages = ['chs', 'cht', 'eng', 'spa'];
-let BibleVerses = ['cunpss', 'cunpts', 'niv2011', 'nvi'];//['cunpss', 'cunpts', 'cnvt', 'esv', 'niv2011', 'kjv', 'rvr1995', 'nvi'];
+let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi'];//['cunpss', 'cunpts', 'cnvt', 'esv', 'niv2011', 'kjv', 'rvr1995', 'nvi'];
 
 function addToCache(key, value) {
   globalCache[key] = value;

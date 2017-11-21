@@ -53,7 +53,8 @@ class Logger {
       lang: this.client.language,
       platformOS: this.client.platformOS,
       deviceYearClass: this.client.deviceYearClass,
-      text: this.err ? this.err : ''
+      text: this.err ? this.err : '',
+      version: this.client.version
     };
     mysqlConn.query('INSERT INTO log SET ?', data, function (error, results, fields) {
       if (error) {
@@ -128,6 +129,7 @@ function getClientInfo(req) {
   let deviceYearClass = getRequestValue(req, 'deviceYearClass');
   let cellphone = getRequestValue(req, 'cellphone');
   let bibleVersion = getRequestValue(req, 'bibleVersion');
+  let version = getRequestValue(req, 'version');
   if (ValidBibleVersions.indexOf(bibleVersion.toLowerCase()) == -1) {
     bibleVersion = 'rcuvss';
   }
@@ -135,7 +137,7 @@ function getClientInfo(req) {
   if (bibleVersion == 'rcuvss') bibleVersion = 'cunpss';
   if (bibleVersion == 'rcuvts') bibleVersion = 'cunpts';
 
-  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion };
+  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion, version };
 }
 
 function getVerseRange(verse) {
