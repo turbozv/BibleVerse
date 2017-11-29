@@ -1,27 +1,55 @@
-var fs = require('fs');
-var request = require('sync-request');
+var fs = require('fs-sync');
+var syncRequest = require('sync-request');
+var request = require('request');
 var bookIds = require('./bookid.json');
-//var x = require('./cache.json');
 
 var globalCache = {};
 var globalCacheSize = 0;
+var globalBibleVerses = [];
+
+//let Languages = ['chs'];
 let Languages = ['chs', 'cht', 'eng', 'spa'];
-let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi'];//['cunpss', 'cunpts', 'cnvt', 'esv', 'niv2011', 'kjv', 'rvr1995', 'nvi'];
+//let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi'];
+let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi', 'ccb', 'cnvt', 'esv', 'niv1984', 'kjv', 'rvr1995'];
 
 function addToCache(key, value) {
   globalCache[key] = value;
   console.log("Add #" + ++globalCacheSize + ": " + key);
 }
 
+function getCacheFile(url) {
+  return 'cache\\' + url.replace(/\//g, '.').replace(/\?/g, '.').replace(/:/g, '.').replace(/=/g, '.')
+}
+
+function getCache(url) {
+  const file = getCacheFile(url);
+  if (fs.exists(file)) {
+    return fs.read(file);
+  }
+  return null;
+}
+
+function writeCache(url, data) {
+  const file = getCacheFile(url);
+  fs.write(file, data);
+}
+
 function getJson(url) {
-  const res = request('GET', 'http://localhost:3000' + url);
+  let cache = getCache(url);
+  if (cache) {
+    return JSON.parse(cache);
+  }
+
+  const res = syncRequest('GET', 'http://localhost:3000' + url);
   const body = res.getBody('utf-8');
   start = 0;
   while (body[start] != '{' && start < body.length) {
     start++;
   }
 
-  return JSON.parse(body.substring(start));
+  const data = body.substring(start);
+  writeCache(url, data);
+  return JSON.parse(data);
 }
 
 function getId(book, verse) {
@@ -48,13 +76,9 @@ function parseDay(day, lang) {
     const book = verses[i].book;
     const verse = verses[i].verse;
     const bookId = getId(book, verse);
-
-    //for (k in BibleVerses) {
-    k = Languages.indexOf(lang);
-    const bibleVersion = BibleVerses[k];
-    const bible = getJson('/verse/' + bookId + '?bibleVersion=' + bibleVersion + '&lang=' + lang);
-    addToCache('PASSAGE/' + bookId + '?bibleVersion=' + bibleVersion + '&lang=' + lang, bible);
-    //}
+    if (!globalBibleVerses[bookId]) {
+      globalBibleVerses[bookId] = 1;
+    }
   }
 }
 
@@ -79,6 +103,35 @@ function parseHome(home, lang) {
   }
 }
 
+function getVerses() {
+  const total = Object.keys(globalBibleVerses).length;
+  for (k in BibleVerses) {
+    globalCache = {};
+    globalCacheSize = 0;
+
+    const bibleVersion = BibleVerses[k];
+    let current = 0;
+    for (verse in globalBibleVerses) {
+      const bible = getJson('/verse/' + verse + '?bibleVersion=' + bibleVersion);
+      addToCache('PASSAGE/' + verse + '?bibleVersion=' + bibleVersion, bible);
+      console.log(`${parseInt(++current / total * 100)}%`);
+    }
+
+    console.log(`Write to ${bibleVersion}.json...`);
+    fs.write(`data\\${bibleVersion}.json`, JSON.stringify(globalCache));
+  }
+
+  console.log("Done!");
+}
+
+// Main
+if (!fs.isDir("cache")) {
+  fs.mkdir("cache");
+}
+if (!fs.isDir("data")) {
+  fs.mkdir("data");
+}
+
 for (i in Languages) {
   globalCache = {};
   globalCacheSize = 0;
@@ -88,10 +141,26 @@ for (i in Languages) {
   addToCache('BOOK/?lang=' + lang, home);
   parseHome(home, lang);
 
-  fs.writeFile(lang + '_cache.json', JSON.stringify(globalCache), function (err) {
-    console.log('Write to ' + lang + '_cache.json...');
-    if (err) {
-      return console.log(err);
+  fs.write(`data\\${lang}.json`, JSON.stringify(globalCache));
+}
+
+var total = Object.keys(globalBibleVerses).length * BibleVerses.length;
+for (k in BibleVerses) {
+  const bibleVersion = BibleVerses[k];
+  let current = 0;
+  for (verse in globalBibleVerses) {
+    const url = '/verse/' + verse + '?bibleVersion=' + bibleVersion;
+    if (!getCache(url)) {
+      request('http://localhost:3000' + url, function (error, response, body) {
+        writeCache(url, body);
+        if (--total == 0) {
+          getVerses();
+        }
+      });
+    } else {
+      if (--total == 0) {
+        getVerses();
+      }
     }
-  });
+  }
 }
