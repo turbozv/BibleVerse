@@ -22,7 +22,7 @@ class Logger {
   constructor(req, client) {
     this.req = req;
     this.client = client;
-    this.err = null;
+    this.text = '';
     this.startTime = new Date();
   }
 
@@ -32,12 +32,16 @@ class Logger {
   }
 
   error(err) {
-    this.err = err;
+    this.text = err;
+    this.log();
+  }
+
+  done(text) {
+    this.text = text;
     this.log();
   }
 
   succeed() {
-    this.err = null;
     this.log();
   }
 
@@ -53,7 +57,7 @@ class Logger {
       lang: this.client.language,
       platformOS: this.client.platformOS,
       deviceYearClass: this.client.deviceYearClass,
-      text: this.err ? this.err : '',
+      text: this.text ? this.text : '',
       version: this.client.version
     };
     mysqlConn.query('INSERT INTO log SET ?', data, function (error, results, fields) {
@@ -235,7 +239,7 @@ app.get('/verse/*', function (req, res) {
 app.get('/lessons', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
-  fs.readFile('lessons/' + client.language + '/home.json', 'utf8', function (err, data) {
+  fs.readFile(`lessons/${client.language}/home.json`, 'utf8', function (err, data) {
     if (err) {
       sendResultObject(res, { Error: err.errno });
       logger.error(err);
@@ -257,7 +261,7 @@ app.get('/lessons/*', function (req, res) {
     return;
   }
 
-  fs.readFile('lessons/' + client.language + '/' + id + '.json', 'utf8', function (err, data) {
+  fs.readFile(`lessons/${client.language}/${id}.json`, 'utf8', function (err, data) {
     if (err) {
       sendErrorObject(res, 500, { Error: err.errno });
       logger.error(err);
@@ -333,6 +337,14 @@ app.post('/feedback', jsonParser, function (req, res) {
       logger.succeed();
     }
   });
+})
+
+// Post poke (device call home)
+app.post('/poke', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  res.status(201).send();
+  logger.done(req.body.data);
 })
 
 app.use(bodyParser.text());
