@@ -344,7 +344,9 @@ app.post('/poke', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
   res.status(201).send();
-  logger.done(req.body.data);
+  let data = getRequestValue(req, 'data') + (req.body.data ? req.body.data : '');
+  console.log("Poke:" + data);
+  logger.done(data);
 })
 
 app.use(bodyParser.text());
