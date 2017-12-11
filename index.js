@@ -325,6 +325,10 @@ app.post('/feedback', jsonParser, function (req, res) {
   const data = {
     ip: req.ip,
     deviceId: client.deviceId,
+    lang: client.language,
+    platformOS: client.platformOS,
+    deviceYearClass: client.deviceYearClass,
+    version: client.version,
     comment
   };
   mysqlConn.query('INSERT INTO feedback SET ?', data, function (error, results, fields) {
