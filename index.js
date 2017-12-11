@@ -329,6 +329,7 @@ app.post('/feedback', jsonParser, function (req, res) {
     platformOS: client.platformOS,
     deviceYearClass: client.deviceYearClass,
     version: client.version,
+    bibleVersion: client.bibleVersion,
     comment
   };
   mysqlConn.query('INSERT INTO feedback SET ?', data, function (error, results, fields) {
