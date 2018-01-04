@@ -7,9 +7,7 @@ var globalCache = {};
 var globalCacheSize = 0;
 var globalBibleVerses = [];
 
-//let Languages = ['chs'];
 let Languages = ['chs', 'cht', 'eng', 'spa'];
-//let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi'];
 let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi', 'ccb', 'cnvt', 'esv', 'niv1984', 'kjv', 'rvr1995'];
 
 function addToCache(key, value) {
@@ -34,10 +32,12 @@ function writeCache(url, data) {
   fs.write(file, data);
 }
 
-function getJson(url) {
-  let cache = getCache(url);
-  if (cache) {
-    return JSON.parse(cache);
+function getJson(url, skipCache) {
+  if (!skipCache) {
+    let cache = getCache(url);
+    if (cache) {
+      return JSON.parse(cache);
+    }
   }
 
   const res = syncRequest('GET', 'http://localhost:3000' + url);
@@ -48,7 +48,10 @@ function getJson(url) {
   }
 
   const data = body.substring(start);
-  writeCache(url, data);
+  if (!skipCache) {
+    writeCache(url, data);
+  }
+
   return JSON.parse(data);
 }
 
@@ -136,7 +139,7 @@ for (i in Languages) {
   globalCache = {};
   globalCacheSize = 0;
   const lang = Languages[i];
-  const home = getJson('/lessons?lang=' + lang);
+  const home = getJson('/lessons?lang=' + lang, true);
 
   addToCache('BOOK/?lang=' + lang, home);
   parseHome(home, lang);
