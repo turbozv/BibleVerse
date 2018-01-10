@@ -50,7 +50,7 @@ class Logger {
     const dt = this.getTime();
     const data = {
       cost: dt.time,
-      ip: this.req.ip,
+      ip: this.req.ip.replace('::ffff:', ''),
       path: this.req.path,
       deviceId: this.client.deviceId,
       sessionId: this.client.sessionId,
@@ -141,7 +141,7 @@ function getClientInfo(req) {
   if (bibleVersion == 'rcuvss') bibleVersion = 'cunpss';
   if (bibleVersion == 'rcuvts') bibleVersion = 'cunpts';
 
-  return { deviceId, sessionId, language, ip: req.ip, platformOS, deviceYearClass, cellphone, bibleVersion, version };
+  return { deviceId, sessionId, language, ip: req.ip.replace('::ffff:', ''), platformOS, deviceYearClass, cellphone, bibleVersion, version };
 }
 
 function getVerseRange(verse) {
@@ -323,7 +323,7 @@ app.post('/feedback', jsonParser, function (req, res) {
   }
 
   const data = {
-    ip: req.ip,
+    ip: req.ip.replace('::ffff:', ''),
     deviceId: client.deviceId,
     lang: client.language,
     platformOS: client.platformOS,
