@@ -311,6 +311,33 @@ app.get('/logon', function (req, res) {
   bsfReq.end();
 })
 
+// Get Logon
+app.get('/checkin', function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  if (!client.cellphone) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  mysqlConn.query({
+    sql: 'SELECT * FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role IN (0,1)) ORDER BY role ASC;',
+    values: [client.cellphone]
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else if (result.length == 0) {
+      sendErrorObject(res, 400, { Error: "No permission" });
+      logger.error(error);
+    } else {
+      sendResultObject(res, result);
+      logger.succeed();
+    }
+  });
+})
+
 // Post feedback
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
