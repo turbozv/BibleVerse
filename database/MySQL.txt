@@ -1,0 +1,303 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+CREATE DATABASE IF NOT EXISTS `cbsf` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `cbsf`;
+
+DROP TABLE IF EXISTS `answers`;
+CREATE TABLE IF NOT EXISTS `answers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `device` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `answer` text CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `date` (`date`,`device`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+
+DROP TABLE IF EXISTS `attendance`;
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `group` int(11) NOT NULL,
+  `leader` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+
+DROP TABLE IF EXISTS `attendanceCalendar`;
+CREATE TABLE IF NOT EXISTS `attendanceCalendar` (
+  `class` int(11) NOT NULL,
+  `currentClassDate` date DEFAULT NULL,
+  PRIMARY KEY (`class`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+DROP VIEW IF EXISTS `AverageResponseTime`;
+CREATE TABLE IF NOT EXISTS `AverageResponseTime` (
+`AveResponseTime(ms)` double
+);DROP VIEW IF EXISTS `CheckForUpdateLogView`;
+CREATE TABLE IF NOT EXISTS `CheckForUpdateLogView` (
+`id` int(11)
+,`date` timestamp
+,`day` date
+,`cost` int(11)
+,`ip` varchar(255)
+,`path` varchar(255)
+,`deviceId` varchar(255)
+,`sessionId` varchar(255)
+,`lang` varchar(255)
+,`platformOS` varchar(255)
+,`deviceYearClass` varchar(255)
+,`text` text
+,`version` varchar(255)
+);
+DROP TABLE IF EXISTS `clientInfo`;
+CREATE TABLE IF NOT EXISTS `clientInfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lastSeen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deviceId` varchar(255) COLLATE utf8_bin NOT NULL,
+  `platformOS` varchar(255) COLLATE utf8_bin NOT NULL,
+  `ip` varchar(255) COLLATE utf8_bin NOT NULL,
+  `lang` varchar(255) COLLATE utf8_bin NOT NULL,
+  `country` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `version` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `deviceId` (`deviceId`),
+  KEY `platformOS` (`platformOS`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=836152 ;
+DROP VIEW IF EXISTS `DistinctDeviceIdPlatformOSView`;
+CREATE TABLE IF NOT EXISTS `DistinctDeviceIdPlatformOSView` (
+`deviceId` varchar(255)
+,`platformOS` varchar(255)
+);
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(255) COLLATE utf8_bin NOT NULL,
+  `deviceId` varchar(100) COLLATE utf8_bin NOT NULL,
+  `lang` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `platformOS` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `deviceYearClass` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `version` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `bibleVersion` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `comment` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deviceId` (`deviceId`),
+  KEY `date` (`date`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=573 ;
+DROP VIEW IF EXISTS `FeedbackView`;
+CREATE TABLE IF NOT EXISTS `FeedbackView` (
+`id` int(11)
+,`date` timestamp
+,`ip` varchar(255)
+,`deviceId` varchar(100)
+,`lang` varchar(255)
+,`platformOS` varchar(255)
+,`deviceYearClass` varchar(255)
+,`version` varchar(255)
+,`bibleVersion` varchar(255)
+,`comment` text
+);
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+DROP VIEW IF EXISTS `LastSeenDeviceCountView`;
+CREATE TABLE IF NOT EXISTS `LastSeenDeviceCountView` (
+`day` date
+,`count` bigint(21)
+);
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `day` date DEFAULT NULL,
+  `cost` int(11) NOT NULL,
+  `ip` varchar(255) COLLATE utf8_bin NOT NULL,
+  `path` varchar(255) COLLATE utf8_bin NOT NULL,
+  `deviceId` varchar(255) COLLATE utf8_bin NOT NULL,
+  `sessionId` varchar(255) COLLATE utf8_bin NOT NULL,
+  `lang` varchar(255) COLLATE utf8_bin NOT NULL,
+  `platformOS` varchar(255) COLLATE utf8_bin NOT NULL,
+  `deviceYearClass` varchar(255) COLLATE utf8_bin NOT NULL,
+  `text` text COLLATE utf8_bin NOT NULL,
+  `version` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `deviceId` (`deviceId`),
+  KEY `lang` (`lang`),
+  KEY `version` (`version`),
+  KEY `date` (`date`),
+  KEY `day` (`day`),
+  KEY `day_deviceid` (`day`,`deviceId`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=331855 ;
+DROP TRIGGER IF EXISTS `AutoSetDay`;
+DELIMITER //
+CREATE TRIGGER `AutoSetDay` BEFORE INSERT ON `log`
+ FOR EACH ROW SET NEW.day = NOW()
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `UpdateClientInfo`;
+DELIMITER //
+CREATE TRIGGER `UpdateClientInfo` AFTER INSERT ON `log`
+ FOR EACH ROW REPLACE INTO clientInfo(ip, deviceId, platformOS, lang, version) values (new.ip, new.deviceId, new.platformOS, new.lang, new.version)
+//
+DELIMITER ;
+DROP VIEW IF EXISTS `LogView`;
+CREATE TABLE IF NOT EXISTS `LogView` (
+`id` int(11)
+,`date` timestamp
+,`day` date
+,`cost` int(11)
+,`ip` varchar(255)
+,`path` varchar(255)
+,`deviceId` varchar(255)
+,`sessionId` varchar(255)
+,`lang` varchar(255)
+,`platformOS` varchar(255)
+,`deviceYearClass` varchar(255)
+,`text` text
+,`version` varchar(255)
+);DROP VIEW IF EXISTS `PlatformOSView`;
+CREATE TABLE IF NOT EXISTS `PlatformOSView` (
+`platformOS` varchar(255)
+,`count` bigint(21)
+);DROP VIEW IF EXISTS `PlatformOSView2`;
+CREATE TABLE IF NOT EXISTS `PlatformOSView2` (
+`Platform` varchar(255)
+,`Devices` bigint(21)
+);
+DROP TABLE IF EXISTS `roleName`;
+CREATE TABLE IF NOT EXISTS `roleName` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `syslogs`;
+CREATE TABLE IF NOT EXISTS `syslogs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `log` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=841 ;
+
+DROP TABLE IF EXISTS `TotalUniqueDeviceCount`;
+CREATE TABLE IF NOT EXISTS `TotalUniqueDeviceCount` (
+  `DeviceCount` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+DROP VIEW IF EXISTS `TotalUniqueDeviceCount2`;
+CREATE TABLE IF NOT EXISTS `TotalUniqueDeviceCount2` (
+`DeviceCount` bigint(21)
+);
+DROP TABLE IF EXISTS `UniqueDeviceCountPerDay`;
+CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay` (
+  `Date` date DEFAULT NULL,
+  `DeviceCount` int(11) DEFAULT NULL,
+  UNIQUE KEY `Date` (`Date`),
+  KEY `Date_2` (`Date`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+DROP VIEW IF EXISTS `UniqueDeviceCountPerDay2`;
+CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay2` (
+`Date` date
+,`DeviceCount` bigint(21)
+);DROP VIEW IF EXISTS `UniqueIPAddress`;
+CREATE TABLE IF NOT EXISTS `UniqueIPAddress` (
+`ip` varchar(255)
+);
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `registerDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `class` int(11) NOT NULL,
+  `role` int(11) NOT NULL,
+  `group` int(11) NOT NULL,
+  `name` char(50) COLLATE utf8_bin NOT NULL,
+  `cellphone` char(20) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `class` (`class`),
+  KEY `group` (`group`),
+  KEY `role` (`role`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+DROP VIEW IF EXISTS `VersionView`;
+CREATE TABLE IF NOT EXISTS `VersionView` (
+`version` varchar(255)
+,`count` bigint(21)
+);DROP TABLE IF EXISTS `AverageResponseTime`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `AverageResponseTime` AS select (((select sum(`log`.`cost`) from `log`) / (select count(0) from `log`)) + 'ms') AS `AveResponseTime(ms)`;
+DROP TABLE IF EXISTS `CheckForUpdateLogView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `CheckForUpdateLogView` AS select `log`.`id` AS `id`,`log`.`date` AS `date`,`log`.`day` AS `day`,`log`.`cost` AS `cost`,`log`.`ip` AS `ip`,`log`.`path` AS `path`,`log`.`deviceId` AS `deviceId`,`log`.`sessionId` AS `sessionId`,`log`.`lang` AS `lang`,`log`.`platformOS` AS `platformOS`,`log`.`deviceYearClass` AS `deviceYearClass`,`log`.`text` AS `text`,`log`.`version` AS `version` from `log` where (`log`.`text` like '%CheckForUpdate%') order by `log`.`date` desc;
+DROP TABLE IF EXISTS `DistinctDeviceIdPlatformOSView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DistinctDeviceIdPlatformOSView` AS select distinct `log`.`deviceId` AS `deviceId`,`log`.`platformOS` AS `platformOS` from `log`;
+DROP TABLE IF EXISTS `FeedbackView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `FeedbackView` AS select `feedback`.`id` AS `id`,`feedback`.`date` AS `date`,`feedback`.`ip` AS `ip`,`feedback`.`deviceId` AS `deviceId`,`feedback`.`lang` AS `lang`,`feedback`.`platformOS` AS `platformOS`,`feedback`.`deviceYearClass` AS `deviceYearClass`,`feedback`.`version` AS `version`,`feedback`.`bibleVersion` AS `bibleVersion`,`feedback`.`comment` AS `comment` from `feedback` order by `feedback`.`date` desc;
+DROP TABLE IF EXISTS `LastSeenDeviceCountView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LastSeenDeviceCountView` AS select cast(`clientInfo`.`lastSeen` as date) AS `day`,count(0) AS `count` from `clientInfo` group by cast(`clientInfo`.`lastSeen` as date) order by cast(`clientInfo`.`lastSeen` as date) desc;
+DROP TABLE IF EXISTS `LogView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LogView` AS select `log`.`id` AS `id`,`log`.`date` AS `date`,`log`.`day` AS `day`,`log`.`cost` AS `cost`,`log`.`ip` AS `ip`,`log`.`path` AS `path`,`log`.`deviceId` AS `deviceId`,`log`.`sessionId` AS `sessionId`,`log`.`lang` AS `lang`,`log`.`platformOS` AS `platformOS`,`log`.`deviceYearClass` AS `deviceYearClass`,`log`.`text` AS `text`,`log`.`version` AS `version` from `log` order by `log`.`date` desc;
+DROP TABLE IF EXISTS `PlatformOSView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PlatformOSView` AS select `clientInfo`.`platformOS` AS `platformOS`,count(0) AS `count` from `clientInfo` group by `clientInfo`.`platformOS`;
+DROP TABLE IF EXISTS `PlatformOSView2`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PlatformOSView2` AS select `DistinctDeviceIdPlatformOSView`.`platformOS` AS `Platform`,count(0) AS `Devices` from `DistinctDeviceIdPlatformOSView` group by `DistinctDeviceIdPlatformOSView`.`platformOS`;
+DROP TABLE IF EXISTS `TotalUniqueDeviceCount2`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `TotalUniqueDeviceCount2` AS select count(distinct `log`.`deviceId`) AS `DeviceCount` from `log`;
+DROP TABLE IF EXISTS `UniqueDeviceCountPerDay2`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `UniqueDeviceCountPerDay2` AS select `log`.`day` AS `Date`,count(distinct `log`.`deviceId`) AS `DeviceCount` from `log` where (`log`.`day` >= '2017-9-11') group by `log`.`day` desc;
+DROP TABLE IF EXISTS `UniqueIPAddress`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `UniqueIPAddress` AS select distinct `log`.`ip` AS `ip` from `log`;
+DROP TABLE IF EXISTS `VersionView`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `VersionView` AS select `clientInfo`.`version` AS `version`,count(0) AS `count` from `clientInfo` group by `clientInfo`.`version` order by count(0) desc;
+
+DELIMITER $$
+DROP EVENT `AutoUpdatePlatformOSView`$$
+CREATE EVENT `AutoUpdatePlatformOSView` ON SCHEDULE EVERY 1 HOUR STARTS '2018-01-04 00:00:00' ON COMPLETION PRESERVE DISABLE DO BEGIN
+
+INSERT syslogs(log) values('AutoUpdatePlatformOSView starts');
+
+DELETE FROM PlatformOSView;
+INSERT INTO PlatformOSView SELECT * FROM PlatformOSView2;
+
+INSERT syslogs(log) values('AutoUpdatePlatformOSView finishes');
+
+END$$
+
+DROP EVENT `AutoUpdateTotalUniqueDeviceCount`$$
+CREATE EVENT `AutoUpdateTotalUniqueDeviceCount` ON SCHEDULE EVERY 1 HOUR STARTS '2018-01-04 00:00:10' ON COMPLETION PRESERVE DISABLE DO BEGIN
+
+INSERT syslogs(log) values('AutoUpdateTotalUniqueDeviceCount starts');
+
+DELETE FROM TotalUniqueDeviceCount;
+INSERT INTO TotalUniqueDeviceCount SELECT * FROM TotalUniqueDeviceCount2;
+
+INSERT syslogs(log) values('AutoUpdateTotalUniqueDeviceCount finishes');
+
+END$$
+
+DROP EVENT `AutoUpdateUniqueDeviceCountPerDay`$$
+CREATE EVENT `AutoUpdateUniqueDeviceCountPerDay` ON SCHEDULE EVERY 1 HOUR STARTS '2018-01-03 00:00:20' ON COMPLETION PRESERVE ENABLE DO BEGIN
+
+INSERT syslogs(log) values('AutoUpdateUniqueDeviceCountPerDay starts');
+
+DELETE FROM UniqueDeviceCountPerDay;
+INSERT INTO UniqueDeviceCountPerDay SELECT * FROM UniqueDeviceCountPerDay2;
+
+INSERT syslogs(log) values('AutoUpdateUniqueDeviceCountPerDay finishes');
+
+END$$
+
+DELIMITER ;

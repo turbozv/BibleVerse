@@ -322,7 +322,7 @@ app.get('/checkin', function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT * FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role IN (0,1)) ORDER BY role ASC;',
+    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role=1) ORDER BY role ASC;',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -332,8 +332,23 @@ app.get('/checkin', function (req, res) {
       sendErrorObject(res, 400, { Error: "No permission" });
       logger.error(error);
     } else {
-      sendResultObject(res, result);
-      logger.succeed();
+      const classId = result[0].class;
+      const attendees = result;
+      mysqlConn.query({
+        sql: 'SELECT currentClassDate FROM attendanceCalendar WHERE class=?',
+        values: [classId]
+      }, function (error, result, fields) {
+        if (error) {
+          sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+          logger.error(error);
+        } else if (result.length == 0) {
+          sendErrorObject(res, 400, { Error: "No class date set" });
+          logger.error(error);
+        } else {
+          sendResultObject(res, { date: result[0].currentClassDate.toLocaleDateString(), attendees });
+          logger.succeed();
+        }
+      });
     }
   });
 })
