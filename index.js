@@ -28,7 +28,7 @@ class Logger {
 
   getTime() {
     const now = new Date();
-    return { date: now.toLocaleDateString() + ' ' + now.toLocaleTimeString(), time: now - this.startTime };
+    return { date: getYYYYMMDD(now) + ' ' + now.toLocaleTimeString(), time: now - this.startTime };
   }
 
   error(err) {
@@ -70,6 +70,10 @@ class Logger {
       }
     });
   }
+}
+
+function getYYYYMMDD(date) {
+  return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
 }
 
 function getRequestValue(req, name) {
@@ -346,7 +350,7 @@ app.get('/attendance', function (req, res) {
           sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
           logger.error(error);
         } else {
-          const nextClassDate = result[0].nextClassDate.toLocaleDateString();
+          const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
           mysqlConn.query({
             sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
             values: [leaderId, nextClassDate]
