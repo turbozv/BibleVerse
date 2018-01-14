@@ -311,18 +311,84 @@ app.get('/logon', function (req, res) {
   bsfReq.end();
 })
 
-// Get Logon
-app.get('/checkin', function (req, res) {
+// Get attendance
+app.get('/attendance', function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
   if (!client.cellphone) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
+    sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
   mysqlConn.query({
-    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role=1) ORDER BY role ASC;',
+    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role=1) ORDER BY role ASC',
+    values: [client.cellphone]
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else if (result.length == 0) {
+      sendErrorObject(res, 401, { Error: "No permission" });
+      logger.error(error);
+    } else {
+      const classId = result[0].class;
+      const leaderId = result[0].id;
+      var attendees = result;
+      mysqlConn.query({
+        sql: 'SELECT nextClassDate FROM class WHERE id=?',
+        values: [classId]
+      }, function (error, result, fields) {
+        if (error) {
+          sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+          logger.error(error);
+        } else if (result.length == 0) {
+          sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
+          logger.error(error);
+        } else {
+          const nextClassDate = result[0].nextClassDate.toLocaleDateString();
+          mysqlConn.query({
+            sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
+            values: [leaderId, nextClassDate]
+          }, function (error, result, fields) {
+            if (error) {
+              sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+              logger.error(error);
+            } else {
+              let checkedInUsers = null;
+              if (result.length > 0) {
+                checkedInUsers = JSON.parse(result[0].users);
+              }
+
+              for (var i in attendees) {
+                delete attendees[i].class;
+                if (checkedInUsers && checkedInUsers.includes(attendees[i].id)) {
+                  attendees[i].check = true;
+                }
+              }
+
+              sendResultObject(res, { date: nextClassDate, attendees });
+              logger.succeed();
+            }
+          });
+        }
+      });
+    }
+  });
+})
+
+// Post attendance
+app.post('/attendance', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  if (!req.body || !client.cellphone) {
+    sendErrorObject(res, 401, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  mysqlConn.query({
+    sql: 'SELECT id FROM users WHERE cellphone=? AND role=1',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -332,20 +398,18 @@ app.get('/checkin', function (req, res) {
       sendErrorObject(res, 400, { Error: "No permission" });
       logger.error(error);
     } else {
-      const classId = result[0].class;
-      const attendees = result;
-      mysqlConn.query({
-        sql: 'SELECT currentClassDate FROM attendanceCalendar WHERE class=?',
-        values: [classId]
-      }, function (error, result, fields) {
+      const data = {
+        date: req.body.date,
+        leader: result[0].id,
+        users: JSON.stringify(req.body.users)
+      };
+      mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
         if (error) {
-          sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+          sendResultObject(res, { Error: error });
           logger.error(error);
-        } else if (result.length == 0) {
-          sendErrorObject(res, 400, { Error: "No class date set" });
-          logger.error(error);
-        } else {
-          sendResultObject(res, { date: result[0].currentClassDate.toLocaleDateString(), attendees });
+        }
+        else {
+          res.status(201).send();
           logger.succeed();
         }
       });
