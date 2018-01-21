@@ -352,7 +352,7 @@ app.get('/attendance', function (req, res) {
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
+            sql: 'SELECT users FROM attendance WHERE class IN (SELECT class FROM users WHERE id=?)  AND date=? ORDER BY submitDate DESC LIMIT 1',
             values: [leaderId, nextClassDate]
           }, function (error, result, fields) {
             if (error) {
@@ -460,7 +460,6 @@ app.post('/poke', jsonParser, function (req, res) {
   var logger = new Logger(req, client);
   res.status(201).send();
   let data = getRequestValue(req, 'data') + (req.body.data ? req.body.data : '');
-  console.log("Poke:" + data);
   logger.done(data);
 })
 
