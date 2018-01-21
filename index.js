@@ -352,7 +352,7 @@ app.get('/attendance', function (req, res) {
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE class IN (SELECT class FROM users WHERE id=?)  AND date=? ORDER BY submitDate DESC LIMIT 1',
+            sql: 'SELECT users FROM attendance WHERE leader IN (SELECT id FROM users WHERE `group` IN (SELECT class FROM users WHERE id=?) AND role=1) AND date=? ORDER BY submitDate DESC LIMIT 1',
             values: [leaderId, nextClassDate]
           }, function (error, result, fields) {
             if (error) {
@@ -367,7 +367,7 @@ app.get('/attendance', function (req, res) {
               for (var i in attendees) {
                 delete attendees[i].class;
                 if (checkedInUsers && checkedInUsers.includes(attendees[i].id)) {
-                  attendees[i].check = true;
+                  attendees[i].checked = true;
                 }
               }
 
