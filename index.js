@@ -381,6 +381,44 @@ app.get('/attendance', function (req, res) {
   });
 })
 
+// Get teaching audio
+app.get('/audio/*', function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  const classId = req.params[0];
+  if (/[^0-9]/.test(classId) || !client.cellphone) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  mysqlConn.query({
+    sql: 'SELECT * FROM class INNER JOIN users ON users.class=class.id WHERE cellphone=? AND class=?',
+    values: [client.cellphone, classId]
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else if (result.length == 0) {
+      sendErrorObject(res, 400, { Error: "Invalid user" });
+      logger.error(error);
+    } else {
+      if (getRequestValue(req, 'play') == '1') {
+        const file = `audios/${classId}.mp3`;
+        var stat = fs.statSync(file);
+        res.writeHead(200, {
+          'Content-Type': 'audio/mpeg',
+          'Content-Length': stat.size
+        });
+        fs.createReadStream(file).pipe(res);
+      } else {
+        sendResultText(res, '');
+      }
+      logger.succeed();
+    }
+  });
+})
+
 // Post attendance
 app.post('/attendance', jsonParser, function (req, res) {
   const client = getClientInfo(req);
