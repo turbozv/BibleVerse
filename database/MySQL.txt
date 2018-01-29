@@ -3,18 +3,12 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2018 at 10:21 PM
+-- Generation Time: Jan 28, 2018 at 10:06 PM
 -- Server version: 5.1.73
 -- PHP Version: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `cbsf`
@@ -54,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   PRIMARY KEY (`id`),
   KEY `leader` (`leader`),
   KEY `date` (`date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -120,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `clientInfo` (
   UNIQUE KEY `deviceId` (`deviceId`),
   KEY `platformOS` (`platformOS`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=930060 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4100100 ;
 
 -- --------------------------------------------------------
 
@@ -154,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   KEY `deviceId` (`deviceId`),
   KEY `date` (`date`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=573 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=607 ;
 
 -- --------------------------------------------------------
 
@@ -226,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   KEY `day` (`day`),
   KEY `day_deviceid` (`day`,`deviceId`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=333131 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=415325 ;
 
 --
 -- Triggers `log`
@@ -310,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `syslogs` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `log` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=864 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1584 ;
 
 -- --------------------------------------------------------
 
@@ -381,12 +375,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` char(50) COLLATE utf8_bin NOT NULL,
   `cellphone` char(20) COLLATE utf8_bin NOT NULL,
   `email` char(255) COLLATE utf8_bin DEFAULT NULL,
+  `audio` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `class` (`class`),
   KEY `group` (`group`),
   KEY `role` (`role`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -547,7 +542,3 @@ INSERT syslogs(log) values('AutoUpdateUniqueDeviceCountPerDay finishes');
 END$$
 
 DELIMITER ;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
