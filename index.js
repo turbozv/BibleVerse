@@ -460,8 +460,8 @@ app.post('/attendance', jsonParser, function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT id FROM users WHERE cellphone=? AND role=1',
-    values: [client.cellphone]
+    sql: 'SELECT (SELECT id FROM users WHERE cellphone=? AND role=1) AS id, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT `group` from users WHERE cellphone=?)) AS totalCount',
+    values: [client.cellphone, client.cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
@@ -473,7 +473,8 @@ app.post('/attendance', jsonParser, function (req, res) {
       const data = {
         date: req.body.date,
         leader: result[0].id,
-        users: JSON.stringify(req.body.users)
+        users: JSON.stringify(req.body.users),
+        totalUsers: result[0].totalCount
       };
       mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
         if (error) {
