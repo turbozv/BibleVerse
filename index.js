@@ -325,8 +325,9 @@ app.get('/attendance', function (req, res) {
     return;
   }
 
+  // Allowed roles: 0-root, 1-TL, 2-STL, 3-CA, 4-ACA, 6-GL, 7-UGL
   mysqlConn.query({
-    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role=1) ORDER BY role ASC',
+    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role IN (0,1,2,3,4,6,7)) ORDER BY role ASC',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -340,7 +341,7 @@ app.get('/attendance', function (req, res) {
       const leaderId = result[0].id;
       var attendees = result;
       mysqlConn.query({
-        sql: 'SELECT nextClassDate FROM class WHERE id=?',
+        sql: 'SELECT date as nextClassDate FROM attendanceDates WHERE class=? AND date >= DATE(NOW()) ORDER BY date ASC LIMIT 1',
         values: [classId]
       }, function (error, result, fields) {
         if (error) {
@@ -352,7 +353,7 @@ app.get('/attendance', function (req, res) {
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE leader IN (SELECT id FROM users WHERE `group` IN (SELECT `group` FROM users WHERE id=?) AND role=1) AND date=? ORDER BY submitDate DESC LIMIT 1',
+            sql: 'SELECT users FROM attendance WHERE leader IN (SELECT id FROM users WHERE `group` IN (SELECT `group` FROM users WHERE id=?) AND role IN (0,1,2,3,4,6,7)) AND date=? ORDER BY submitDate DESC LIMIT 1',
             values: [leaderId, nextClassDate]
           }, function (error, result, fields) {
             if (error) {
@@ -393,14 +394,14 @@ app.get('/audio/*', function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT class FROM users WHERE cellphone=?',
+    sql: 'SELECT class FROM users WHERE cellphone=? AND audio=1',
     values: [cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
     } else if (result.length == 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user" });
+      sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
       logger.error(error);
     } else {
       const classId = result[0].class;
@@ -441,7 +442,7 @@ app.get('/user/*', function (req, res) {
         name: result[0].name,
         audio: result[0].audio,
         class: result[0].class,
-        isGroupLeader: result[0].role == 1
+        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7].indexOf(result[0].role) != -1)
       };
       sendResultObject(res, data);
       logger.succeed();
@@ -460,7 +461,7 @@ app.post('/attendance', jsonParser, function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT (SELECT id FROM users WHERE cellphone=? AND role=1) AS id, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT `group` from users WHERE cellphone=?)) AS totalCount',
+    sql: 'SELECT (SELECT id FROM users WHERE cellphone=? AND role IN (0,1,2,3,4,6,7)) AS id, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT `group` from users WHERE cellphone=?)) AS totalCount',
     values: [client.cellphone, client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -480,8 +481,7 @@ app.post('/attendance', jsonParser, function (req, res) {
         if (error) {
           sendResultObject(res, { Error: error });
           logger.error(error);
-        }
-        else {
+        } else {
           res.status(201).send();
           logger.succeed();
         }
