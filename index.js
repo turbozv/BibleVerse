@@ -327,7 +327,7 @@ app.get('/attendance', function (req, res) {
 
   // Allowed roles: 0-root, 1-TL, 2-STL, 3-CA, 4-ACA, 6-GL, 7-UGL
   mysqlConn.query({
-    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT `group` FROM users WHERE cellphone=? AND role IN (0,1,2,3,4,6,7)) ORDER BY role ASC',
+    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -353,7 +353,7 @@ app.get('/attendance', function (req, res) {
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE leader IN (SELECT id FROM users WHERE `group` IN (SELECT `group` FROM users WHERE id=?) AND role IN (0,1,2,3,4,6,7)) AND date=? ORDER BY submitDate DESC LIMIT 1',
+            sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
             values: [leaderId, nextClassDate]
           }, function (error, result, fields) {
             if (error) {
@@ -442,7 +442,7 @@ app.get('/user/*', function (req, res) {
         name: result[0].name,
         audio: result[0].audio,
         class: result[0].class,
-        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7].indexOf(result[0].role) != -1)
+        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1)
       };
       sendResultObject(res, data);
       logger.succeed();
@@ -461,8 +461,8 @@ app.post('/attendance', jsonParser, function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT (SELECT id FROM users WHERE cellphone=? AND role IN (0,1,2,3,4,6,7)) AS id, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT `group` from users WHERE cellphone=?)) AS totalCount',
-    values: [client.cellphone, client.cellphone]
+    sql: 'SELECT (SELECT users.id FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS id, (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS `group`, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)) AS totalCount',
+    values: [client.cellphone, client.cellphone, client.cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
@@ -474,6 +474,7 @@ app.post('/attendance', jsonParser, function (req, res) {
       const data = {
         date: req.body.date,
         leader: result[0].id,
+	group: result[0].group,
         users: JSON.stringify(req.body.users),
         totalUsers: result[0].totalCount
       };
