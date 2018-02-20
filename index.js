@@ -327,7 +327,7 @@ app.get('/attendance', function (req, res) {
 
   // Allowed roles: 0-root, 1-TL, 2-STL, 3-CA, 4-ACA, 6-GL, 7-UGL
   mysqlConn.query({
-    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
+    sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -371,12 +371,9 @@ app.get('/attendance', function (req, res) {
 
               for (var i in attendees) {
                 delete attendees[i].class;
-
-                for (var j in checkedInUsers) {
-                  if (checkedInUsers[j] && checkedInUsers[j].includes(attendees[i].id)) {
-                    attendees[i].checked = true;
-                    break;
-                  }
+                const group = attendees[i].group;
+                if (checkedInUsers[group] && checkedInUsers[group].includes(attendees[i].id)) {
+                  attendees[i].checked = true;
                 }
               }
 
