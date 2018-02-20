@@ -1,1 +1,286 @@
-{"id":"2017_20","name":"Romans Lesson 202017_20","memoryVerse":"“I do not want you to be ignorant of this mystery, brothers and sisters, so that you may not be conceited: Israel has experienced a hardening in part until the full number of the Gentiles has come in.” – Romans 11:25 ","dayQuestions":{"one":{"title":"FIRST DAY: Read the notes and the references.","questions":[{"id":"2017_20_1","questionText":"1. What was meaningful to you in the lecture?","answer":"","quotes":[]},{"id":"2017_20_2","questionText":"2. What help did you receive from the notes?","answer":"","quotes":[]}]},"two":{"title":"SECOND DAY: Read Romans 11:33-36.","readVerse":[{"book":"Romans","verse":"11:33-36"}],"questions":[{"id":"2017_20_3","questionText":"3. Paul breaks into praise to God in verses 33-36. What reasons expressed in verses 25-32 would cause him to do this?","answer":"","quotes":[]},{"id":"2017_20_4","questionText":"4. In chapter 11, how did Paul describe God’s plan for saving the Gentiles?","answer":"","quotes":[]},{"id":"2017_20_5","questionText":"5. What has God done recently that would cause you to break into praise of Him?","answer":"","quotes":[]}]},"three":{"title":"THIRD DAY: Read Romans 11:33-34.","readVerse":[{"book":"Romans","verse":"11:33-34"}],"questions":[{"id":"2017_20_6","questionText":"6. For which attributes does Paul praise God in verse 33?","answer":"","quotes":[]},{"id":"2017_20_7","questionText":"7. Share aspects of these attributes from the following verses.  How do these verses relate to your present circumstances?  1 Kings 8:39","answer":"","quotes":[]},{"id":"2017_20_7b","questionText":"7.  Job 9:4","answer":"","quotes":[{"book":"Job","verse":"9:4"}]},{"id":"2017_20_7c","questionText":"7.  Job 28:12-28","answer":"","quotes":[{"book":"Job","verse":"28:12-28"}]},{"id":"2017_20_7d","questionText":"7.  Psalm 147:4","answer":"","quotes":[{"book":"Psalm","verse":"147:4"}]},{"id":"2017_20_7e","questionText":"7.  Proverbs 3:19","answer":"","quotes":[{"book":"Proverbs","verse":"3:19"}]},{"id":"2017_20_8","questionText":"8. Try to trace God’s wise ways in one area of your life. (Examples include your education, employment, family or other.)","answer":"","quotes":[]}]},"four":{"title":"FOURTH DAY: Read Romans 11:33-34.","readVerse":[{"book":"Romans","verse":"11:33-34"}],"questions":[{"id":"2017_20_9","questionText":"  9. What is Paul asking in verse 34? What is the answer?","answer":"","quotes":[]},{"id":"2017_20_10","questionText":"10. How do people’s perceptions of themselves differ from the biblical perspective given in these verses? (See Job 38:1-7; Job 42:1-6; Psalm 8:1-9; Isaiah 40:13-28.)","answer":"","quotes":[{"book":"Job","verse":"38:1-7"},{"book":"Job","verse":"42:1-6"},{"book":"Psalm","verse":"8:1-9"},{"book":"Isaiah","verse":"40:13-28"}]},{"id":"2017_20_11","questionText":"11. How do these attributes of God comfort or challenge you? In what area of your life are you clinging to or forgetting these attributes?","answer":"","quotes":[]}]},"five":{"title":"FIFTH DAY: Read Romans 11:35-36.","readVerse":[{"book":"Romans","verse":"11:35-36"}],"questions":[{"id":"2017_20_12","questionText":"12.  What has God given to people in general and to you specifically?  How will you respond to all God has given you? (See Genesis 1:27-30; John 3:16; Acts 17:24-28 or any other Scripture.)","answer":"","quotes":[{"book":"Genesis","verse":"1:27-30"},{"book":"John","verse":"3:16"},{"book":"Acts","verse":"17:24-28"}]},{"id":"2017_20_13","questionText":"13. What can people give to God? (See Job 35:7-8, 41:11 or any other Scripture.)","answer":"","quotes":[{"book":"Job","verse":"35:7-8"},{"book":"Job","verse":"35:41"}]},{"id":"2017_20_14","questionText":"14. How might people place God under obligation to repay them today (knowingly or unknowingly)?","answer":"","quotes":[]},{"id":"2017_20_15","questionText":"15. How are all things from God, through God and to God?","answer":"","quotes":[]},{"id":"2017_20_16","questionText":"16. For what reason did God create the universe? (See Isaiah 43:7; Ephesians 1:5-10; Revelation 4:11.)","answer":"","quotes":[{"book":"Isaiah","verse":"43:7"},{"book":"Ephesians","verse":"1:5-10"},{"book":"Revelation","verse":"4:11"}]}]},"six":{"title":"SIXTH DAY: Read Romans 11:33-36.","readVerse":[{"book":"Romans","verse":"11:33-36"}],"questions":[{"id":"2017_20_17","questionText":"17. What have you learned about God in this week’s study? How may your group pray for you as you make this truth a part of your life?","answer":"","quotes":[]},{"id":"2017_20_18","questionText":"18. Homiletics for discussion and administrative leaders: Romans 11:33-36","answer":"","quotes":[{"book":"Romans","verse":"11:33-36"}]}]}}}
+{
+  "id": "2017_20",
+  "name": "Romans Lesson 202017_20",
+  "memoryVerse": "“I do not want you to be ignorant of this mystery, brothers and sisters, so that you may not be conceited: Israel has experienced a hardening in part until the full number of the Gentiles has come in.” – Romans 11:25 ",
+  "dayQuestions": {
+    "one": {
+      "title": "FIRST DAY: Read the notes and the references.",
+      "questions": [
+        {
+          "id": "2017_20_1",
+          "questionText": "1. What was meaningful to you in the lecture?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_2",
+          "questionText": "2. What help did you receive from the notes?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "two": {
+      "title": "SECOND DAY: Read Romans 11:33-36.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "11:33-36"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_20_3",
+          "questionText": "3. Paul breaks into praise to God in verses 33-36. What reasons expressed in verses 25-32 would cause him to do this?",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Romans",
+              "verse": "11:25-32"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_4",
+          "questionText": "4. In chapter 11, how did Paul describe God’s plan for saving the Gentiles?",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Romans",
+              "verse": "11:1-36"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_5",
+          "questionText": "5. What has God done recently that would cause you to break into praise of Him?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "three": {
+      "title": "THIRD DAY: Read Romans 11:33-34.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "11:33-34"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_20_6",
+          "questionText": "6. For which attributes does Paul praise God in verse 33?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_7",
+          "questionText": "7. Share aspects of these attributes from the following verses.  How do these verses relate to your present circumstances?  1 Kings 8:39",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_7b",
+          "questionText": "7.  Job 9:4",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Job",
+              "verse": "9:4"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_7c",
+          "questionText": "7.  Job 28:12-28",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Job",
+              "verse": "28:12-28"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_7d",
+          "questionText": "7.  Psalm 147:4",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Psalm",
+              "verse": "147:4"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_7e",
+          "questionText": "7.  Proverbs 3:19",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Proverbs",
+              "verse": "3:19"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_8",
+          "questionText": "8. Try to trace God’s wise ways in one area of your life. (Examples include your education, employment, family or other.)",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "four": {
+      "title": "FOURTH DAY: Read Romans 11:33-34.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "11:33-34"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_20_9",
+          "questionText": "  9. What is Paul asking in verse 34? What is the answer?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_10",
+          "questionText": "10. How do people’s perceptions of themselves differ from the biblical perspective given in these verses? (See Job 38:1-7; Job 42:1-6; Psalm 8:1-9; Isaiah 40:13-28.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Job",
+              "verse": "38:1-7"
+            },
+            {
+              "book": "Job",
+              "verse": "42:1-6"
+            },
+            {
+              "book": "Psalm",
+              "verse": "8:1-9"
+            },
+            {
+              "book": "Isaiah",
+              "verse": "40:13-28"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_11",
+          "questionText": "11. How do these attributes of God comfort or challenge you? In what area of your life are you clinging to or forgetting these attributes?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "five": {
+      "title": "FIFTH DAY: Read Romans 11:35-36.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "11:35-36"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_20_12",
+          "questionText": "12.  What has God given to people in general and to you specifically?  How will you respond to all God has given you? (See Genesis 1:27-30; John 3:16; Acts 17:24-28 or any other Scripture.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Genesis",
+              "verse": "1:27-30"
+            },
+            {
+              "book": "John",
+              "verse": "3:16"
+            },
+            {
+              "book": "Acts",
+              "verse": "17:24-28"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_13",
+          "questionText": "13. What can people give to God? (See Job 35:7-8, 41:11 or any other Scripture.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Job",
+              "verse": "35:7-8"
+            },
+            {
+              "book": "Job",
+              "verse": "35:41"
+            }
+          ]
+        },
+        {
+          "id": "2017_20_14",
+          "questionText": "14. How might people place God under obligation to repay them today (knowingly or unknowingly)?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_15",
+          "questionText": "15. How are all things from God, through God and to God?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_16",
+          "questionText": "16. For what reason did God create the universe? (See Isaiah 43:7; Ephesians 1:5-10; Revelation 4:11.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Isaiah",
+              "verse": "43:7"
+            },
+            {
+              "book": "Ephesians",
+              "verse": "1:5-10"
+            },
+            {
+              "book": "Revelation",
+              "verse": "4:11"
+            }
+          ]
+        }
+      ]
+    },
+    "six": {
+      "title": "SIXTH DAY: Read Romans 11:33-36.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "11:33-36"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_20_17",
+          "questionText": "17. What have you learned about God in this week’s study? How may your group pray for you as you make this truth a part of your life?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_20_18",
+          "questionText": "18. Homiletics for discussion and administrative leaders: Romans 11:33-36",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Romans",
+              "verse": "11:33-36"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

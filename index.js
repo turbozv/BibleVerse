@@ -338,10 +338,9 @@ app.get('/attendance', function (req, res) {
       logger.error(error);
     } else {
       const classId = result[0].class;
-      const leaderId = result[0].id;
       var attendees = result;
       mysqlConn.query({
-        sql: 'SELECT date as nextClassDate FROM attendanceDates WHERE class=? AND date >= DATE(NOW()) ORDER BY date ASC LIMIT 1',
+        sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date >= DATE(NOW()) ORDER BY date ASC LIMIT 1',
         values: [classId]
       }, function (error, result, fields) {
         if (error) {
@@ -352,23 +351,32 @@ app.get('/attendance', function (req, res) {
           logger.error(error);
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
+
+          // get users from all groups
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
-            values: [leaderId, nextClassDate]
+            sql: 'SELECT `group`, users FROM attendance WHERE date=? AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) ORDER BY submitDate DESC',
+            values: [nextClassDate, client.cellphone]
           }, function (error, result, fields) {
             if (error) {
               sendErrorObject(res, 400, { Error: JSON.stringify(error) });
               logger.error(error);
             } else {
-              let checkedInUsers = null;
-              if (result.length > 0) {
-                checkedInUsers = JSON.parse(result[0].users);
+              var checkedInUsers = [];
+              for (var i in result) {
+                const group = result[i].group;
+                if (!checkedInUsers[group]) {
+                  checkedInUsers[group] = JSON.parse(result[i].users);
+                }
               }
 
               for (var i in attendees) {
                 delete attendees[i].class;
-                if (checkedInUsers && checkedInUsers.includes(attendees[i].id)) {
-                  attendees[i].checked = true;
+
+                for (var j in checkedInUsers) {
+                  if (checkedInUsers[j] && checkedInUsers[j].includes(attendees[i].id)) {
+                    attendees[i].checked = true;
+                    break;
+                  }
                 }
               }
 
@@ -454,15 +462,16 @@ app.get('/user/*', function (req, res) {
 app.post('/attendance', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
-  if (!req.body || !client.cellphone) {
+  if (!req.body || !req.body.date || !req.body.users || !client.cellphone) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
+  // leader may have multiple groups, we will add attendance row for each group
   mysqlConn.query({
-    sql: 'SELECT (SELECT users.id FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS id, (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS `group`, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)) AS totalCount',
-    values: [client.cellphone, client.cellphone, client.cellphone]
+    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?',
+    values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
@@ -471,22 +480,39 @@ app.post('/attendance', jsonParser, function (req, res) {
       sendErrorObject(res, 400, { Error: "No permission" });
       logger.error(error);
     } else {
-      const data = {
-        date: req.body.date,
-        leader: result[0].id,
-	group: result[0].group,
-        users: JSON.stringify(req.body.users),
-        totalUsers: result[0].totalCount
-      };
-      mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
-        if (error) {
-          sendResultObject(res, { Error: error });
-          logger.error(error);
-        } else {
-          res.status(201).send();
-          logger.succeed();
-        }
-      });
+      const leaderId = result[0].leader;
+      for (var i in result) {
+        const groupId = result[i].group;
+        mysqlConn.query({
+          sql: 'SELECT COUNT(*) AS totalCount FROM users WHERE `group`=?',
+          values: [groupId]
+        }, function (error, result, fields) {
+          if (error) {
+            sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+            logger.error(error);
+          } else if (result.length == 0) {
+            sendErrorObject(res, 400, { Error: "No permission" });
+            logger.error(error);
+          } else {
+            const data = {
+              date: req.body.date,
+              leader: leaderId,
+              group: groupId,
+              users: JSON.stringify(req.body.users),
+              totalUsers: result[0].totalCount
+            };
+            mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
+              if (error) {
+                sendResultObject(res, { Error: error });
+                logger.error(error);
+              } else {
+                res.status(201).send();
+                logger.succeed();
+              }
+            });
+          }
+        });
+      }
     }
   });
 })
