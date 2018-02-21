@@ -340,7 +340,7 @@ app.get('/attendance', function (req, res) {
       const classId = result[0].class;
       var attendees = result;
       mysqlConn.query({
-        sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date >= DATE(NOW()) ORDER BY date ASC LIMIT 1',
+        sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1',
         values: [classId]
       }, function (error, result, fields) {
         if (error) {
