@@ -1,1 +1,210 @@
-{"id":"2017_22","name":"Romans Lesson 222017_22","memoryVerse":"“Therefore, I urge you, brothers and sisters, in view of God’s mercy, to offer your bodies as a living sacrifice, holy and pleasing to God – this is your true and proper worship. Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God’s will is – his good, pleasing and perfect will.” – Romans 12:1-2","dayQuestions":{"one":{"title":"FIRST DAY: Read the notes and the references.","questions":[{"id":"2017_22_1","questionText":"1. What was meaningful to you in the lecture?","answer":"","quotes":[]},{"id":"2017_22_2","questionText":"2. What help did you receive from the notes?","answer":"","quotes":[]}]},"two":{"title":"SECOND DAY: Read Romans 12:3.","readVerse":[{"book":"Romans","verse":"12:3"}],"questions":[{"id":"2017_22_3","questionText":"3. On what basis does Paul give his instructions? Why is that important?","answer":"","quotes":[]},{"id":"2017_22_4","questionText":"4. What warning does he give? What possible errors can occur as we evaluate ourselves?","answer":"","quotes":[]},{"id":"2017_22_5","questionText":"5. How does the phrase “measure of faith” guide a believer’s self-evaluation and evaluation of others?","answer":"","quotes":[]},{"id":"2017_22_6","questionText":"6. Why is it important to have a proper evaluation of yourself before relating to others in the church?  What is God revealing to you about the way you relate to others?","answer":"","quotes":[]}]},"three":{"title":"THIRD DAY: Read Romans 12:4-5.","readVerse":[{"book":"Romans","verse":"12:4-5"}],"questions":[{"id":"2017_22_7","questionText":"7. To what does Paul compare Christians? How does this illustration help you understand the way Christians are to relate to one another?","answer":"","quotes":[]},{"id":"2017_22_8","questionText":"  8. List some ways each member of the body belongs to all the other members. List some ways each member of the body has individual responsibilities.","answer":"","quotes":[]}]},"four":{"title":"FOURTH DAY: Read Romans 12:4-5 and Ephesians 4:1-6","readVerse":[{"book":"Romans","verse":"12:4-5"},{"book":"Ephesians","verse":"4:1-6"}],"questions":[{"id":"2017_22_9","questionText":"  9. According to Scripture, who comprises the body of Christ? What unites the body of Christ?","answer":"","quotes":[]},{"id":"2017_22_10","questionText":"10. What instructions does Paul give to maintain unity within local congregations and in the universal Church?","answer":"","quotes":[]},{"id":"2017_22_11","questionText":"11. How are you contributing to, or eroding, unity within the body of Christ in your local congregation or in the universal Church?","answer":"","quotes":[]}]},"five":{"title":"FIFTH DAY: Read Romans 12:6-8.","readVerse":[{"book":"Romans","verse":"12:6-8"}],"questions":[{"id":"2017_22_12","questionText":"12. Share truths concerning God’s gifts to Christians from the following verses: 1 Corinthians 7:7b","answer":"","quotes":[{"book":"1 Corinthians","verse":"7:7"}]},{"id":"2017_22_12b","questionText":"12. 1 Corinthians 12:4-6","answer":"","quotes":[{"book":"1 Corinthians","verse":"12:4-6"}]},{"id":"2017_22_12c","questionText":"12. Ephesians 4:11-13","answer":"","quotes":[{"book":"Ephesians","verse":"4:11-13"}]},{"id":"2017_22_12d","questionText":"12. 1 Peter 4:10-11","answer":"","quotes":[{"book":"1 Peter","verse":"4:10-11"}]},{"id":"2017_22_13","questionText":"13.  List the seven gifts in these verses. Write how each should be exercised along with specific ways this can be done in a local church.","answer":"","quotes":[]},{"id":"2017_22_14","questionText":"14. Which of the gifts has God given you, and what opportunities has He given you to use His gifts?","answer":"","quotes":[]}]},"six":{"title":"SIXTH DAY: Read Romans 12:3-8.","readVerse":[{"book":"Romans","verse":"12:3-8"}],"questions":[{"id":"2017_22_15","questionText":"15. What have you learned about God in this week’s study? How may your group pray for you as you make this truth a part of your life?","answer":"","quotes":[]},{"id":"2017_22_16","questionText":"16. Homiletics for group and administrative leaders: Romans 12:3-8","answer":"","quotes":[{"book":"Romans","verse":"12:3-8"}]}]}}}
+{
+  "id": "2017_22",
+  "name": "Romans Lesson 222017_22",
+  "memoryVerse": "“Therefore, I urge you, brothers and sisters, in view of God’s mercy, to offer your bodies as a living sacrifice, holy and pleasing to God – this is your true and proper worship. Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God’s will is – his good, pleasing and perfect will.” – Romans 12:1-2",
+  "dayQuestions": {
+    "one": {
+      "title": "FIRST DAY: Read the notes and the references.",
+      "questions": [
+        {
+          "id": "2017_22_1",
+          "questionText": "1. What was meaningful to you in the lecture?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_2",
+          "questionText": "2. What help did you receive from the notes?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "two": {
+      "title": "SECOND DAY: Read Romans 12:3.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "12:3"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_22_3",
+          "questionText": "3. On what basis does Paul give his instructions? Why is that important?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_4",
+          "questionText": "4. What warning does he give? What possible errors can occur as we evaluate ourselves?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_5",
+          "questionText": "5. How does the phrase “measure of faith” guide a believer’s self-evaluation and evaluation of others?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_6",
+          "questionText": "6. Why is it important to have a proper evaluation of yourself before relating to others in the church?  What is God revealing to you about the way you relate to others?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "three": {
+      "title": "THIRD DAY: Read Romans 12:4-5.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "12:4-5"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_22_7",
+          "questionText": "7. To what does Paul compare Christians? How does this illustration help you understand the way Christians are to relate to one another?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_8",
+          "questionText": "  8. List some ways each member of the body belongs to all the other members. List some ways each member of the body has individual responsibilities.",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "four": {
+      "title": "FOURTH DAY: Read Romans 12:4-5 and Ephesians 4:1-6",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "12:4-5"
+        },
+        {
+          "book": "Ephesians",
+          "verse": "4:1-6"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_22_9",
+          "questionText": "  9. According to Scripture, who comprises the body of Christ? What unites the body of Christ?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_10",
+          "questionText": "10. What instructions does Paul give to maintain unity within local congregations and in the universal Church?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_11",
+          "questionText": "11. How are you contributing to, or eroding, unity within the body of Christ in your local congregation or in the universal Church?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "five": {
+      "title": "FIFTH DAY: Read Romans 12:6-8.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "12:6-8"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_22_12",
+          "questionText": "12. Share truths concerning God’s gifts to Christians from the following verses: 1 Corinthians 7:7b",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "1 Corinthians",
+              "verse": "7:7"
+            }
+          ]
+        },
+        {
+          "id": "2017_22_12b",
+          "questionText": "12. 1 Corinthians 12:4-6",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "1 Corinthians",
+              "verse": "12:4-6"
+            }
+          ]
+        },
+        {
+          "id": "2017_22_12c",
+          "questionText": "12. Ephesians 4:11-13",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Ephesians",
+              "verse": "4:11-13"
+            }
+          ]
+        },
+        {
+          "id": "2017_22_12d",
+          "questionText": "12. 1 Peter 4:10-11",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "1 Peter",
+              "verse": "4:10-11"
+            }
+          ]
+        },
+        {
+          "id": "2017_22_13",
+          "questionText": "13.  List the seven gifts in these verses. Write how each should be exercised along with specific ways this can be done in a local church.",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_14",
+          "questionText": "14. Which of the gifts has God given you, and what opportunities has He given you to use His gifts?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "six": {
+      "title": "SIXTH DAY: Read Romans 12:3-8.",
+      "readVerse": [
+        {
+          "book": "Romans",
+          "verse": "12:3-8"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2017_22_15",
+          "questionText": "15. What have you learned about God in this week’s study? How may your group pray for you as you make this truth a part of your life?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2017_22_16",
+          "questionText": "16. Homiletics for group and administrative leaders: Romans 12:3-8",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Romans",
+              "verse": "12:3-8"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
