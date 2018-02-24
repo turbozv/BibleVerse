@@ -11,15 +11,12 @@ const DayTitlePrefix = {
 
 function getQuestionId(config, text) {
     const index = parseInt(text);
-    if (index != config.questionId) {
-        return index + "bcdefghijklmn"[config.questionSubId++];
+    var surfix = config.questionSubId[index];
+    config.questionSubId[index] = surfix + 1;
+    if (surfix == 0) {
+        return index + '';
     } else {
-        config.questionSubId = 0;
-        if (text.startsWith(index + '. a. ')) {
-            return config.questionId++ + 'a';
-        } else {
-            return config.questionId++;
-        }
+        return index + "abcdefghijklmn"[surfix];
     }
 }
 
@@ -89,9 +86,12 @@ function parse(content, currentLang) {
         let config = {
             contentId: item.id,
             questionId: 1,
-            questionSubId: 0,
+            questionSubId: {},
             currentLang
         };
+        for (var i = 1; i < 20; i++) {
+            config.questionSubId[i] = 0;
+        }
 
         newContent = {
             id: item.id,
@@ -120,6 +120,43 @@ async function fetchContent(lang) {
     parse(json, lang);
 }
 
-for (var i in Languages) {
-    fetchContent(Languages[i]);
+function run() {
+    for (var i in Languages) {
+        fetchContent(Languages[i]);
+    }
 }
+
+//test();
+run();
+
+async function test() {
+    const url = 'http://bsfapi.azurewebsites.net/material/en-US/Lessons/2017_26';
+    console.log("Get: " + url);
+    res = await fetch(url);
+    item = await res.json();
+
+    let config = {
+        contentId: item.id,
+        questionId: 1,
+        questionSubId: {},
+        currentLang: 'en-US'
+    };
+    for (var i = 1; i < 20; i++) {
+        config.questionSubId[i] = 0;
+    }
+
+    newContent = {
+        id: item.id,
+        name: item.name + item.id,
+        memoryVerse: item.memoryVerse,
+        dayQuestions: {
+            one: getDayQuestion(config, item.dayQuestions, 0),
+            two: getDayQuestion(config, item.dayQuestions, 1),
+            three: getDayQuestion(config, item.dayQuestions, 2),
+            four: getDayQuestion(config, item.dayQuestions, 3),
+            five: getDayQuestion(config, item.dayQuestions, 4),
+            six: getDayQuestion(config, item.dayQuestions, 5),
+        }
+    };
+}
+
