@@ -1,13 +1,14 @@
 var sqlite3 = require('sqlite3');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-var express = require('express');
 var https = require('https');
 var config = require('./config.js');
 var mysql = require('mysql');
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 var dbBible = new sqlite3.Database('bible.db');
-var app = express();
 var jsonParser = bodyParser.json()
 var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst' });
 
@@ -556,5 +557,36 @@ app.post('/poke', jsonParser, function (req, res) {
   logger.done(data);
 })
 
+// Set up socket.io for chat server
+io.sockets.on('connection', function (socket) {
+  // send existing messages
+  mysqlConn.query({
+    sql: 'SELECT createdAt, user, message FROM chat ORDER BY createdAt DESC'
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else {
+      for (var i in result) {
+        socket.emit('newMessage', {
+          createdAt: result[i].createdAt,
+          user: result[i].user,
+          message: result[i].message
+        });
+      }
+    }
+  });
+
+  // listen on new message and broadcast it
+  socket.on('newMessage', function (data) {
+    console.log('newMessage: ' + JSON.stringify(data));
+    socket.broadcast.emit('newMessage', {
+      createdAt: data.createdAt,
+      user: data.username,
+      message: data.message
+    });
+  });
+});
+
 app.use(bodyParser.text());
-app.listen(3000)
+server.listen(3000)
