@@ -557,33 +557,65 @@ app.post('/poke', jsonParser, function (req, res) {
   logger.done(data);
 })
 
-// Set up socket.io for chat server
-io.sockets.on('connection', function (socket) {
-  // send existing messages
+// Get messages for chat/discussion
+app.get('/messages/*', function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  const room = req.params[0];
+  if (!room) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  // TODO: Client queries by timestamp, then messages are merged by client
   mysqlConn.query({
-    sql: 'SELECT createdAt, user, message FROM chat ORDER BY createdAt DESC'
+    sql: 'SELECT createdAt, user, message FROM messages WHERE room=? ORDER BY createdAt DESC',
+    values: [room]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
     } else {
-      for (var i in result) {
-        socket.emit('newMessage', {
-          createdAt: result[i].createdAt,
-          user: result[i].user,
-          message: result[i].message
-        });
-      }
+      sendResultObject(res, result);
+      logger.succeed();
     }
   });
+})
 
+// Set up socket.io for chat server
+io.sockets.on('connection', function (socket) {
   // listen on new message and broadcast it
   socket.on('newMessage', function (data) {
-    console.log('newMessage: ' + JSON.stringify(data));
-    socket.broadcast.emit('newMessage', {
-      createdAt: data.createdAt,
-      user: data.username,
+    const ip = socket.handshake.address.replace('::ffff:', '');
+    const createdAt = new Date().getTime();
+    console.log('newMessage from [' + ip + ']: ' + JSON.stringify(data));
+
+    if (!data.room || !data.user || !data.message) {
+      console.log('Invalid message!');
+      return;
+    }
+
+    // save to database
+    const value = {
+      ip,
+      createdAt,
+      room: data.room,
+      user: data.user,
       message: data.message
+    }
+    mysqlConn.query('INSERT INTO messages SET ?', value, function (error, results, fields) {
+      if (error) {
+        console.log('MySQL error: ' + JSON.stringify(error));
+      } else {
+        // broadcast it to everyone
+        socket.broadcast.emit('newMessage', {
+          createdAt,
+          room: data.room,
+          user: data.user,
+          message: data.message
+        });
+      }
     });
   });
 });
