@@ -570,7 +570,7 @@ app.get('/messages/*', function (req, res) {
 
   // TODO: Client queries by timestamp, then messages are merged by client
   mysqlConn.query({
-    sql: 'SELECT createdAt, user, message FROM messages WHERE room=? ORDER BY createdAt DESC',
+    sql: 'SELECT createdAt, user, message FROM messages WHERE room=? ORDER BY createdAt ASC',
     values: [room]
   }, function (error, result, fields) {
     if (error) {
