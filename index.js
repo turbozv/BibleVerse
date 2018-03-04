@@ -1,13 +1,14 @@
 var sqlite3 = require('sqlite3');
 var fs = require('fs');
 var bodyParser = require('body-parser');
-var express = require('express');
 var https = require('https');
 var config = require('./config.js');
 var mysql = require('mysql');
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 var dbBible = new sqlite3.Database('bible.db');
-var app = express();
 var jsonParser = bodyParser.json()
 var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst' });
 
@@ -16,7 +17,7 @@ mysqlConn.connect();
 
 const ValidLanguages = ["chs", "cht", "eng", "spa"];
 const ValidBibleVersions = ['afr53', 'afr83', 'akjv', 'alab', 'amp', 'ampc', 'apsd', 'arc09', 'asv', 'avddv', 'bcnd', 'bdc', 'bdk', 'bds', 'bhn', 'bhti', 'bimk', 'bjb', 'bk', 'bl92', 'bm', 'bmdc', 'bpt', 'bpv', 'bysb', 'ccb', 'ceb', 'cev', 'cevd', 'cjb', 'cnvs', 'cnvt', 'csbs', 'cunpss', 'cunpts', 'darby', 'dhh', 'dnb1930', 'dra', 'erv', 'ervar', 'ervhi', 'ervmr', 'ervne', 'ervor', 'ervpa', 'ervta', 'ervur', 'esv', 'exb', 'fnvdc', 'gnt', 'gnv', 'gw', 'hau', 'hcsb', 'hcv', 'hhh', 'hlgn', 'hnzri', 'htb', 'icb', 'igbob', 'isv', 'jnt', 'jub', 'kj21', 'kjv', 'kpxnt', 'leb', 'lsg', 'maori', 'mbb05', 'mev', 'mounce', 'msg', 'n11bm', 'n78bm', 'nabre', 'nasb', 'natwi', 'nav', 'nbg51', 'nblh', 'ncv', 'neg1979', 'net', 'ngude', 'nirv', 'niv1984', 'niv2011', 'nivuk', 'nkjv', 'nlt', 'nlt2013', 'nlv', 'nog', 'nr2006', 'nrsv', 'nrsva', 'nrt', 'nso00', 'nso51', 'ntlr', 'ntv', 'nvi', 'nvipt', 'ojb', 'okyb', 'ondb', 'phillips', 'pmpv', 'pnpv', 'rcpv', 'rcuvss', 'rcuvts', 'ripv', 'rnksv', 'rsv', 'rsvce', 'rvc', 'rvr1995', 'rvr60', 'rvr95', 'rvv11', 'rwv', 'sblgnt', 'sch2000', 'seb', 'sg21', 'snd', 'snd12', 'spynt', 'sso89so', 'suv', 'swt', 'synod', 'tb', 'tbov', 'tcl02', 'th1971', 'tla', 'tlb', 'tlv', 'tr1550', 'tr1894', 'tso29no', 'tso89', 'tsw08no', 'tsw70', 'urd', 'ven98', 'voice', 'web', 'webbe', 'wlc', 'wyc', 'xho75', 'xho96', 'ylt', 'zomi', 'zul59'];
-const AnnotationWords = ['the', 'in', 'of', 'on', 'and', 'an', 'to'];
+const AnnotationWords = ['the', 'in', 'of', 'on', 'and', 'an', 'to', 'a', 'for'];
 
 class Logger {
   constructor(req, client) {
@@ -327,7 +328,7 @@ app.get('/attendance', function (req, res) {
 
   // Allowed roles: 0-root, 1-TL, 2-STL, 3-CA, 4-ACA, 6-GL, 7-UGL
   mysqlConn.query({
-    sql: 'SELECT id, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
+    sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -338,10 +339,9 @@ app.get('/attendance', function (req, res) {
       logger.error(error);
     } else {
       const classId = result[0].class;
-      const leaderId = result[0].id;
       var attendees = result;
       mysqlConn.query({
-        sql: 'SELECT date as nextClassDate FROM attendanceDates WHERE class=? AND date >= DATE(NOW()) ORDER BY date ASC LIMIT 1',
+        sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1',
         values: [classId]
       }, function (error, result, fields) {
         if (error) {
@@ -352,22 +352,28 @@ app.get('/attendance', function (req, res) {
           logger.error(error);
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
+
+          // get users from all groups
           mysqlConn.query({
-            sql: 'SELECT users FROM attendance WHERE leader=? AND date=? ORDER BY submitDate DESC LIMIT 1',
-            values: [leaderId, nextClassDate]
+            sql: 'SELECT `group`, users FROM attendance WHERE date=? AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) ORDER BY submitDate DESC',
+            values: [nextClassDate, client.cellphone]
           }, function (error, result, fields) {
             if (error) {
               sendErrorObject(res, 400, { Error: JSON.stringify(error) });
               logger.error(error);
             } else {
-              let checkedInUsers = null;
-              if (result.length > 0) {
-                checkedInUsers = JSON.parse(result[0].users);
+              var checkedInUsers = [];
+              for (var i in result) {
+                const group = result[i].group;
+                if (!checkedInUsers[group]) {
+                  checkedInUsers[group] = JSON.parse(result[i].users);
+                }
               }
 
               for (var i in attendees) {
                 delete attendees[i].class;
-                if (checkedInUsers && checkedInUsers.includes(attendees[i].id)) {
+                const group = attendees[i].group;
+                if (checkedInUsers[group] && checkedInUsers[group].includes(attendees[i].id)) {
                   attendees[i].checked = true;
                 }
               }
@@ -454,15 +460,16 @@ app.get('/user/*', function (req, res) {
 app.post('/attendance', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   var logger = new Logger(req, client);
-  if (!req.body || !client.cellphone) {
+  if (!req.body || !req.body.date || !req.body.users || !client.cellphone) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
+  // leader may have multiple groups, we will add attendance row for each group
   mysqlConn.query({
-    sql: 'SELECT (SELECT users.id FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS id, (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AS `group`, (SELECT COUNT(*) FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)) AS totalCount',
-    values: [client.cellphone, client.cellphone, client.cellphone]
+    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?',
+    values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
@@ -471,22 +478,39 @@ app.post('/attendance', jsonParser, function (req, res) {
       sendErrorObject(res, 400, { Error: "No permission" });
       logger.error(error);
     } else {
-      const data = {
-        date: req.body.date,
-        leader: result[0].id,
-	group: result[0].group,
-        users: JSON.stringify(req.body.users),
-        totalUsers: result[0].totalCount
-      };
-      mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
-        if (error) {
-          sendResultObject(res, { Error: error });
-          logger.error(error);
-        } else {
-          res.status(201).send();
-          logger.succeed();
-        }
-      });
+      const leaderId = result[0].leader;
+      for (var i in result) {
+        const groupId = result[i].group;
+        mysqlConn.query({
+          sql: 'SELECT COUNT(*) AS totalCount FROM users WHERE `group`=?',
+          values: [groupId]
+        }, function (error, result, fields) {
+          if (error) {
+            sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+            logger.error(error);
+          } else if (result.length == 0) {
+            sendErrorObject(res, 400, { Error: "No permission" });
+            logger.error(error);
+          } else {
+            const data = {
+              date: req.body.date,
+              leader: leaderId,
+              group: groupId,
+              users: JSON.stringify(req.body.users),
+              totalUsers: result[0].totalCount
+            };
+            mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
+              if (error) {
+                sendResultObject(res, { Error: error });
+                logger.error(error);
+              } else {
+                res.status(201).send();
+                logger.succeed();
+              }
+            });
+          }
+        });
+      }
     }
   });
 })
@@ -601,5 +625,68 @@ app.post('/poke', jsonParser, function (req, res) {
   logger.done(data);
 })
 
+// Get messages for chat/discussion
+app.get('/messages/*', function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  const room = req.params[0];
+  if (!room) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  // TODO: Client queries by timestamp, then messages are merged by client
+  mysqlConn.query({
+    sql: 'SELECT createdAt, user, message FROM messages WHERE room=? ORDER BY createdAt ASC',
+    values: [room]
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else {
+      sendResultObject(res, result);
+      logger.succeed();
+    }
+  });
+})
+
+// Set up socket.io for chat server
+io.sockets.on('connection', function (socket) {
+  // listen on new message and broadcast it
+  socket.on('newMessage', function (data) {
+    const ip = socket.handshake.address.replace('::ffff:', '');
+    const createdAt = new Date().getTime();
+    console.log('newMessage from [' + ip + ']: ' + JSON.stringify(data));
+
+    if (!data.room || !data.user || !data.message) {
+      console.log('Invalid message!');
+      return;
+    }
+
+    // save to database
+    const value = {
+      ip,
+      createdAt,
+      room: data.room,
+      user: data.user,
+      message: data.message
+    }
+    mysqlConn.query('INSERT INTO messages SET ?', value, function (error, results, fields) {
+      if (error) {
+        console.log('MySQL error: ' + JSON.stringify(error));
+      } else {
+        // broadcast it to everyone
+        socket.broadcast.emit('newMessage', {
+          createdAt,
+          room: data.room,
+          user: data.user,
+          message: data.message
+        });
+      }
+    });
+  });
+});
+
 app.use(bodyParser.text());
-app.listen(3000)
+server.listen(3000)
