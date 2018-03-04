@@ -1,6 +1,6 @@
 exports.reportsKey = "<key>";
 
-exports.mysqlServer = '<ip>';
-exports.mysqlUser = '<user>';
-exports.mysqlPassword = '<password>';
-exports.mysqlDatabase = '<database>';
+exports.mysqlServer = 'localhost';
+exports.mysqlUser = 'test';
+exports.mysqlPassword = 'test0112';
+exports.mysqlDatabase = 'cbsf';
