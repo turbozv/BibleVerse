@@ -603,12 +603,10 @@ app.get('/get_answer/:questionId', jsonParser, function (req, res) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
-    } else if (result.length == 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user" });
-      logger.error(error);
     } else {
+      var userAnswer = result.length == 0? "" : result[0].answer;
       const data = {
-        answer: result[0].answer
+        answer: userAnswer
       };
       sendResultObject(res, data);
       logger.succeed();
