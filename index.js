@@ -10,9 +10,9 @@ const io = require('socket.io')(server);
 
 var dbBible = new sqlite3.Database('bible.db');
 var jsonParser = bodyParser.json()
-var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst' });
+var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst', charset: 'utf8mb4' });
 
-// Keep connection open for fast speed
+// Keep connection alive
 mysqlConn.connect();
 
 const ValidLanguages = ["chs", "cht", "eng", "spa"];
@@ -568,8 +568,8 @@ app.post('/save_answer', jsonParser, function (req, res) {
     date: req.body.date,
     cellphone: client.cellphone,
     question_id: questionId,
-    device:client.deviceId,
-    answer:req.body.answer
+    device: client.deviceId,
+    answer: req.body.answer
   }
 
   mysqlConn.query('REPLACE INTO answers SET ?', data, function (error, result, fields) {
@@ -604,7 +604,7 @@ app.get('/get_answer/:questionId', jsonParser, function (req, res) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
     } else {
-      var userAnswer = result.length == 0? "" : result[0].answer;
+      var userAnswer = result.length == 0 ? "" : result[0].answer;
       const data = {
         answer: userAnswer
       };
