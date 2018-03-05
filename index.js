@@ -548,6 +548,72 @@ app.post('/feedback', jsonParser, function (req, res) {
   });
 })
 
+// Post notes
+app.post('/save_answer', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  if (!req.body || !client.cellphone) {
+    sendErrorObject(res, 401, { Error: "Invalid input:" });
+    logger.error("Invalid input" + JSON.stringify(req.body));
+    return;
+  }
+
+  var questionId = req.body.question_id;
+  if (!questionId || questionId.length == 0) {
+    sendErrorObject(res, 400, { Error: "Invalid question ID" });
+    logger.error(error);
+  }
+
+  const data = {
+    date: req.body.date,
+    cellphone: client.cellphone,
+    question_id: questionId,
+    device:client.deviceId,
+    answer:req.body.answer
+  }
+
+  mysqlConn.query('REPLACE INTO answers SET ?', data, function (error, result, fields) {
+    if (error) {
+      sendResultObject(res, { Error: error });
+      logger.error(error);
+    } else {
+      res.status(201).send();
+      logger.succeed();
+    }
+  });
+})
+
+// Get User answers
+app.get('/get_answer/:questionId', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  var logger = new Logger(req, client);
+  const cellphone = client.cellphone;
+  const question_id = req.params.questionId;
+
+  if (!cellphone || cellphone.length == 0 || !question_id || question_id.length == 0) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  mysqlConn.query({
+    sql: 'SELECT answer FROM answers WHERE cellphone=? AND question_id=?',
+    values: [cellphone, question_id]
+  }, function (error, result, fields) {
+    if (error) {
+      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+      logger.error(error);
+    } else {
+      var userAnswer = result.length == 0? "" : result[0].answer;
+      const data = {
+        answer: userAnswer
+      };
+      sendResultObject(res, data);
+      logger.succeed();
+    }
+  });
+})
+
 // Post poke (device call home)
 app.post('/poke', jsonParser, function (req, res) {
   const client = getClientInfo(req);

@@ -32,11 +32,14 @@ DROP TABLE IF EXISTS `answers`;
 CREATE TABLE IF NOT EXISTS `answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `cellphone` char(20) COLLATE utf8_bin NOT NULL,
+  `question_id` varchar(255) CHARACTER SET latin1 NOT NULL,
   `device` varchar(255) CHARACTER SET latin1 NOT NULL,
   `answer` text CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `date` (`date`,`device`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4;
+
+CREATE UNIQUE INDEX user_question ON answers (cellphone, question_id);
 
 -- --------------------------------------------------------
 
@@ -427,6 +430,7 @@ CREATE TABLE IF NOT EXISTS `VersionView` (
 `version` varchar(255)
 ,`count` bigint(21)
 );
+
 -- --------------------------------------------------------
 
 --
