@@ -399,10 +399,20 @@ app.get('/audio/*', function (req, res) {
     return;
   }
 
-  mysqlConn.query({
-    sql: 'SELECT class FROM users WHERE cellphone=? AND audio=1',
-    values: [cellphone]
-  }, function (error, result, fields) {
+  let query;
+  if (req.query['lesson']) {
+    query = {
+      sql: 'SELECT audios.lesson FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND lesson=? AND audio=1',
+      values: [cellphone, req.query['lesson']]
+    };
+  } else {
+    query = {
+      sql: 'SELECT audios.lesson FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
+      values: [cellphone]
+    };
+  }
+
+  mysqlConn.query(query, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
@@ -410,9 +420,9 @@ app.get('/audio/*', function (req, res) {
       sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
       logger.error(error);
     } else {
-      const classId = result[0].class;
+      const lesson = result[0].lesson;
       if (getRequestValue(req, 'play') == '1') {
-        const file = `audios/${classId}.mp3`;
+        const file = `audios/${lesson}.mp3`;
         res.download(file);
       } else {
         sendResultText(res, '');
