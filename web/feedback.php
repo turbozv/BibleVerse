@@ -3,6 +3,16 @@ require("header.php");
 require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
+
+if (isset($_POST['message']) && isset($_POST['room'])) {
+    $room = $_POST['room'];
+    $message = $_POST['message'];
+    echo "$room ==> $message";
+
+    // TODO
+    //getQuery("INSERT INTO messages(`date`, room, user, message) VALUES('$date', $group, $leaderId, '[$users]')");
+}
+
 echo "<p>";
 
 // GeoIP
@@ -12,10 +22,11 @@ $result = getQuery('SELECT DISTINCT room FROM `messages` WHERE length(room) = 36
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $room = $line['room'];
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
-    echo "<p>$room";
+    echo "<form method='post'><p>$room";
     while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = date("Y-m-d H:i:s", $line2['createdAt'] / 1000);
-        list($user, $deviceId) = split(' ', $line2['user']);
+        $userData = explode(" ", $line2['user']);
+        $user = $userData[0];
         $ip = $line2['ip'];
         if ($ip) {
             $address = '['.geoip_country_name_by_addr($gi, $ip).']';
@@ -25,11 +36,12 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $message = htmlspecialchars($line2['message']);
 
         echo "<li>$date [$user] $address: $message";
-        
-        //$deviceId = $line['deviceId'];
-        //echo "<li>".$line["date"]."$platform $address [$deviceId]: ".htmlspecialchars($line["comment"]);
     }
     mysql_free_result($result2);
+    echo "<input type='hidden' name='room' value='$room'>";
+    echo "<br><textarea name='message' cols='80' rows='5'></textarea><br>";
+    echo "<input type='submit' value='回复 [$room]'>";
+    echo '</form>';
 }
 mysql_free_result($result);
 
