@@ -1,6 +1,8 @@
 bibleList = ['niv2011',
   'cunpss',
   'cunpts',
+  'rcuvss',
+  'rcuvts',
   'esv',
   'rvr1995',
   'ccb',
