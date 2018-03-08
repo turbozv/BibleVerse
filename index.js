@@ -59,7 +59,8 @@ class Logger {
       platformOS: this.client.platformOS,
       deviceYearClass: this.client.deviceYearClass,
       text: this.text ? this.text : '',
-      version: this.client.version
+      version: this.client.version,
+      bibleVersion: this.client.bibleVersion
     };
     mysqlConn.query('INSERT INTO log SET ?', data, function (error, results, fields) {
       if (error) {
@@ -326,7 +327,7 @@ app.get('/attendance', function (req, res) {
     return;
   }
 
-  // Allowed roles: 0-root, 1-TL, 2-STL, 3-CA, 4-ACA, 6-GL, 7-UGL
+  // Find out the leader's information and groups
   mysqlConn.query({
     sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
     values: [client.cellphone]
@@ -340,6 +341,7 @@ app.get('/attendance', function (req, res) {
     } else {
       const classId = result[0].class;
       var attendees = result;
+      // Find the current attendance date
       mysqlConn.query({
         sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1',
         values: [classId]
@@ -352,8 +354,7 @@ app.get('/attendance', function (req, res) {
           logger.error(error);
         } else {
           const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
-
-          // get users from all groups
+          // Get users from all groups
           mysqlConn.query({
             sql: 'SELECT `group`, users FROM attendance WHERE date=? AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) ORDER BY submitDate DESC',
             values: [nextClassDate, client.cellphone]
@@ -489,11 +490,13 @@ app.post('/attendance', jsonParser, function (req, res) {
       logger.error(error);
     } else {
       const leaderId = result[0].leader;
+      // submit for each group
+      var groupCount = result.length;
       for (var i in result) {
         const groupId = result[i].group;
         mysqlConn.query({
-          sql: 'SELECT COUNT(*) AS totalCount FROM users WHERE `group`=?',
-          values: [groupId]
+          sql: 'SELECT (SELECT GROUP_CONCAT(id) from users where `group`=?) AS groupUsers, (SELECT COUNT(*) FROM users WHERE `group`=?) AS groupUserCount',
+          values: [groupId, groupId]
         }, function (error, result, fields) {
           if (error) {
             sendErrorObject(res, 400, { Error: JSON.stringify(error) });
@@ -502,20 +505,32 @@ app.post('/attendance', jsonParser, function (req, res) {
             sendErrorObject(res, 400, { Error: "No permission" });
             logger.error(error);
           } else {
-            const data = {
+            // if the leader submit for multi-group users, we only write the users belong to the current group
+            var users = [];
+            var groupUsers = result[0].groupUsers.split(',');
+            for (var i in groupUsers) {
+              var userId = parseInt(groupUsers[i]);
+              if (req.body.users.indexOf(userId) != -1) {
+                users.push(userId);
+              }
+            }
+            var data = {
               date: req.body.date,
               leader: leaderId,
               group: groupId,
-              users: JSON.stringify(req.body.users),
-              totalUsers: result[0].totalCount
+              users: JSON.stringify(users),
+              totalUsers: result[0].groupUserCount
             };
             mysqlConn.query('INSERT INTO attendance SET ?', data, function (error, results, fields) {
+              groupCount--;
               if (error) {
                 sendResultObject(res, { Error: error });
                 logger.error(error);
               } else {
-                res.status(201).send();
-                logger.succeed();
+                if (groupCount == 0) {
+                  res.status(201).send();
+                  logger.succeed();
+                }
               }
             });
           }
@@ -538,15 +553,12 @@ app.post('/feedback', jsonParser, function (req, res) {
 
   const data = {
     ip: req.ip.replace('::ffff:', ''),
-    deviceId: client.deviceId,
-    lang: client.language,
-    platformOS: client.platformOS,
-    deviceYearClass: client.deviceYearClass,
-    version: client.version,
-    bibleVersion: client.bibleVersion,
-    comment
+    createdAt: new Date().getTime(),
+    room: client.deviceId,
+    user: client.platformOS + ' ' + client.deviceId,
+    message: comment
   };
-  mysqlConn.query('INSERT INTO feedback SET ?', data, function (error, results, fields) {
+  mysqlConn.query('INSERT INTO messages SET ?', data, function (error, results, fields) {
     if (error) {
       sendResultObject(res, { Error: error });
       logger.error(error);
