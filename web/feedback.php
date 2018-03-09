@@ -4,13 +4,18 @@ require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
-if (isset($_POST['message']) && isset($_POST['room'])) {
-    $room = $_POST['room'];
-    $message = $_POST['message'];
-    echo "$room ==> $message";
+if (isset($_POST['delete'])) {
+    $id =  mysql_real_escape_string($_POST['delete']);
+    //echo "Delete message $id";
+    getQuery("DELETE FROM messages WHERE id=$id;");
+}
 
-    // TODO
-    //getQuery("INSERT INTO messages(`date`, room, user, message) VALUES('$date', $group, $leaderId, '[$users]')");
+if (isset($_POST['message']) && isset($_POST['room'])) {
+    $room = mysql_real_escape_string($_POST['room']);
+    $message = mysql_real_escape_string($_POST['message']);
+    $milliseconds = round(microtime(true) * 1000);
+    //echo "$room ==> $message, $milliseconds";
+    getQuery("INSERT INTO messages(room, createdAt, user, ip, message) VALUES('$room', $milliseconds, 'System', '', '$message')");
 }
 
 echo "<p>";
@@ -22,7 +27,7 @@ $result = getQuery('SELECT DISTINCT room FROM `messages` WHERE length(room) = 36
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $room = $line['room'];
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
-    echo "<form method='post'><p>$room";
+    echo "<p>$room";
     while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = date("Y-m-d H:i:s", $line2['createdAt'] / 1000);
         $userData = explode(" ", $line2['user']);
@@ -35,10 +40,15 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         }
         $message = htmlspecialchars($line2['message']);
 
-        echo "<li>$date [$user] $address: $message";
+        echo "<form method='post'><li>$date [$user] $address: $message  ";
+        if (strcasecmp($user, 'System') == 0) {
+            $id = $line2['id'];
+            echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='删除'>";
+        }
+        echo "</form>";
     }
     mysql_free_result($result2);
-    echo "<input type='hidden' name='room' value='$room'>";
+    echo "<form method='post'><input type='hidden' name='room' value='$room'>";
     echo "<br><textarea name='message' cols='80' rows='5'></textarea><br>";
     echo "<input type='submit' value='回复 [$room]'>";
     echo '</form>';
