@@ -45,7 +45,8 @@ function getLink($page, $name)
 {
     if (basename($_SERVER['PHP_SELF']) == $page) {
         return "<a class='active'>$name</a>";
-    } elseif ($page == 'index.php' || $page=='logout.php' || (isset($_SESSION[$page]) && $_SESSION[$page] == '1')) {
+    } elseif ($page == 'index.php' || $page=='logout.php' || $page=='chatroom.php' || $page=='discussion.php' ||
+              (isset($_SESSION[$page]) && $_SESSION[$page] == '1')) {
         return "<a href=$page>$name</a>";
     } else {
         return "";
@@ -55,14 +56,16 @@ function getLink($page, $name)
 
 <div class="topnav">
 <?php 
-echo getLink("index.php", "主页");
-echo getLink("attendanceAdult.php", "成人出席表");
-echo getLink("attendanceSP.php", "儿童出席表");
+echo getLink("index.php", "Home");
+echo getLink("attendanceAdult.php", "Attendance(Adult)");
+echo getLink("attendanceSP.php", "Attendance(SP)");
 echo getLink("editAttendance.php", "编辑出席表");
 echo getLink("feedback.php", "App用户反馈");
-echo getLink("status.php", "App访问统计");
+echo getLink("status.php", "CBSF Chart");
+echo getLink("chatroom.php", "Chatroom");
+echo getLink("discussion.php", "Discussion");
 echo getLink("phpMyAdmin.php", "PhpMyAdmin");
-echo getLink("logout.php", "登出");
+echo getLink("logout.php", "Logout");
 ?>
 </div>
 
