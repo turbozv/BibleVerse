@@ -45,8 +45,10 @@ function getLink($page, $name)
 {
     if (basename($_SERVER['PHP_SELF']) == $page) {
         return "<a class='active'>$name</a>";
-    } else {
+    } elseif ($page == 'index.php' || $page=='logout.php' || (isset($_SESSION[$page]) && $_SESSION[$page] == '1')) {
         return "<a href=$page>$name</a>";
+    } else {
+        return "";
     }
 }
 ?>
