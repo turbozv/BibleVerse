@@ -34,7 +34,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
         echo "<form method='post'><li>$date [$user] $address: $message  ";
         $id = $line2['id'];
-        echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='删除'>";
+        echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='Delete'>";
         echo "</form>";
     }
     mysql_free_result($result2);
