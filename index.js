@@ -445,7 +445,7 @@ app.get('/user/*', function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT * FROM users WHERE cellphone=?',
+    sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=?',
     values: [cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -459,7 +459,8 @@ app.get('/user/*', function (req, res) {
         name: result[0].name,
         audio: result[0].audio,
         class: result[0].class,
-        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1)
+        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1),
+        chat: 1
       };
       sendResultObject(res, data);
       logger.succeed();
