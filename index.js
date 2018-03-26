@@ -445,26 +445,41 @@ app.get('/user/*', function (req, res) {
   }
 
   mysqlConn.query({
-    sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=?',
-    values: [cellphone]
+    sql: 'SELECT lesson FROM audios WHERE class=1'
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
-    } else if (result.length == 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user" });
-      logger.error(error);
-    } else {
-      const data = {
-        name: result[0].name,
-        audio: result[0].audio,
-        class: result[0].class,
-        isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1),
-        chat: 1
-      };
-      sendResultObject(res, data);
-      logger.succeed();
     }
+    audios = [];
+    for (var i in result) {
+      audios.push(result[i].lesson);
+    }
+    mysqlConn.query({
+      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=?',
+      values: [cellphone]
+    }, function (error, result, fields) {
+      if (error) {
+        sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+        logger.error(error);
+      } else if (result.length == 0) {
+        sendErrorObject(res, 400, { Error: "Invalid user" });
+        logger.error(error);
+      } else {
+        const data = {
+          name: result[0].name,
+          audio: result[0].audio,
+          class: result[0].class,
+          isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1),
+          chat: 1
+        };
+        if (data.audio) {
+          data.audios = audios;
+        }
+        sendResultObject(res, data);
+        logger.succeed();
+      }
+    });
   });
 })
 
