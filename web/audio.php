@@ -24,7 +24,7 @@ if (!$row) {
 $row = '1';
 $lesson = $_GET["lesson"];
 if (!isset($lesson)) {
-    $row = getRow("SELECT message, lesson  FROM audios ORDER BY lesson DESC LIMIT 1");
+    $row = getRow("SELECT message, lesson FROM LatestAudio LIMIT 1");
     $lesson = $row[1];
 } else {
     $lesson = mysql_escape_string($lesson);

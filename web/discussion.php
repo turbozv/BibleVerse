@@ -15,7 +15,7 @@ echo "<p>";
 // GeoIP
 require 'vendor/autoload.php';
 $gi = geoip_open("GeoIP.dat", GEOIP_STANDARD);
-$result = getQuery("SELECT DISTINCT room FROM `messages` WHERE length(room) != 36 AND room != 'chat' ORDER BY room DESC");
+$result = getQuery("SELECT DISTINCT room FROM `messages` WHERE length(room) != 36 AND room != 'chat' ORDER BY createdAt DESC");
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $room = $line['room'];
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
