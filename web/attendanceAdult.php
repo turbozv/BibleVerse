@@ -53,7 +53,7 @@ function showLeaderMeetingAttendance()
     reset($members);
     $id = 1;
     while (list($userId, $name) = each($members)) {
-        echo "<tr><td>$id. $name";// (#$userId)";
+        echo "<tr><td>$id. $name(#$userId)";
         reset($attend);
         while (list($date, $users) = each($attend)) {
             if (strpos($users, $userId.',') === false) {

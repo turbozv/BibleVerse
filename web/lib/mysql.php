@@ -48,7 +48,7 @@ function getMembers($class, $group)
 
     // also include the groups the user ever has been
     if ($group != 0) {
-        $result = getQuery("select user from usergroups where class=$class and `group`=$group");
+        $result = getQuery("select user from userGroups where class=$class and `group`=$group");
         while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
             //echo $line['user'].'<br>';
             $members[$line['user']] = $g_users[$line['user']];
