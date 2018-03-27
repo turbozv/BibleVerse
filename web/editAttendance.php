@@ -84,39 +84,6 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     //echo $line['id'].'>>'.$g_users[$line['id']]."<br>";
 }
 
-function getLeaderId($group)
-{
-    $result = mysql_query("select leader from attendanceLeaders where `group`=$group") or die('Query failed: ' . mysql_error());
-    $row = mysql_fetch_row($result);
-    return $row[0];
-}
-
-function getMembers($class, $group)
-{
-    global $g_users;
-    $members = array();
-    if ($group == 0) {
-        $result = getQuery("select id from users where class=$class and role NOT IN (6, 255) order by role, cname asc");
-    } else {
-        $result = getQuery("select id from users where class=$class and `group`=$group order by role, cname asc");
-    }
-    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        $members[$line['id']] = $g_users[$line['id']];
-    }
-    return $members;
-}
-
-function isUserInGroupOnDate($user, $group, $date)
-{
-    $row = getRow("SELECT id FROM userGroups WHERE user=$user AND `group`=$group");
-    if (!$row) {
-        return true;
-    }
-
-    $row = getRow("SELECT id FROM userGroups WHERE user=$user AND `group`=$group AND fromDate <= '$date' AND endDate >= '$date'");
-    return !!$row;
-}
-
 function showLeaderMeetingAttendance()
 {
     global $class;
@@ -232,8 +199,10 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         echo "<h4>同工小组(周一)<br>";
     } elseif ($group < 100) {
         echo "<h4>成人小组#".$group."<br>";
-    } else {
+    } elseif ($group < 200) {
         echo "<h4>儿童小组#".$group."<br>";
+    } else {
+        echo "<h4>卫星小组#".$group."<br>";
     }
     $leaderId = getLeaderId($group);
     
@@ -276,7 +245,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         echo "<tr><td>$id. $name (#$userId)";
         reset($attend);
         while (list($date, $users) = each($attend)) {
-            if (!isUserInGroupOnDate($userId, 0, $date)) {
+            if (!isUserInGroupOnDate($userId, $group, $date)) {
                 echo "<td>";
             } else {
                 if (strpos($users, $userId.',') === false) {
@@ -297,7 +266,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $count = substr_count($users, ',');
         if ($group < 100) {
             $classAttendAdults[$date] = (isset($classAttendAdults[$date])? $classAttendAdults[$date] : 0) + $count;
-        } else {
+        } elseif ($group < 200) {
             $classAttendChildren[$date] = (isset($classAttendChildren[$date])? $classAttendChildren[$date] : 0) + $count;
         }
         echo "<td align='center'>$count";

@@ -7,41 +7,7 @@ require("lib/mysql.php");
 header("content-type:text/html; charset=utf-8");
 
 // Get user roles
-$g_users = array();
-$result = getQuery("SELECT users.id, roles.name as role, users.name, users.cname FROM roles INNER JOIN users ON users.role=roles.id");
-while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $name = $line['cname'].' '. $line['name'];
-    $roleName = $line['role'];
-    if (strlen($roleName) > 0) {
-        $g_users[$line['id']] = "$name ($roleName)";
-    } else {
-        $g_users[$line['id']] = $name;
-    }
-    //echo $line['id'].'>>'.$g_users[$line['id']]."<br>";
-}
-
-function getLeaderId($group)
-{
-    $result = mysql_query("select id from users where `group`=$group and role in (0,1,2,3,4,6,7)") or die('Query failed: ' . mysql_error());
-    $row = mysql_fetch_row($result);
-    return $row[0];
-}
-
-function getMembers($class, $group)
-{
-    global $g_users;
-    $members = array();
-    if ($group == 0) {
-        $result = getQuery("select id from users where class=$class and role NOT IN (6,255) order by role, cname asc");
-    } else {
-        $result = getQuery("select id from users where class=$class and `group`=$group order by role, name asc");
-    }
-    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        $members[$line['id']] = $g_users[$line['id']];
-    }
-    return $members;
-}
-
+$g_users = getUsers();
 
 // TODO: Support different class
 $class = 1;
@@ -51,7 +17,7 @@ echo "<h3>出席表 Class: $row[0]</h3>";
 $classAttendChildren = array();
 $classTotalChildren = array();
 
-$query = "select distinct `group` from users where class=$class and `group` >= 100 order by `group` asc ";
+$query = "select distinct `group` from users where class=$class and `group` >= 100 and `group` < 200 order by `group` asc ";
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $group = $line["group"];

@@ -7,44 +7,7 @@ require("lib/mysql.php");
 header("content-type:text/html; charset=utf-8");
 
 // Get user roles
-$g_users = array();
-$result = getQuery("SELECT users.id, roles.name as role, users.name, users.cname FROM roles INNER JOIN users ON users.role=roles.id");
-while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $name = $line['cname'].' '. $line['name'];
-    $roleName = $line['role'];
-    if (strlen($roleName) > 0) {
-        $g_users[$line['id']] = "$name ($roleName)";
-    } else {
-        $g_users[$line['id']] = $name;
-    }
-    //echo $line['id'].'>>'.$g_users[$line['id']]."<br>";
-}
-
-function getLeaderId($group)
-{
-    $group = mysql_real_escape_string($group);
-    $result = mysql_query("select id from users where `group`=$group and role in (0,1,2,3,4,6,7)") or die('Query failed: ' . mysql_error());
-    $row = mysql_fetch_row($result);
-    return $row[0];
-}
-
-function getMembers($class, $group)
-{
-    global $g_users;
-    $members = array();
-    $class = mysql_real_escape_string($class);
-    $group = mysql_real_escape_string($group);
-    if ($group == 0) {
-        $result = getQuery("select id from users where class=$class and role NOT IN (6,255) order by role, cname asc");
-    } else {
-        $result = getQuery("select id from users where class=$class and `group`=$group order by role, cname asc");
-    }
-    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        $members[$line['id']] = $g_users[$line['id']];
-    }
-    return $members;
-}
-
+$g_users = getUsers();
 
 function showLeaderMeetingAttendance()
 {
@@ -79,7 +42,7 @@ function showLeaderMeetingAttendance()
     }
     mysql_free_result($result);
 
-    echo "<table border=1><tr><td style='min-width: 240px;'>";
+    echo "<table border=1><tr><td style='min-width: 280px;'>";
     $idx = 0;
     while (list($date, $users) = each($attend)) {
         list($year, $month, $day) = split('[/.-]', $date);
@@ -94,7 +57,12 @@ function showLeaderMeetingAttendance()
         reset($attend);
         while (list($date, $users) = each($attend)) {
             if (strpos($users, $userId.',') === false) {
-                $check = ' ';
+                if (!isUserInGroupOnDate($userId, 0, $date)) {
+                    $check = '-';
+                }
+                else {
+                    $check = '';
+                }
             } else {
                 $check = '√';
             }
@@ -143,6 +111,30 @@ echo "<h3>出席表 Class: $row[0]</h3>";
 
 showLeaderMeetingAttendance();
 
+// Find all adult attendance & total by date
+$g_attendance = array();
+$result = getQuery("select * from attendanceDates where class=$class order by date asc");
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    $date = mysql_real_escape_string($line["date"]);
+    $g_attendance[$date] = getUsersAttendance($date, 'adult');
+}
+mysql_free_result($result);
+
+/*
+foreach (array_keys($g_attendance) as $key) {
+    echo "$key:";
+    $users = $g_attendance[$key]['users'];
+    $totalUsers = $g_attendance[$key]['totalUsers'];
+    foreach (array_keys($users) as $user) {
+        echo "$user ";
+    }
+    echo "<br>";
+    foreach (array_keys($totalUsers) as $group) {
+        echo "$group>".$totalUsers[$group]."<br>";
+    }
+    echo "<br>";
+}
+*/
 
 $classAttend = array();
 $classTotal = array();
@@ -158,7 +150,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     }
     $leaderId = getLeaderId($group);
     
-    // get all member names
+    // get all member names (who has ever in this group)
     $members = getMembers($class, $group);
 
     $attend = array();
@@ -182,7 +174,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         //echo "$date => $attend[$date] totalUsers: $totalUsers[$date]<br>";
     }
 
-    echo "<table border=1><tr><td style='min-width: 240px;'>";
+    echo "<table border=1><tr><td style='min-width: 280px;'>";
     $idx = 0;
     while (list($date, $users) = each($attend)) {
         list($year, $month, $day) = split('[/.-]', $date);
@@ -193,11 +185,15 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     reset($members);
     $id = 1;
     while (list($userId, $name) = each($members)) {
-        echo "<tr><td>$id. $name";// (#$userId)";
+        echo "<tr><td>$id. $name(#$userId)";// ";
         reset($attend);
         while (list($date, $users) = each($attend)) {
             if (strpos($users, $userId.',') === false) {
-                $check = ' ';
+                if (!isUserInGroupOnDate($userId, $group, $date)) {
+                    $check = '-';
+                } else {
+                    $check = '';
+                }
             } else {
                 $check = '√';
             }
@@ -245,7 +241,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 mysql_free_result($result);
 
 echo "<br><br><b>全班成人总计</b>";
-echo "<table border=1><tr><td style='min-width: 240px;'>";
+echo "<table border=1><tr><td style='min-width: 280px;'>";
 $idx = 0;
 reset($classAttend);
 while (list($date, $count) = each($classAttend)) {
