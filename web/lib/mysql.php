@@ -24,8 +24,7 @@ function getRow($sql)
 
 function getLeaderId($group)
 {
-    $group = mysql_real_escape_string($group);
-    $result = mysql_query("select id from users where `group`=$group and role in (0,1,2,3,4,6,7)") or die('Query failed: ' . mysql_error());
+    $result = mysql_query("select leader from attendanceLeaders where `group`=$group") or die('Query failed: ' . mysql_error());
     $row = mysql_fetch_row($result);
     return $row[0];
 }
