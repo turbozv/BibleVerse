@@ -34,7 +34,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     while ($line = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = $line["date"];
         // find attendance by group
-        $row = getRow("select users, totalUsers from attendance where `date`='$date' and leader in (select leader from attendanceLeaders where `group`=$group) order by submitDate desc limit 1");
+        $row = getRow("select users, totalUsers from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
         if ($row === false) {
             $attend[$date] = "";
             $totalUsers[$date] = 0;
@@ -64,11 +64,14 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         reset($attend);
         while (list($date, $users) = each($attend)) {
             if (strpos($users, $userId.',') === false) {
-                $check = ' ';
+                if (!isUserInGroupOnDate($userId, $group, $date)) {
+                    $check = '-';
+                } else {
+                    $check = '';
+                }
             } else {
                 $check = '√';
             }
-            
             echo "<td align='center'>$check";
         }
         $id++;

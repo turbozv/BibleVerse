@@ -70,7 +70,7 @@ function getUsers()
         } else {
             $users[$line['id']] = $name;
         }
-        //echo $line['id'].'>>'.$g_users[$line['id']]."<br>";
+        //echo $line['id'].'>>'.$users[$line['id']]."<br>";
     }
 
     return $users;
@@ -119,6 +119,11 @@ function getUsersAttendance($date, $groupType)
 
 function isUserInGroupOnDate($user, $group, $date)
 {
+    $row = getRow("SELECT id FROM users WHERE id=$user AND DATE(registerDate) <= '$date'");
+    if (!$row) {
+        return false;
+    }
+
     $row = getRow("SELECT id FROM userGroups WHERE user=$user AND `group`=$group");
     if (!$row) {
         return true;

@@ -159,7 +159,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     while ($line = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = mysql_real_escape_string($line["date"]);
         // find attendance by group
-        $row = getRow("select users, totalUsers from attendance where `date`='$date' and leader in (select leader from attendanceLeaders where `group`=$group) order by submitDate desc limit 1");
+        $row = getRow("select users, totalUsers from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
         if ($row === false) {
             $attend[$date] = "";
             $totalUsers[$date] = 0;
