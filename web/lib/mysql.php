@@ -38,7 +38,8 @@ function getMembers($class, $group)
     if ($group == 0) {
         $result = getQuery("select id from users where class=$class and role NOT IN (6,255) order by role, cname asc");
     } else {
-        $result = getQuery("select id from users where class=$class and `group`=$group order by role, cname asc");
+        // 6 - GL shows first
+        $result = getQuery("select id from users where class=$class and `group`=$group order by FIELD(role, '6') desc, cname asc");
     }
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $members[$line['id']] = $g_users[$line['id']];
