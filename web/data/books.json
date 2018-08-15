@@ -2,6 +2,15 @@
   "chs": {
     "booklist": [
       {
+        "title": "应许之地的子民（一）2018-2019",
+        "lessons": [
+          {
+            "id": "2018_1",
+            "name": "第1课 约书亚记1:1-5:12 (09/10)"
+          }
+        ]
+      },
+      {
         "title": "罗马书2017-2018",
         "lessons": [
           {
@@ -165,6 +174,15 @@
   },
   "cht": {
     "booklist": [
+      {
+        "title": "應許之地的子民（一）2018-2019",
+        "lessons": [
+          {
+            "id": "2018_1",
+            "name": "第1課 約書亞記1:1-5:12 (09/10)"
+          }
+        ]
+      },
       {
         "title": "羅馬書2017-2018",
         "lessons": [
@@ -330,6 +348,15 @@
   "eng": {
     "booklist": [
       {
+        "title": "People of the Promised Land I 2018-2019",
+        "lessons": [
+          {
+            "id": "2018_1",
+            "name": "Lesson1 Joshua1:1-5:12 (09/10)"
+          }
+        ]
+      },
+      {
         "title": "Romans 2017-2018",
         "lessons": [
           {
@@ -464,6 +491,15 @@
   },
   "spa": {
     "booklist": [
+      {
+        "title": "El pueblo de la Tierra Prometida I 2018-2019",
+        "lessons": [
+          {
+            "id": "2018_1",
+            "name": "Lección 1 Josué1:1-5:12 (09/10)"
+          }
+        ]
+      },
       {
         "title": "Romanos 2017-2018",
         "lessons": [
