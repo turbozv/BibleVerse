@@ -135,17 +135,21 @@ if (!fs.isDir("data")) {
   fs.mkdir("data");
 }
 
+books = {};
 for (i in Languages) {
   globalCache = {};
   globalCacheSize = 0;
   const lang = Languages[i];
   const home = getJson('/lessons?lang=' + lang, true);
+  books[lang] = home;
 
   addToCache('BOOK/?lang=' + lang, home);
   parseHome(home, lang);
 
   fs.write(`data\\${lang}.json`, JSON.stringify(globalCache));
 }
+
+fs.write(`data\\books.json`, JSON.stringify(books));
 
 var total = Object.keys(globalBibleVerses).length * BibleVerses.length;
 for (k in BibleVerses) {

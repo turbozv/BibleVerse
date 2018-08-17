@@ -1,7 +1,7 @@
 ﻿{
 	"booklist": [
 		{
-			"title": "People of the Promised Land I 2018-2019",
+			"title": "People of the Promised Land I",
 			"lessons": [
 				{
 					"id": "2018_1",
@@ -14,7 +14,8 @@
 			"lessons": [
 				{
 					"id": "2017_1",
-					"name": "Lesson1 Romans1:1-17 (09/18)"
+					"name": "Lesson1 Romans1:1-17 (09/18)",
+					"notesUri": "http://cbsf.azurewebsites.net/files/en-US/Romans_2017_01-manual.html"
 				},
 				{
 					"id": "2017_2",
@@ -114,19 +115,24 @@
 				},
 				{
 					"id": "2017_26",
-					"name": "Lesson26 Romans14 (04/02)"
+					"name": "Lesson26 Romans14 (04/02)",
+					"homeTraining": true
 				},
 				{
 					"id": "2017_27",
-					"name": "Lesson27 Romans15:1-13 (04/16)"
+					"name": "Lesson27 Romans15:1-13 (04/16)",
+					"homeTraining": true
 				},
 				{
 					"id": "2017_28",
-					"name": "Lesson28 Romans15:14-33 (04/23)"
+					"name": "Lesson28 Romans15:14-33 (04/23)",
+					"homeTraining": true
 				},
 				{
 					"id": "2017_29",
-					"name": "Lesson29 Romans16 (04/30)"
+					"name": "Lesson29 Romans16 (04/30)",
+					"homeDiscussion": true,
+					"homeTraining": true
 				},
 				{
 					"id": "2017_30",
