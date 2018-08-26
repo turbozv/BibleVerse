@@ -1,5 +1,7 @@
-var fs = require('fs-sync');
-var books = require('./books.json');
+let fs = require('fs');
+let fsSync = require('fs-sync');
+const books = require('./books.json');
+let textract = require('textract');
 
 let bookArray = []
 Object.keys(books).forEach(item => {
@@ -64,9 +66,15 @@ function split(spliters, content) {
 }
 
 function parseLessonId(content) {
-  var strs = split(['Lesson', 'Lección ', '\n'], content);
+  var strs = split(['Lesson Review', 'Lesson', 'Lección ', '\n'], content);
   let id;
   strs.some(item => {
+    if (['Lesson Review'].indexOf(item) !== -1) {
+      Lesson = 30;
+      id = Year + '_' + Lesson;
+      return true;
+    }
+
     const value = parseInt(item);
     if (value > 0) {
       Lesson = value;
@@ -159,8 +167,8 @@ function parseReadVerse(content) {
     if (books[item]) {
       let verses = parseVerses(strs[++i].trim());
       if (verses) {
+        console.log(JSON.stringify({ book: item, verses }) + ' ' + content);
         verses.forEach(verse => {
-          console.log(JSON.stringify({ book: item, verse }));
           result.push({
             book: item,
             verse
@@ -255,6 +263,7 @@ function parseHomework(content) {
   let strs = split(DayQuestionSpliter, content);
   let pos = 3;
   const id = parseLessonId(strs[0]);
+  console.assert(strs.length === 15);
   return {
     id,
     name: "",
@@ -275,29 +284,61 @@ function parse(dir, file) {
   Lesson = 1;
   Index = 1;
 
-  let content = fs.read(`${dir}\\${file}`);
+  const input = `${dir}\\${file}`;
+  console.log(`Reading [${input}]...`);
+  let content = fsSync.read(input);
+
+  // formatting
   content = content.replace(/\t/g, ' ').replace(/\r/g, '');
+
   let newContent = '';
+  let removeMode = false;
   content.split('\n').forEach(line => {
-    if (line.trim().length > 0) {
-      newContent += line.trim() + '\n';
+    if (removeMode) {
+      let index = line.indexOf(')');
+      if (index !== -1) {
+        line = line.substring(index + 1);
+        removeMode = false;
+      }
+    }
+
+    let index = line.indexOf('Copyright © Bible Study Fellowship 2018');
+    if (index !== -1) {
+      // not ending, we will enter remove mode
+      removeMode = line.indexOf(')', index) === -1;
+
+      line = line.substring(0, index);
+    }
+
+    line = line.trim();
+    if (line.length > 0) {
+      newContent += line + '\n';
     }
   });
 
   const result = parseHomework(newContent);
-  const filename = `${dir}\\${Year}_${Lesson}.json`;
-  console.log(`Writing to[${filename}]...`);
-  fs.write(filename, JSON.stringify(result));
+  const output = `${dir}\\${Year}_${Lesson}.json`;
+  console.log(`Writing to[${output}]...\n`);
+  fsSync.write(output, JSON.stringify(result));
 }
 
+function main() {
+  dir = 'eng';
+  fs.readdir(dir, (err, files) => {
+    files.forEach(file => {
+      if (!file.endsWith('.docx')) {
+        return;
+      }
+
+      textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
+        fsSync.write(dir + '\\' + file + '.txt', text);
+        parse(dir, file + '.txt');
+      });
+    });
+  })
+}
+
+
 // Main
-parse('eng', '01.txt');
-parse('eng', '02.txt');
-parse('eng', '03.txt');
-parse('eng', '04.txt');
-parse('eng', '05.txt');
-parse('eng', '06.txt');
-parse('eng', '07.txt');
-parse('eng', '08.txt');
-parse('eng', '09.txt');
-parse('spa', '02.txt');
+//parse('eng', 'PPL1_AdQ_30_062018v1.docx.txt');
+main();

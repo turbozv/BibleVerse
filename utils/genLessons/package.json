@@ -12,6 +12,7 @@
     "fs": "0.0.1-security",
     "fs-sync": "^1.0.4",
     "node-fetch": "^1.7.3",
-    "sync-request": "^4.1.0"
+    "sync-request": "^4.1.0",
+    "textract": "^2.4.0"
   }
 }
