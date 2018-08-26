@@ -1,0 +1,17 @@
+{
+  "name": "genoffline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "genOffline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "fs-sync": "^1.0.4",
+    "node-fetch": "^1.7.3",
+    "sync-request": "^4.1.0"
+  }
+}
