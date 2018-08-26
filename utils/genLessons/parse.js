@@ -66,24 +66,17 @@ function split(spliters, content) {
 }
 
 function parseLessonId(content) {
-  var strs = split(['Lesson Review', 'Lesson', 'Lección ', '\n'], content);
-  let id;
-  strs.some(item => {
-    if (['Lesson Review'].indexOf(item) !== -1) {
-      Lesson = 30;
-      id = Year + '_' + Lesson;
-      return true;
-    }
+  var value = getNextString(['Lesson ', 'Lección '], content);
 
-    const value = parseInt(item);
-    if (value > 0) {
-      Lesson = value;
-      id = Year + '_' + Lesson;
-      return true;
-    }
-  });
+  if (value.after.startsWith('Review')) {
+    Lesson = 30;
+  } else {
+    const intValue = parseInt(value.after);
+    console.assert(intValue > 0);
+    Lesson = intValue;
+  }
 
-  console.assert(id, 'Cannot find lesson Id');
+  id = Year + '_' + Lesson;
   return id;
 }
 
@@ -264,6 +257,18 @@ function parseHomework(content) {
   let pos = 3;
   const id = parseLessonId(strs[0]);
   console.assert(strs.length === 15);
+
+  let newLastLine = '';
+  const lastLine = strs[14];
+  lastLine.split('\n').forEach(line => {
+    if (line.indexOf('www.bsfinternational.org') === -1 &&
+      line.indexOf('www.mybsf.org') === -1 &&
+      line.indexOf('No homiletics for group or administrative leaders') === -1) {
+      newLastLine += line + '\n';
+    }
+  });
+  strs[14] = newLastLine;
+
   return {
     id,
     name: "",
@@ -340,5 +345,5 @@ function main() {
 
 
 // Main
-//parse('eng', 'PPL1_AdQ_30_062018v1.docx.txt');
+//parse('eng', 'PPL1_AdQ_23_062018.docx.txt');
 main();
