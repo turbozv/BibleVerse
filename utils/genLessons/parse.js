@@ -332,19 +332,20 @@ function parse(dir, file) {
 }
 
 function main() {
-  dir = 'eng';
-  fs.readdir(dir, (err, files) => {
-    files.forEach(file => {
-      if (!file.endsWith('.docx')) {
-        return;
-      }
+  ['spa', 'eng'].forEach(dir => {
+    fs.readdir(dir, (err, files) => {
+      files.forEach(file => {
+        if (!file.endsWith('.docx') && !file.endsWith('.pdf')) {
+          return;
+        }
 
-      textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
-        fsSync.write(dir + '\\' + file + '.txt', text);
-        parse(dir, file + '.txt');
+        textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
+          fsSync.write(dir + '\\' + file + '.txt', text);
+          parse(dir, file + '.txt');
+        });
       });
     });
-  })
+  });
 }
 
 main();
