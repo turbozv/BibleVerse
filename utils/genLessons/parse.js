@@ -1,17 +1,18 @@
 let fs = require('fs');
 let fsSync = require('fs-sync');
-const books = require('./books.json');
 let textract = require('textract');
 
+const books = require('./books.json');
 let bookArray = []
 Object.keys(books).forEach(item => {
   bookArray.push(item);
 });
 
+const verseCount = require('./verseCount.json');
+
 let Year = 2018;
 let Lesson = 1;
 let Index = 1;
-
 let DayQuestionSpliter = [
   'Scripture Memory Verse', 'Versículo de las Escrituras para memorizar',
   'FIRST DAY:', 'PRIMER DÍA:',
@@ -92,7 +93,7 @@ function getVerseString(verse) {
   return result;
 }
 
-function parseVerses(content) {
+function parseVerses(bookId, content) {
   let result = [];
   let currentChapter = -1;
   let words = content.split(' ');
@@ -117,7 +118,7 @@ function parseVerses(content) {
       // (number)
       if (currentChapter === -1) {
         // whole chapter
-        verse += ':1-999';
+        verse += `:1-${verseCount[bookId][parseInt(verse)]}`;
       } else {
         // (currentChapter):(verse)
         verse = `${currentChapter}:${verse}`;
@@ -127,7 +128,7 @@ function parseVerses(content) {
       let range = verse.split('-');
       if (currentChapter === -1) {
         // multiple chapters
-        verse = `${range[0]}:1-${range[1]}:999`;
+        verse = `${range[0]}:1-${range[1]}:${verseCount[bookId][parseInt(range[1])]}`;
       } else {
         // multiple verses
         verse = `${currentChapter}:${range[0]}-${range[1]}`;
@@ -139,6 +140,10 @@ function parseVerses(content) {
     } else if (/^\d+:\d+$/.test(verse)) {
       // (number):(number)
       const strs = verse.split(':');
+      currentChapter = parseInt(strs[0]);
+    } else if (/^\d+:\d+\-\d+$/.test(verse)) {
+      // (number):(number)-(number)
+      const strs = verse.split('-');
       currentChapter = parseInt(strs[0]);
     }
 
@@ -152,15 +157,14 @@ function parseVerses(content) {
   return result;
 }
 
-function parseReadVerse(content) {
+function parseQuotes(content) {
   let result = [];
-  const strs = split(bookArray, content);// content.split(' ');
+  const strs = split(bookArray, content);
   for (let i = 0; i < strs.length; i++) {
     const item = strs[i];
     if (books[item]) {
-      let verses = parseVerses(strs[++i].trim());
+      let verses = parseVerses(books[item], strs[++i].trim());
       if (verses) {
-        console.log(JSON.stringify({ book: item, verses }) + ' ' + content);
         verses.forEach(verse => {
           result.push({
             book: item,
@@ -171,11 +175,11 @@ function parseReadVerse(content) {
     }
   }
 
-  return result;
-}
+  if (result.length > 0) {
+    console.log(content + '\n =>' + JSON.stringify(result));
+  }
 
-function parseQuotes(content) {
-  return parseReadVerse(content);
+  return result;
 }
 
 function parseQuestions(indexString, content) {
@@ -236,7 +240,7 @@ function parseDayQuestion(content) {
   const title = strs[0].trim();
   let result = { title };
   const titleFirstLine = strs[0].split('\n')[0];
-  let readVerse = parseReadVerse(titleFirstLine);
+  let readVerse = parseQuotes(titleFirstLine);
   if (readVerse.length > 0) {
     result.readVerse = readVerse;
   }
@@ -343,7 +347,4 @@ function main() {
   })
 }
 
-
-// Main
-//parse('eng', 'PPL1_AdQ_23_062018.docx.txt');
 main();
