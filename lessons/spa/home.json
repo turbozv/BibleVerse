@@ -1,17 +1,81 @@
 ﻿{
 	"booklist": [
 		{
-			"title": "El pueblo de la Tierra Prometida I",
-			"lessons": [
+			"title": "El pueblo de la Tierra Prometida I2018",
+			"Leccións": [
 				{
 					"id": "2018_1",
-					"name": "Lección 1 Josué1:1-5:12 (09/10)"
+					"name": "Lección1 Josué1:1-5:12 (09/10)"
+				}
+				{
+					"id": "2018_2",
+					"name": "Lección2 Josué5:13-9:27 (09/17)"
+				},
+				{
+					"id": "2018_3",
+					"name": "Lección3 Josué10-12 (09/24)"
+				},
+				{
+					"id": "2018_4",
+					"name": "Lección4 Josué13-21 (10/1)"
+				},
+				{
+					"id": "2018_5",
+					"name": "Lección5 Josué22-24 (10/08)"
+				},
+				{
+					"id": "2018_6",
+					"name": "Lección6 Ruth (10/15)"
+				},
+				{
+					"id": "2018_7",
+					"name": "Lección7 1Samuel1-3 (10/22)"
+				},
+				{
+					"id": "2018_8",
+					"name": "Lección8 1Samuel4-8 (10/29)"
+				},
+				{
+					"id": "2018_9",
+					"name": "Lección9 1Samuel9-15 (11/05)"
+				},
+				{
+					"id": "2018_10",
+					"name": "Lección10 1Samuel16-17 (11/12)"
+				},
+				{
+					"id": "2018_11",
+					"name": "Lección11 Psalms (11/19)"
+				},
+				{
+					"id": "2018_12",
+					"name": "Lección12 1Samuel18-20 (11/26)"
+				},
+				{
+					"id": "2018_13",
+					"name": "Lección13 1Samuel21-24 (12/03)"
+				},
+				{
+					"id": "2018_14",
+					"name": "Lección14 1Samuel25-27 (12/10)"
+				},
+				{
+					"id": "2018_15",
+					"name": "Lección15 1Samuel28-31 (01/07)"
+				},
+				{
+					"id": "2018_16",
+					"name": "Lección16 2Samuel1-4 (01/14)"
+				},
+				{
+					"id": "2018_17",
+					"name": "Lección17 2Samuel5-6;1Chronicles3:1-9;11-16 (01/21)"
 				}
 			]
 		},
 		{
 			"title": "Romanos 2017-2018",
-			"lessons": [
+			"Leccións": [
 				{
 					"id": "2017_1",
 					"name": "Lección1 Romanos1:1-17 (09/18)",
@@ -136,7 +200,7 @@
 				},
 				{
 					"id": "2017_30",
-					"name": "Lesson30 Reflection (05/07)"
+					"name": "Lección30 Reflection (05/07)"
 				}
 			]
 		}
