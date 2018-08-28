@@ -2,11 +2,11 @@
 	"booklist": [
 		{
 			"title": "El pueblo de la Tierra Prometida I2018",
-			"Leccións": [
+			"lessons": [
 				{
 					"id": "2018_1",
 					"name": "Lección1 Josué1:1-5:12 (09/10)"
-				}
+				},
 				{
 					"id": "2018_2",
 					"name": "Lección2 Josué5:13-9:27 (09/17)"
@@ -75,7 +75,7 @@
 		},
 		{
 			"title": "Romanos 2017-2018",
-			"Leccións": [
+			"lessons": [
 				{
 					"id": "2017_1",
 					"name": "Lección1 Romanos1:1-17 (09/18)",
