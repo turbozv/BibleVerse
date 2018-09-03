@@ -22,6 +22,14 @@ function getRow($sql)
     return $row;
 }
 
+function getRowArray($sql)
+{
+    $result = mysql_query($sql) or die('Query failed: ' . mysql_error());
+    $row = mysql_fetch_array($result);
+    mysql_free_result($result);
+    return $row;
+}
+
 function getLeaderId($group)
 {
     $result = mysql_query("select leader from attendanceLeaders where `group`=$group") or die('Query failed: ' . mysql_error());
@@ -69,10 +77,17 @@ function getMembers($class, $group)
     return $members;
 }
 
+function getUser($userId)
+{
+    $user = mysql_real_escape_string($userId);
+    return getRowArray("SELECT * FROM users WHERE id=$user");
+}
+
 function getUsers()
 {
+    $class = mysql_real_escape_string($_SESSION['classId']);
     $users = array();
-    $result = getQuery("SELECT users.id, roles.name as role, users.name, users.cname FROM roles INNER JOIN users ON users.role=roles.id");
+    $result = getQuery("SELECT users.id, roles.name as role, users.name, users.cname FROM roles INNER JOIN users ON users.role=roles.id AND class=$class");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $name = $line['cname'].' '. $line['name'];
         $roleName = $line['role'];
@@ -85,6 +100,29 @@ function getUsers()
     }
 
     return $users;
+}
+
+function getGroups()
+{
+    $class = mysql_real_escape_string($_SESSION['classId']);
+    $groups = array();
+    $result = getQuery("select distinct `group` from users where class=$class order by `group` asc");
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $groups[$line['group']] = $line['group'];
+    }
+
+    return $groups;
+}
+
+function getRoles()
+{
+    $roles = array();
+    $result = getQuery("SELECT id, name FROM roles WHERE id > 0 ORDER BY id DESC");
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $roles[$line['id']] = $line['name'];
+    }
+
+    return $roles;
 }
 
 function getUsersAttendance($date, $groupType)

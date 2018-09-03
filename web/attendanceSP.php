@@ -58,7 +58,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     reset($members);
     $id = 1;
     while (list($userId, $name) = each($members)) {
-        echo "<tr><td>$id. $name";
+        echo "<tr><td>$id. $name (<a href='users.php?user=$userId'>#$userId</a>)";
         reset($attend);
         while (list($date, $users) = each($attend)) {
             if (strpos($users, $userId.',') === false) {

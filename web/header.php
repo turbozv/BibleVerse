@@ -60,6 +60,7 @@ echo getLink("index.php", "Home");
 echo getLink("attendanceAdult.php", "Attendance(Adult)");
 echo getLink("attendanceSP.php", "Attendance(SP)");
 echo getLink("editAttendance.php", "编辑出席表");
+echo getLink("users.php", "Users");
 echo getLink("feedback.php", "App用户反馈");
 echo getLink("status.php", "CBSF Chart");
 echo getLink("chatroom.php", "Chatroom");
