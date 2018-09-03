@@ -17,5 +17,12 @@ if (!isset($_SESSION['login_user_id'])) {
 
 $login_user_id = $_SESSION['login_user_id'];
 $login_user_email = $_SESSION['login_user_email'];
-$login_user_name = $_SESSION['login_user_name'];
-$login_user_isAdmin = $_SESSION['login_user_isAdmin'];
+
+require("lib/mysql.php");
+if (!isset($_SESSION['classIds'])) {
+    $_SESSION['classIds'] = getClassIds();
+}
+
+if (!isset($_SESSION['classId'])) {
+    $_SESSION['classId'] = key($_SESSION['classIds']);
+}

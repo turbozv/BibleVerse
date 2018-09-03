@@ -2,7 +2,6 @@
 
 <?php
 require("header.php");
-require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
@@ -21,7 +20,8 @@ function showLeaderMeetingAttendance()
         $members[$line['id']] = $g_users[$line['id']];
     }
     mysql_free_result($result);
-
+    
+    $attend = array();
     $result = getQuery("select * from attendanceLeadersMeetingDates where class=$class order by date asc");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $date = mysql_real_escape_string($line["date"]);
@@ -104,8 +104,7 @@ function showLeaderMeetingAttendance()
     echo "</table>";
 }
 
-// TODO: Support different class
-$class = 1;
+$class = $_SESSION['classId'];
 $row = getRow("select name from class where id=$class");
 echo "<h3>出席表 Class: $row[0]</h3>";
 

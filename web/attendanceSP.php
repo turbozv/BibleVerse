@@ -2,15 +2,13 @@
 
 <?php
 require("header.php");
-require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
 // Get user roles
 $g_users = getUsers();
 
-// TODO: Support different class
-$class = 1;
+$class = $_SESSION['classId'];
 $row = getRow("select name from class where id=$class");
 echo "<h3>出席表 Class: $row[0]</h3>";
 

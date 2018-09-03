@@ -1,6 +1,5 @@
 <?php
 require("header.php");
-require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
@@ -10,12 +9,20 @@ if (isset($_POST['delete'])) {
     getQuery("DELETE FROM messages WHERE id=$id;");
 }
 
+if (isset($_POST['message']) && isset($_POST['room'])) {
+    $room = mysql_real_escape_string($_POST['room']);
+    $message = mysql_real_escape_string($_POST['message']);
+    $milliseconds = round(microtime(true) * 1000);
+    //echo "$room ==> $message, $milliseconds";
+    getQuery("INSERT INTO messages(room, createdAt, user, ip, message) VALUES('$room', $milliseconds, 'System', '', '$message')");
+}
+
 echo "<p>";
 
 // GeoIP
 require 'vendor/autoload.php';
 $gi = geoip_open("GeoIP.dat", GEOIP_STANDARD);
-$result = getQuery("SELECT DISTINCT room FROM `messages` WHERE length(room) != 36 AND room != 'chat' ORDER BY createdAt DESC");
+$result = getQuery('SELECT DISTINCT room FROM `messages` WHERE length(room) = 36 AND user != "System" ORDER BY createdAt DESC');
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $room = $line['room'];
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
@@ -33,11 +40,17 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $message = htmlspecialchars($line2['message']);
 
         echo "<form method='post'><li>$date [$user] $address: $message  ";
-        $id = $line2['id'];
-        echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='Delete'>";
+        if (strcasecmp($user, 'System') == 0) {
+            $id = $line2['id'];
+            echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='删除'>";
+        }
         echo "</form>";
     }
     mysql_free_result($result2);
+    echo "<form method='post'><input type='hidden' name='room' value='$room'>";
+    echo "<br><textarea name='message' cols='80' rows='5'></textarea><br>";
+    echo "<input type='submit' value='回复 [$room]'>";
+    echo '</form>';
 }
 mysql_free_result($result);
 

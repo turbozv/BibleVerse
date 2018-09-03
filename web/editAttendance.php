@@ -2,7 +2,6 @@
 
 <?php
 require("header.php");
-require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
@@ -97,6 +96,7 @@ function showLeaderMeetingAttendance()
     }
     mysql_free_result($result);
 
+    $attend = array();
     $result = getQuery("select * from attendanceLeadersMeetingDates where class=$class order by date asc");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $date = mysql_real_escape_string($line["date"]);
@@ -179,8 +179,7 @@ function showLeaderMeetingAttendance()
     echo "</table>";
 }
 
-// TODO: Support different class
-$class = 1;
+$class = $_SESSION['classId'];
 $row = getRow("select name from class where id=$class");
 echo "<h3>出席表 Class: $row[0]</h3>";
 
@@ -216,7 +215,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     while ($line = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = $line["date"];
         // find attendance by group
-        $row = getRow("select users, totalUsers from attendance where `date`='$date' and leader in (select leader from attendanceLeaders where `group`=$group) order by submitDate desc limit 1");
+        $row = getRow("select users, totalUsers from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
         if ($row === false) {
             $attend[$date] = "";
             $totalUsers[$date] = 0;

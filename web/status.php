@@ -1,11 +1,10 @@
 <?php
 require("header.php");
-require("lib/mysql.php");
 
 header("content-type:text/html; charset=utf-8");
 
 $dataDayCount = '';
-$query = 'SELECT * FROM UniqueDeviceCountPerDay ORDER BY Date ASC';
+$query = 'SELECT * FROM UniqueDeviceCountPerDay WHERE Date >= (NOW() - INTERVAL 90 DAY) ORDER BY Date ASC ';
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     list($year, $month, $day) = split('[/.-]', $line["Date"]);
@@ -166,7 +165,7 @@ new CanvasJS.Chart("chartContainerDayCount", {
 	exportEnabled: true,
 	animationEnabled: false,
 	title:{
-		text: "Unique devices access per day"   
+		text: "Unique devices access per day(Last 90 days)"
 	},
 	axisX: {
 		interval: 5,

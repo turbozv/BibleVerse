@@ -29,6 +29,16 @@ function getLeaderId($group)
     return $row[0];
 }
 
+function getClassIds()
+{
+    $classIds = array();
+    $result = mysql_query("select id, name from class order by id desc") or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $classIds[$line['id']] = $line['name'];
+    }
+    return $classIds;
+}
+
 function getMembers($class, $group)
 {
     global $g_users;
