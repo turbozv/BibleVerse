@@ -329,7 +329,7 @@ app.get('/attendance', function (req, res) {
 
   // Find out the leader's information and groups
   mysqlConn.query({
-    sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?)',
+    sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AND class=2',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -456,7 +456,7 @@ app.get('/user/*', function (req, res) {
       audios.push(result[i].lesson);
     }
     mysqlConn.query({
-      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=?',
+      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=? ORDER BY registerDate DESC LIMIT 1',
       values: [cellphone]
     }, function (error, result, fields) {
       if (error) {
@@ -495,7 +495,7 @@ app.post('/attendance', jsonParser, function (req, res) {
 
   // leader may have multiple groups, we will add attendance row for each group
   mysqlConn.query({
-    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?',
+    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group`, users.class FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=? ORDER BY users.registerDate DESC LIMIT 1',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
@@ -506,13 +506,14 @@ app.post('/attendance', jsonParser, function (req, res) {
       logger.error(error);
     } else {
       const leaderId = result[0].leader;
+      const classId = result[0].class;
       // submit for each group
       var groupCount = result.length;
       for (var i in result) {
         const groupId = result[i].group;
         mysqlConn.query({
-          sql: 'SELECT (SELECT GROUP_CONCAT(id) from users where `group`=?) AS groupUsers, (SELECT COUNT(*) FROM users WHERE `group`=?) AS groupUserCount',
-          values: [groupId, groupId]
+          sql: 'SELECT (SELECT GROUP_CONCAT(id) from users where `group`=? AND class=?) AS groupUsers, (SELECT COUNT(*) FROM users WHERE `group`=? AND class=?) AS groupUserCount',
+          values: [groupId, classId, groupId, classId]
         }, function (error, result, fields) {
           if (error) {
             sendErrorObject(res, 400, { Error: JSON.stringify(error) });
