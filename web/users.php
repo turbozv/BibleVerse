@@ -4,27 +4,30 @@ header("content-type:text/html; charset=utf-8");
 $userId = isset($_GET['user'])? $_GET['user']: -1;
 
 if (isset($_POST['action'])) {
-    if ($_POST['action'] == 'edit' && isset($_POST['user']) && isset($_POST['name']) && isset($_POST['cname']) && isset($_POST['group']) && isset($_POST['role'])) {
+    if ($_POST['action'] == 'edit' && isset($_POST['user']) && isset($_POST['name']) && isset($_POST['cname']) && isset($_POST['group']) && isset($_POST['role']) && isset($_POST['email']) && isset($_POST['cellphone'])) {
         $id = mysql_real_escape_string($_POST['user']);
         $name = mysql_real_escape_string($_POST['name']);
         $cname = mysql_real_escape_string($_POST['cname']);
+        $email = mysql_real_escape_string($_POST['email']);
+        $cellphone = mysql_real_escape_string($_POST['cellphone']);
         $group = mysql_real_escape_string($_POST['group']);
         $role = mysql_real_escape_string($_POST['role']);
 
-        getQuery("UPDATE users SET name='$name', cname='$cname', `group`='$group', role='$role' WHERE id='$id'");
+        getQuery("UPDATE users SET name='$name', cname='$cname', email='$email', cellphone='$cellphone', `group`='$group', role='$role' WHERE id='$id'");
         //echo "UPDATE users SET name='$name', cname='$cname', `group`='$group', role='$role' WHERE id='$id'";
         echo "<font color='red'>Updated!</font>";
     }
 
-    if ($_POST['action'] == 'new' && isset($_POST['name']) && isset($_POST['cname']) && isset($_POST['group']) && isset($_POST['role'])) {
+    if ($_POST['action'] == 'new' && isset($_POST['name']) && isset($_POST['cname']) && isset($_POST['group']) && isset($_POST['role']) && isset($_POST['email']) && isset($_POST['cellphone'])) {
         $name = mysql_real_escape_string($_POST['name']);
         $cname = mysql_real_escape_string($_POST['cname']);
+        $email = mysql_real_escape_string($_POST['email']);
+        $cellphone = mysql_real_escape_string($_POST['cellphone']);
         $group = mysql_real_escape_string($_POST['group']);
         $role = mysql_real_escape_string($_POST['role']);
 
-        getQuery("INSERT users(name, cname, `group`, role) VALUES('$name', '$cname', '$group', '$role')");
+        getQuery("INSERT users(name, cname, email, cellphone, `group`, role) VALUES('$name', '$cname', '$email', '$cellphone', '$group', '$role')");
         $userId = mysql_insert_id();
-        //echo "INSERT users(name, cname, `group`, role) VALUES('$name', '$cname', '$group', '$role')";
         echo "<font color='red'>Created!</font>";
     }
 
@@ -74,6 +77,10 @@ $user = getUser($userId);
     <p>Name:
     <input type='text' name='name' value='<?php echo $user['name']?>'>
     <p>CName:
+    <input type='text' name='cellphone' value='<?php echo $user['cellphone']?>'>
+    <p>Cellphone:
+    <input type='text' name='email' value='<?php echo $user['email']?>'>
+    <p>Email:
     <input type='text' name='cname' value='<?php echo $user['cname']?>'>
     <p>Group:
     <select name='group'>
@@ -115,6 +122,10 @@ $user = getUser($userId);
     <p>Name:
     <input type='text' name='name' value=''>
     <p>CName:
+    <input type='text' name='cellphone' value=''>
+    <p>Cellphone:
+    <input type='text' name='email' value=''>
+    <p>Email:
     <input type='text' name='cname' value=''>
     <p>Group:
     <select name='group'>

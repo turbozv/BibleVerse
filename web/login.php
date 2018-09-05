@@ -28,7 +28,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
             $_SESSION['feedback.php'] = $row[6];
             $_SESSION['status.php'] = $row[7];
             $_SESSION['phpMyAdmin.php'] = $row[8];
-            $_SESSION['users.php'] = $row[8];
+            $_SESSION['users.php'] = $row[5];
             header("Location: index.php");
             exit;
         }
