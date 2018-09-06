@@ -1,5 +1,4 @@
 <?php
-require("config.php");
 
 date_default_timezone_set($db_timezone);
 
