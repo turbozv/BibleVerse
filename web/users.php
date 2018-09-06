@@ -77,11 +77,11 @@ $user = getUser($userId);
     <p>Name:
     <input type='text' name='name' value='<?php echo $user['name']?>'>
     <p>CName:
-    <input type='text' name='cellphone' value='<?php echo $user['cellphone']?>'>
-    <p>Cellphone:
-    <input type='text' name='email' value='<?php echo $user['email']?>'>
-    <p>Email:
     <input type='text' name='cname' value='<?php echo $user['cname']?>'>
+    <p>Cellphone:
+    <input type='text' name='cellphone' value='<?php echo $user['cellphone']?>'>
+    <p>Email:
+    <input type='text' name='email' value='<?php echo $user['email']?>'>
     <p>Group:
     <select name='group'>
     <?php
