@@ -13,6 +13,10 @@ const books = ['ccb.sqlite3',
   'nvi.sqlite3',
   'rvr1995.sqlite3'];
 
+if (!fs.exists('data')) {
+  fs.mkdir('data');
+}
+
 books.forEach(book => {
   console.log(book);
   var db = new sqlite3.Database(book);
@@ -25,8 +29,8 @@ books.forEach(book => {
     }, () => {
       book = book.replace('.sqlite3', '');
       console.log(`Write to ${book}.json[${count}]`);
-      fs.write(`${book}.json`, JSON.stringify(result));
-      fs.write(`${book}.lz`, lzs.compress(JSON.stringify(result)));
+      fs.write(`data\\${book}.json`, JSON.stringify(result));
+      fs.write(`data\\${book}.lz`, lzs.compress(JSON.stringify(result)));
     });
   });
 });
