@@ -122,11 +122,11 @@ $user = getUser($userId);
     <p>Name:
     <input type='text' name='name' value=''>
     <p>CName:
-    <input type='text' name='cellphone' value=''>
-    <p>Cellphone:
-    <input type='text' name='email' value=''>
-    <p>Email:
     <input type='text' name='cname' value=''>
+    <p>Cellphone:
+    <input type='text' name='cellphone' value=''>
+    <p>Email:
+    <input type='text' name='email' value=''>
     <p>Group:
     <select name='group'>
     <?php
