@@ -24,7 +24,7 @@ books.forEach(book => {
   let count = 0;
   db.serialize(() => {
     db.each("select (books.number*1000000+ verses.verse*1000) as id, verses.unformatted as text from verses inner join books on books.osis=verses.book", (err, row) => {
-      result[row.id] = row.text.replace(/\n/g, '').trim();
+      result[row.id] = row.text.trim();
       count++;
     }, () => {
       book = book.replace('.sqlite3', '');
