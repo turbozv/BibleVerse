@@ -14,6 +14,17 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 }
 mysql_free_result($result);
 
+$dataMonthlyCount = '';
+$query = 'SELECT * FROM monthlyActiveUsers WHERE date >= (NOW() - INTERVAL 90 DAY) ORDER BY Date ASC ';
+$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    list($year, $month, $day) = split('[/.-]', $line["date"]);
+    $month = intval($month) - 1;
+    $count = $line["count"];
+    $dataMonthlyCount .= "{ x: new Date($year, $month, $day), y: $count},";
+}
+mysql_free_result($result);
+
 $dataLastSeenCount = '';
 $query = 'SELECT * FROM LastSeenDeviceCountView';
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
@@ -135,6 +146,11 @@ foreach ($array as $key => $val) {
   </td>
 </tr>
 <tr>
+  <td colspan="2">
+    <div id="chartContainerMonthlyCount" style="height: 370px; width: 100%;"></div>
+  </td>
+</tr>
+<tr>
   <td>
     <div id="chartContainerPlatform" style="height: 370px; width: 100%;"></div>
   </td>
@@ -165,7 +181,7 @@ new CanvasJS.Chart("chartContainerDayCount", {
 	exportEnabled: true,
 	animationEnabled: false,
 	title:{
-		text: "Unique devices access per day(Last 90 days)"
+		text: "Daily active devices (Last 90 days)"
 	},
 	axisX: {
 		interval: 5,
@@ -183,6 +199,33 @@ new CanvasJS.Chart("chartContainerDayCount", {
 		yValueFormatString: "###",
 		dataPoints: [
 			<?php echo $dataDayCount; ?>
+		]
+	}]
+}).render();
+
+new CanvasJS.Chart("chartContainerMonthlyCount", {
+	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: false,
+	title:{
+		text: "Monthly active devices (Last 90 days)"
+	},
+	axisX: {
+		interval: 5,
+		intervalType: "day",
+		valueFormatString: "YYYY/MM/DD"
+	},
+	axisY:{
+		title: "Unique devices",
+		valueFormatString: "#0"
+	},
+	data: [{        
+		type: "line",
+		markerSize: 12,
+		xValueFormatString: "YYYY/MM/DD",
+		yValueFormatString: "###",
+		dataPoints: [
+			<?php echo $dataMonthlyCount; ?>
 		]
 	}]
 }).render();
