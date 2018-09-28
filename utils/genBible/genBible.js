@@ -1,25 +1,17 @@
-var fs = require('fs-sync');
+var fs = require('fs');
 var sqlite3 = require('sqlite3').verbose();
-var lzs = require('lz-string');
+//var lzs = require('lz-string');
 
-const books = ['ccb.sqlite3',
-  'cnvt.sqlite3',
-  'cunpss.sqlite3',
-  'cunpts.sqlite3',
-  'esv.sqlite3',
-  'kjv.sqlite3',
-  'niv1984.sqlite3',
-  'niv2011.sqlite3',
-  'nvi.sqlite3',
-  'rvr1995.sqlite3'];
-
-if (!fs.exists('data')) {
-  fs.mkdir('data');
+if (!fs.existsSync('data')) {
+  fs.mkdirSync('data');
 }
 
-books.forEach(book => {
-  console.log(book);
-  var db = new sqlite3.Database(book);
+fs.readdirSync('books').forEach(file => {
+  if (!file.endsWith('.sqlite3')) {
+    return;
+  }
+  console.log(file);
+  var db = new sqlite3.Database(`books\\${file}`);
   var result = {};
   let count = 0;
   db.serialize(() => {
@@ -27,10 +19,10 @@ books.forEach(book => {
       result[row.id] = row.text.trim();
       count++;
     }, () => {
-      book = book.replace('.sqlite3', '');
-      console.log(`Write to ${book}.json[${count}]`);
-      fs.write(`data\\${book}.json`, JSON.stringify(result));
-      fs.write(`data\\${book}.lz`, lzs.compress(JSON.stringify(result)));
+      file = file.replace('.sqlite3', '');
+      console.log(`Write to ${file}.json[${count}]`);
+      fs.writeFileSync(`data\\${file}.json`, JSON.stringify(result));
+      //fs.write(`data\\${file}.lz`, lzs.compress(JSON.stringify(result)));
     });
   });
 });
