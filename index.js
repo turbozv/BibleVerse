@@ -1,19 +1,22 @@
-var sqlite3 = require('sqlite3');
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var https = require('https');
-var config = require('./config.js');
-var mysql = require('mysql');
+let sqlite3 = require('sqlite3');
+let fs = require('fs');
+let bodyParser = require('body-parser');
+let https = require('https');
+let config = require('./config.js');
+let mysql = require('mysql');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const util = require('util');
 
-var dbBible = new sqlite3.Database('bible.db');
-var jsonParser = bodyParser.json()
-var mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst', charset: 'utf8mb4' });
+let dbBible = new sqlite3.Database('bible.db');
+let jsonParser = bodyParser.json()
+let mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst', charset: 'utf8mb4' });
 
 // Keep connection alive
 mysqlConn.connect();
+
+const mysqlQuery = util.promisify(mysqlConn.query).bind(mysqlConn);
 
 const ValidLanguages = ["chs", "cht", "eng", "spa"];
 const ValidBibleVersions = ['afr53', 'afr83', 'akjv', 'alab', 'amp', 'ampc', 'apsd', 'arc09', 'asv', 'avddv', 'bcnd', 'bdc', 'bdk', 'bds', 'bhn', 'bhti', 'bimk', 'bjb', 'bk', 'bl92', 'bm', 'bmdc', 'bpt', 'bpv', 'bysb', 'ccb', 'ceb', 'cev', 'cevd', 'cjb', 'cnvs', 'cnvt', 'csbs', 'cunpss', 'cunpts', 'darby', 'dhh', 'dnb1930', 'dra', 'erv', 'ervar', 'ervhi', 'ervmr', 'ervne', 'ervor', 'ervpa', 'ervta', 'ervur', 'esv', 'exb', 'fnvdc', 'gnt', 'gnv', 'gw', 'hau', 'hcsb', 'hcv', 'hhh', 'hlgn', 'hnzri', 'htb', 'icb', 'igbob', 'isv', 'jnt', 'jub', 'kj21', 'kjv', 'kpxnt', 'leb', 'lsg', 'maori', 'mbb05', 'mev', 'mounce', 'msg', 'n11bm', 'n78bm', 'nabre', 'nasb', 'natwi', 'nav', 'nbg51', 'nblh', 'ncv', 'neg1979', 'net', 'ngude', 'nirv', 'niv1984', 'niv2011', 'nivuk', 'nkjv', 'nlt', 'nlt2013', 'nlv', 'nog', 'nr2006', 'nrsv', 'nrsva', 'nrt', 'nso00', 'nso51', 'ntlr', 'ntv', 'nvi', 'nvipt', 'ojb', 'okyb', 'ondb', 'phillips', 'pmpv', 'pnpv', 'rcpv', 'rcuvss', 'rcuvts', 'ripv', 'rnksv', 'rsv', 'rsvce', 'rvc', 'rvr1995', 'rvr60', 'rvr95', 'rvv11', 'rwv', 'sblgnt', 'sch2000', 'seb', 'sg21', 'snd', 'snd12', 'spynt', 'sso89so', 'suv', 'swt', 'synod', 'tb', 'tbov', 'tcl02', 'th1971', 'tla', 'tlb', 'tlv', 'tr1550', 'tr1894', 'tso29no', 'tso89', 'tsw08no', 'tsw70', 'urd', 'ven98', 'voice', 'web', 'webbe', 'wlc', 'wyc', 'xho75', 'xho96', 'ylt', 'zomi', 'zul59'];
@@ -100,17 +103,17 @@ function getRequestValue(req, name) {
 function getVerseText(verseText) {
   // Check to see if the first line is part of the bible
   const firstLinePos = verseText.indexOf('\n');
-  if (firstLinePos != -1) {
+  if (firstLinePos !== -1) {
     const firstLine = verseText.substring(0, firstLinePos);
-    var annotation = true;
+    let annotation = true;
     if (verseText.length > firstLinePos) {
       // We have more than one lines
-      var words = firstLine.split(' ');
+      let words = firstLine.split(' ');
       // It has to be more than one words
       if (words.length > 1) {
         // Check each word starts with upper case
-        for (var w in words) {
-          if (AnnotationWords.indexOf(words[w]) == -1 && words[w][0] != words[w][0].toUpperCase()) {
+        for (let w in words) {
+          if (AnnotationWords.indexOf(words[w]) === -1 && words[w][0] !== words[w][0].toUpperCase()) {
             // Not upper case, not an annotation
             annotation = false;
             break;
@@ -130,7 +133,7 @@ function getVerseText(verseText) {
 
 function getClientInfo(req) {
   let language = getRequestValue(req, 'lang');
-  if (ValidLanguages.indexOf(language.toLowerCase()) == -1) {
+  if (ValidLanguages.indexOf(language.toLowerCase()) === -1) {
     language = 'chs';
   }
   let deviceId = getRequestValue(req, 'deviceId');
@@ -140,12 +143,12 @@ function getClientInfo(req) {
   let cellphone = getRequestValue(req, 'cellphone');
   let bibleVersion = getRequestValue(req, 'bibleVersion');
   let version = getRequestValue(req, 'version');
-  if (ValidBibleVersions.indexOf(bibleVersion.toLowerCase()) == -1) {
+  if (ValidBibleVersions.indexOf(bibleVersion.toLowerCase()) === -1) {
     bibleVersion = 'rcuvss';
   }
 
-  if (bibleVersion == 'rcuvss') bibleVersion = 'cunpss';
-  if (bibleVersion == 'rcuvts') bibleVersion = 'cunpts';
+  if (bibleVersion === 'rcuvss') bibleVersion = 'cunpss';
+  if (bibleVersion === 'rcuvts') bibleVersion = 'cunpts';
 
   return { deviceId, sessionId, language, ip: req.ip.replace('::ffff:', ''), platformOS, deviceYearClass, cellphone, bibleVersion, version };
 }
@@ -156,7 +159,7 @@ function getVerseRange(verse) {
   verse = verse.substring(bookPos + 1);
 
   const rangePos = verse.indexOf('-');
-  if (rangePos != -1) {
+  if (rangePos !== -1) {
     verseStart = verse.substring(0, rangePos);
     verseEnd = verse.substring(rangePos + 1);
   } else {
@@ -165,22 +168,22 @@ function getVerseRange(verse) {
   }
 
   result = verseStart.split(':');
-  if (result.length == 2) {
+  if (result.length === 2) {
     chapter1 = parseInt(result[0]);
     verse1 = parseInt(result[1]);
   } else {
     return null;
   }
 
-  if (verseEnd == null) {
+  if (verseEnd === null) {
     chapter2 = chapter1;
     verse2 = verse1;
   } else {
     result = verseEnd.split(':');
-    if (result.length == 2) {
+    if (result.length === 2) {
       chapter2 = parseInt(result[0]);
       verse2 = parseInt(result[1]);
-    } else if (result.length == 1) {
+    } else if (result.length === 1) {
       chapter2 = chapter1;
       verse2 = parseInt(result[0]);
     } else {
@@ -208,10 +211,10 @@ function sendErrorObject(res, status, obj) {
 // Get Bible verse
 app.get('/verse/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const query = req.params[0];
   verseRange = getVerseRange(query);
-  if (verseRange == null) {
+  if (verseRange === null) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
   } else {
@@ -223,7 +226,7 @@ app.get('/verse/*', function (req, res) {
         const chapter = parseInt(row.id / 1000 % 1000);
         const verse = chapter + ":" + row.id % 1000;
         const text = getVerseText(row.text).replace(/\n/g, ' ').replace(/&nbsp;/g, ' ');
-        if (chapter == resultChapter.id) {
+        if (chapter === resultChapter.id) {
           resultChapter.verses.push({ verse, text });
         } else {
           result.paragraphs.push(resultChapter);
@@ -244,7 +247,7 @@ app.get('/verse/*', function (req, res) {
 // Get lessons (home page)
 app.get('/lessons', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   fs.readFile(`lessons/${client.language}/home.json`, 'utf8', function (err, data) {
     if (err) {
       sendResultObject(res, { Error: err.errno });
@@ -259,7 +262,7 @@ app.get('/lessons', function (req, res) {
 // Get each lesson
 app.get('/lessons/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const id = req.params[0];
   if (/[^a-zA-Z0-9\_\-]/.test(id)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -281,7 +284,7 @@ app.get('/lessons/*', function (req, res) {
 // Get Logon
 app.get('/logon', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   if (!client.cellphone) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -320,7 +323,7 @@ app.get('/logon', function (req, res) {
 // Get attendance
 app.get('/attendance', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   if (!client.cellphone) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -329,18 +332,18 @@ app.get('/attendance', function (req, res) {
 
   // Find out the leader's information and groups
   mysqlConn.query({
-    sql: 'SELECT id, `group`, name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AND class=2',
+    sql: 'SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AND class=2',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
-    } else if (result.length == 0) {
+    } else if (result.length === 0) {
       sendErrorObject(res, 401, { Error: "No permission" });
       logger.error(error);
     } else {
       const classId = result[0].class;
-      var attendees = result;
+      let attendees = result;
       // Find the current attendance date
       mysqlConn.query({
         sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1',
@@ -349,7 +352,7 @@ app.get('/attendance', function (req, res) {
         if (error) {
           sendErrorObject(res, 400, { Error: JSON.stringify(error) });
           logger.error(error);
-        } else if (result.length == 0) {
+        } else if (result.length === 0) {
           sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
           logger.error(error);
         } else {
@@ -363,15 +366,15 @@ app.get('/attendance', function (req, res) {
               sendErrorObject(res, 400, { Error: JSON.stringify(error) });
               logger.error(error);
             } else {
-              var checkedInUsers = [];
-              for (var i in result) {
+              let checkedInUsers = [];
+              for (let i in result) {
                 const group = result[i].group;
                 if (!checkedInUsers[group]) {
                   checkedInUsers[group] = JSON.parse(result[i].users);
                 }
               }
 
-              for (var i in attendees) {
+              for (let i in attendees) {
                 delete attendees[i].class;
                 const group = attendees[i].group;
                 if (checkedInUsers[group] && checkedInUsers[group].includes(attendees[i].id)) {
@@ -390,9 +393,9 @@ app.get('/attendance', function (req, res) {
 })
 
 // Get teaching audio
-app.get('/audio/*', function (req, res) {
+app.get('/audio/*', async function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const cellphone = req.params[0];
   if (!cellphone) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -413,16 +416,14 @@ app.get('/audio/*', function (req, res) {
     };
   }
 
-  mysqlConn.query(query, function (error, result, fields) {
-    if (error) {
-      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-      logger.error(error);
-    } else if (result.length == 0) {
+  try {
+    let result = await mysqlQuery(query);
+    if (result.length === 0) {
       sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
-      logger.error(error);
+      logger.error();
     } else {
       const lesson = result[0].lesson;
-      if (getRequestValue(req, 'play') == '1') {
+      if (getRequestValue(req, 'play') === '1') {
         const file = `audios/${lesson}.mp3`;
         res.download(file);
       } else {
@@ -430,13 +431,16 @@ app.get('/audio/*', function (req, res) {
       }
       logger.succeed();
     }
-  });
+  } catch (error) {
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
 })
 
 // Get user information
 app.get('/user/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const cellphone = req.params[0];
   if (!cellphone) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -452,17 +456,17 @@ app.get('/user/*', function (req, res) {
       logger.error(error);
     }
     audios = [];
-    for (var i in result) {
+    for (let i in result) {
       audios.push(result[i].lesson);
     }
     mysqlConn.query({
-      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=? ORDER BY registerDate DESC LIMIT 1',
+      sql: 'SELECT * FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1',
       values: [cellphone]
     }, function (error, result, fields) {
       if (error) {
         sendErrorObject(res, 400, { Error: JSON.stringify(error) });
         logger.error(error);
-      } else if (result.length == 0) {
+      } else if (result.length === 0) {
         sendErrorObject(res, 400, { Error: "Invalid user" });
         logger.error(error);
       } else {
@@ -470,7 +474,7 @@ app.get('/user/*', function (req, res) {
           name: result[0].name,
           audio: result[0].audio,
           class: result[0].class,
-          isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) != -1),
+          isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) !== -1),
           chat: 1
         };
         if (data.audio) {
@@ -486,7 +490,7 @@ app.get('/user/*', function (req, res) {
 // Post attendance
 app.post('/attendance', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   if (!req.body || !req.body.date || !req.body.users || !client.cellphone) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -501,15 +505,15 @@ app.post('/attendance', jsonParser, function (req, res) {
     if (error) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
-    } else if (result.length == 0) {
+    } else if (result.length === 0) {
       sendErrorObject(res, 400, { Error: "No permission" });
       logger.error(error);
     } else {
       const leaderId = result[0].leader;
       const classId = result[0].class;
       // submit for each group
-      var groupCount = result.length;
-      for (var i in result) {
+      let groupCount = result.length;
+      for (let i in result) {
         const groupId = result[i].group;
         mysqlConn.query({
           sql: 'SELECT (SELECT GROUP_CONCAT(id) from users where `group`=? AND class=?) AS groupUsers, (SELECT COUNT(*) FROM users WHERE `group`=? AND class=?) AS groupUserCount',
@@ -518,20 +522,20 @@ app.post('/attendance', jsonParser, function (req, res) {
           if (error) {
             sendErrorObject(res, 400, { Error: JSON.stringify(error) });
             logger.error(error);
-          } else if (result.length == 0) {
+          } else if (result.length === 0) {
             sendErrorObject(res, 400, { Error: "No permission" });
             logger.error(error);
           } else {
             // if the leader submit for multi-group users, we only write the users belong to the current group
-            var users = [];
-            var groupUsers = result[0].groupUsers.split(',');
-            for (var i in groupUsers) {
-              var userId = parseInt(groupUsers[i]);
-              if (req.body.users.indexOf(userId) != -1) {
+            let users = [];
+            let groupUsers = result[0].groupUsers.split(',');
+            for (let i in groupUsers) {
+              let userId = parseInt(groupUsers[i]);
+              if (req.body.users.indexOf(userId) !== -1) {
                 users.push(userId);
               }
             }
-            var data = {
+            let data = {
               date: req.body.date,
               leader: leaderId,
               group: groupId,
@@ -544,7 +548,7 @@ app.post('/attendance', jsonParser, function (req, res) {
                 sendResultObject(res, { Error: error });
                 logger.error(error);
               } else {
-                if (groupCount == 0) {
+                if (groupCount === 0) {
                   res.status(201).send();
                   logger.succeed();
                 }
@@ -560,8 +564,8 @@ app.post('/attendance', jsonParser, function (req, res) {
 // Post feedback
 app.post('/feedback', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
-  var comment = req.body.comment;
+  let logger = new Logger(req, client);
+  let comment = req.body.comment;
   if (!comment) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -590,15 +594,15 @@ app.post('/feedback', jsonParser, function (req, res) {
 // Post notes
 app.post('/save_answer', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   if (!req.body || !client.cellphone) {
     sendErrorObject(res, 401, { Error: "Invalid input:" });
     logger.error("Invalid input" + JSON.stringify(req.body));
     return;
   }
 
-  var questionId = req.body.question_id;
-  if (!questionId || questionId.length == 0) {
+  let questionId = req.body.question_id;
+  if (!questionId || questionId.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid question ID" });
     logger.error(error);
   }
@@ -625,11 +629,11 @@ app.post('/save_answer', jsonParser, function (req, res) {
 // Get User answers
 app.get('/get_answer/:questionId', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const cellphone = client.cellphone;
   const question_id = req.params.questionId;
 
-  if (!cellphone || cellphone.length == 0 || !question_id || question_id.length == 0) {
+  if (!cellphone || cellphone.length === 0 || !question_id || question_id.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -643,7 +647,7 @@ app.get('/get_answer/:questionId', jsonParser, function (req, res) {
       sendErrorObject(res, 400, { Error: JSON.stringify(error) });
       logger.error(error);
     } else {
-      var userAnswer = result.length == 0 ? "" : result[0].answer;
+      let userAnswer = result.length === 0 ? "" : result[0].answer;
       const data = {
         answer: userAnswer
       };
@@ -656,7 +660,7 @@ app.get('/get_answer/:questionId', jsonParser, function (req, res) {
 // Post poke (device call home)
 app.post('/poke', jsonParser, function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   res.status(201).send();
   let data = getRequestValue(req, 'data') + (req.body.data ? req.body.data : '');
   logger.done(data);
@@ -665,7 +669,7 @@ app.post('/poke', jsonParser, function (req, res) {
 // Get messages for chat/discussion
 app.get('/messages/*', function (req, res) {
   const client = getClientInfo(req);
-  var logger = new Logger(req, client);
+  let logger = new Logger(req, client);
   const room = req.params[0];
   if (!room) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
