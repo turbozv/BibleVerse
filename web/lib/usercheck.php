@@ -1,5 +1,5 @@
 <?php
-require("config.php");
+require("lib/config.php");
 
 if (!isset($disable_safe_redirect) && !isset($_SERVER['HTTPS'])) {
     header("Location: https://www.mycbsf.org/login.php");

@@ -403,15 +403,16 @@ app.get('/audio/*', async function (req, res) {
     return;
   }
 
+  const lesson = req.query['lesson'];
   let query;
-  if (req.query['lesson']) {
+  if (lesson) {
     query = {
-      sql: 'SELECT audios.lesson FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND lesson=? AND audio=1',
-      values: [cellphone, req.query['lesson']]
+      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND lesson=? AND audio=1',
+      values: [cellphone, lesson]
     };
   } else {
     query = {
-      sql: 'SELECT audios.lesson FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
+      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
       values: [cellphone]
     };
   }
@@ -422,9 +423,11 @@ app.get('/audio/*', async function (req, res) {
       sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
       logger.error();
     } else {
-      const lesson = result[0].lesson;
-      if (getRequestValue(req, 'play') === '1') {
-        const file = `audios/${lesson}.mp3`;
+      if (getRequestValue(req, 'playNotes') === '1') {
+        const file = `audios/${result[0].notes}.mp3`;
+        res.download(file);
+      } else if (getRequestValue(req, 'play') === '1') {
+        const file = `audios/${result[0].lesson}.mp3`;
         res.download(file);
       } else {
         sendResultText(res, '');
