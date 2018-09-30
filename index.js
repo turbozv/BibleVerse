@@ -404,12 +404,12 @@ app.get('/audio/*', function (req, res) {
   let query;
   if (lesson) {
     query = {
-      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND lesson=? AND audio=1',
+      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1',
       values: [cellphone, lesson]
     };
   } else {
     query = {
-      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios ON audios.class=users.class WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
+      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
       values: [cellphone]
     };
   }
