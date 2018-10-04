@@ -24,14 +24,17 @@ if (!$row) {
 
 $row = '1';
 $notes = '';
+$seminar = '';
 if (!isset($_GET["lesson"])) {
-    $row = getRow("SELECT message, lesson, notes FROM LatestAudio LIMIT 1");
+    $row = getRow("SELECT message, lesson, notes, seminar FROM LatestAudio LIMIT 1");
     $lesson = $row[1];
     $notes = $row[2];
+    $seminar = $row[3];
 } else {
     $lesson = mysql_escape_string($_GET["lesson"]);
-    $row = getRow("SELECT message, notes FROM audios WHERE lesson='$lesson' LIMIT 1");
+    $row = getRow("SELECT message, notes, seminar FROM audios WHERE lesson='$lesson' LIMIT 1");
     $notes = $row[1];
+    $seminar = $row[2];
 }
 
 $lines = split("\n", $row[0]);
@@ -253,7 +256,7 @@ $lines = split("\n", $row[0]);
 <body oncontextmenu="return false">
   <article>
     <div class="cont">
-      <h3><?php echo $lines[0];?>
+      <h3>讲道录音：<?php echo $lines[0];?>
       <h3><?php echo $lines[1];?>
       <ul style='text-align: left;'>
 <?php
@@ -275,10 +278,24 @@ if (trim($notes) != '') {
     ?>
     <p>
     <div class="cont">
-      <h3>经文释义
-      </div>
+      <h3>讲义录音：
+    </div>
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone; ?>?lesson=<?php echo $lesson; ?>&playNotes=1">
+    </audio>
+<?php
+}
+
+?>
+<?php 
+if (trim($seminar) != '') {
+    ?>
+    <p>
+    <div class="cont">
+      <h3>讲座录音：
+    </div>
+    <audio class="audio" controls="controls" controlsList="nodownload">
+      <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone; ?>?lesson=<?php echo $lesson; ?>&playSeminar=1">
     </audio>
 <?php
 }
