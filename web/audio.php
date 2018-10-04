@@ -72,13 +72,13 @@ $lines = split("\n", $row[0]);
       width: 98%;
       margin: auto;
       text-align: center;
-      padding: 50px 5%;
+      padding: 0px 5%;
       box-sizing: border-box;
       border-radius: 10px;
     }
 
     .cont {
-      margin-bottom: 28px;
+      margin-bottom: 0px;
     }
 
     .cont h3 {
@@ -91,7 +91,7 @@ $lines = split("\n", $row[0]);
 
     .cont time {
       font-family: 'Lato';
-      font-size: 12px;
+      font-size: 10px;
       color: rgb(43, 39, 39);
 
     }
@@ -256,7 +256,7 @@ $lines = split("\n", $row[0]);
 <body oncontextmenu="return false">
   <article>
     <div class="cont">
-      <h3>讲道录音：<?php echo $lines[0];?>
+      <h3><?php echo $lines[0];?>
       <h3><?php echo $lines[1];?>
       <ul style='text-align: left;'>
 <?php
@@ -265,9 +265,6 @@ for ($i=2; $i<count($lines); $i++) {
 }
 ?>
       </ul>
-      <p>
-      <time>Men's Evening Class, BELLEVUE (CHINESE) WA</time>
-      </p>
     </div>
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone;?>?lesson=<?php echo $lesson;?>&play=1">
@@ -300,6 +297,11 @@ if (trim($seminar) != '') {
 <?php
 }
 ?>
+<div class="cout">
+<p style="font-size: 12px;">
+Men's Evening Class, BELLEVUE (CHINESE) WA
+</p>
+</div>
   </article>
 
   <script>
