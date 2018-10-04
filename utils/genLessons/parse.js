@@ -1,6 +1,7 @@
 let fs = require('fs');
 let fsSync = require('fs-sync');
 let textract = require('textract');
+let chineseConv = require('chinese-conv');
 
 const books = require('./books.json');
 let bookArray = []
@@ -10,17 +11,18 @@ Object.keys(books).forEach(item => {
 
 const verseCount = require('./verseCount.json');
 
+let Lang = '';
 let Year = 2018;
 let Lesson = 1;
 let Index = 1;
 let DayQuestionSpliter = [
-  'Scripture Memory Verse', 'Versículo de las Escrituras para memorizar',
-  'FIRST DAY:', 'PRIMER DÍA:',
-  'SECOND DAY:', 'SEGUNDO DÍA:',
-  'THIRD DAY:', 'TERCER DÍA:',
-  'FOURTH DAY:', 'CUARTO DÍA:',
-  'FIFTH DAY:', 'QUINTO DÍA:',
-  'SIXTH DAY:', 'SEXTO DÍA:'];
+  'Scripture Memory Verse', 'Versículo de las Escrituras para memorizar', '背诵经文',
+  'FIRST DAY:', 'PRIMER DÍA:', '第一天：',
+  'SECOND DAY:', 'SEGUNDO DÍA:', '第二天：',
+  'THIRD DAY:', 'TERCER DÍA:', '第三天：',
+  'FOURTH DAY:', 'CUARTO DÍA:', '第四天：',
+  'FIFTH DAY:', 'QUINTO DÍA:', '第五天：',
+  'SIXTH DAY:', 'SEXTO DÍA:', '第六天：'];
 
 function getNextString(spliters, content) {
   let location = 99999;
@@ -67,7 +69,7 @@ function split(spliters, content) {
 }
 
 function parseLessonId(content) {
-  var value = getNextString(['Lesson ', 'Lección '], content);
+  var value = getNextString(['Lesson ', 'Lección ', '第'], content);
 
   if (value.after.startsWith('Review')) {
     Lesson = 30;
@@ -101,7 +103,7 @@ function parseVerses(bookId, content) {
     let verse = words[i].trim();
 
     // skip some words
-    if (verse.indexOf('and') !== -1) {
+    if (verse.indexOf('and') !== -1 || verse.indexOf('和') !== -1) {
       continue;
     }
 
@@ -197,7 +199,7 @@ function parseQuestions(indexString, content) {
       continue;
     }
 
-    if (line[1] == '.' && line[2] == ' ') {
+    if (line[1] === '.' && (Lang == 'chs' || line[2] === ' ')) {
       console.assert('abcdefghijklmn'.indexOf(line[0]) != -1);
       if (currentQuestion.length > 0) {
         questions.push(currentQuestion);
@@ -205,7 +207,7 @@ function parseQuestions(indexString, content) {
 
       currentQuestion = line.substring(0, 3) + line.substring(3).trim();
     } else {
-      currentQuestion += ' ' + line;
+      currentQuestion += ' ' + line.trim();
     }
   }
 
@@ -232,7 +234,7 @@ function parseQuestions(indexString, content) {
 function parseDayQuestion(content) {
   let questionIndexSpliter = [];
   for (let i = Index; i < 20; i++) {
-    questionIndexSpliter.push('\n' + i + '. ');
+    questionIndexSpliter.push('\n' + i + '.');
   }
 
   let strs = split(questionIndexSpliter, content);
@@ -258,16 +260,17 @@ function parseDayQuestion(content) {
 
 function parseHomework(content) {
   let strs = split(DayQuestionSpliter, content);
+  console.assert(strs.length === 15);
   let pos = 3;
   const id = parseLessonId(strs[0]);
-  console.assert(strs.length === 15);
 
   let newLastLine = '';
   const lastLine = strs[14];
   lastLine.split('\n').forEach(line => {
     if (line.indexOf('www.bsfinternational.org') === -1 &&
       line.indexOf('www.mybsf.org') === -1 &&
-      line.indexOf('No homiletics for group or administrative leaders') === -1) {
+      line.indexOf('No homiletics for group or administrative leaders') === -1 &&
+      line.indexOf('未经书面批准') === -1) {
       newLastLine += line + '\n';
     }
   });
@@ -315,34 +318,51 @@ function parse(dir, file) {
     if (index !== -1) {
       // not ending, we will enter remove mode
       removeMode = line.indexOf(')', index) === -1;
-
       line = line.substring(0, index);
     }
 
     line = line.trim();
-    if (line.length > 0) {
+
+    if (line.length > 0 && !line.startsWith('成人班研经题') &&
+      !line.startsWith('People of the Promised Land 11 Adult Questions | Lesson') &&
+      !line.startsWith('People of the Promised Land I Lesson') &&
+      (line.indexOf('AdQ (06.2018)') === -1) &&
+      (line.indexOf('（组长及班务同工的讲道培训：本周暂停）') === -1)) {
+      line = line.replace('祂', '他').replace('爰', '爱').replace('池', '他');
+      line = (Lang === 'chs') ? line.replace(/ - /g, '-') : line;
       newContent += line + '\n';
     }
   });
 
   const result = parseHomework(newContent);
-  const output = `${dir}\\${Year}_${Lesson}.json`;
-  console.log(`Writing to[${output}]...\n`);
-  fsSync.write(output, JSON.stringify(result));
+  console.log(`Writing to ${Year}_${Lesson}...\n`);
+  const output = JSON.stringify(result);
+  fsSync.write(`${dir}\\${Year}_${Lesson}.json`, output);
+
+  var newOutput = chineseConv.tify(output);
+  if (newOutput != output) {
+    fsSync.write(`cht\\${Year}_${Lesson}.json`, newOutput);
+  }
 }
 
 function main() {
-  ['spa', 'eng'].forEach(dir => {
+  /*['spa', 'eng']*/['chs'].forEach(dir => {
+    Lang = dir;
     fs.readdir(dir, (err, files) => {
       files.forEach(file => {
-        if (!file.endsWith('.docx') && !file.endsWith('.pdf')) {
+        /*
+        if (!file.endsWith('.pdf')) {
           return;
         }
 
         textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
           fsSync.write(dir + '\\' + file + '.txt', text);
           parse(dir, file + '.txt');
-        });
+        });*/
+
+        if (file.endsWith('.txt')) {
+          parse(dir, file);
+        }
       });
     });
   });
