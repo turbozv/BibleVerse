@@ -456,7 +456,7 @@ app.get('/user/*', function (req, res) {
       audios.push(result[i].lesson);
     }
     mysqlConn.query({
-      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)=10 AND cellphone=? ORDER BY registerDate DESC LIMIT 1',
+      sql: 'SELECT * FROM users WHERE LENGTH(cellphone)>=10 AND cellphone=? ORDER BY registerDate DESC LIMIT 1',
       values: [cellphone]
     }, function (error, result, fields) {
       if (error) {
