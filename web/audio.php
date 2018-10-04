@@ -14,6 +14,7 @@ if (!is_numeric($cellphone)) {
     noAccess();
 }
 
+require("lib/config.php");
 require("lib/mysql.php");
 $cellphone = mysql_escape_string($cellphone);
 $row = getRow("SELECT id FROM users WHERE cellphone='$cellphone' AND audio=1");
@@ -22,13 +23,15 @@ if (!$row) {
 }
 
 $row = '1';
-$lesson = $_GET["lesson"];
-if (!isset($lesson)) {
-    $row = getRow("SELECT message, lesson FROM LatestAudio LIMIT 1");
+$notes = '';
+if (!isset($_GET["lesson"])) {
+    $row = getRow("SELECT message, lesson, notes FROM LatestAudio LIMIT 1");
     $lesson = $row[1];
+    $notes = $row[2];
 } else {
-    $lesson = mysql_escape_string($lesson);
-    $row = getRow("SELECT message FROM audios WHERE lesson='$lesson' LIMIT 1");
+    $lesson = mysql_escape_string($_GET["lesson"]);
+    $row = getRow("SELECT message, notes FROM audios WHERE lesson='$lesson' LIMIT 1");
+    $notes = $row[1];
 }
 
 $lines = split("\n", $row[0]);
@@ -266,6 +269,20 @@ for ($i=2; $i<count($lines); $i++) {
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone;?>?lesson=<?php echo $lesson;?>&play=1">
     </audio>
+
+<?php 
+if (trim($notes) != '') {
+    ?>
+    <p>
+    <div class="cont">
+      <h3>经文释义
+      </div>
+    <audio class="audio" controls="controls" controlsList="nodownload">
+      <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone; ?>?lesson=<?php echo $lesson; ?>&playNotes=1">
+    </audio>
+<?php
+}
+?>
   </article>
 
   <script>

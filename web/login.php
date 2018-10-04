@@ -7,6 +7,7 @@ if (isset($_SESSION['login_user_id'])) {
 }
 
 if (isset($_POST['user']) && isset($_POST['pass'])) {
+    require("lib/config.php");
     require("lib/mysql.php");
     require("lib/password.php");
 
