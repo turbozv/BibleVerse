@@ -149,36 +149,16 @@ foreach (array_keys($g_attendance) as $key) {
 $classAttend = array();
 $classTotal = array();
 
-$query = "select distinct `group` from users where class=$class and `group` >= 500 and `group` < 600 order by `group` asc";
-$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $group = mysql_real_escape_string($line["group"]);
+$groups = getSatelightGroups($class);
+$results = array();
+foreach ($groups as $key => $group) {
     echo "<h4>".getGroupDisplayName($class, $group)."<br>";
     $leaderId = getLeaderId($group);
     
     // get all member names (who has ever in this group)
     $members = getMembers($class, $group);
 
-    $attend = array();
-    $totalUsers = array();
-    $result2 = getQuery("select * from attendanceDates where class=$class order by date asc");
-    while ($line = mysql_fetch_array($result2, MYSQL_ASSOC)) {
-        $date = mysql_real_escape_string($line["date"]);
-        // find attendance by group
-        $row = getRow("select users, totalUsers from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
-        if ($row === false) {
-            $attend[$date] = "";
-            $totalUsers[$date] = 0;
-        } else {
-            if ($row[0] == "[]") {
-                $attend[$date] = "";
-            } else {
-                $attend[$date] = substr($row[0], 1, -1).',';
-            }
-            $totalUsers[$date] = $row[1];
-        }
-        //echo "$date => $attend[$date] totalUsers: $totalUsers[$date]<br>";
-    }
+    $attend = getAttendanceDates($class, $group);
 
     echo "<table border=1><tr><td style='min-width: 280px;'>";
     $idx = 0;
@@ -202,9 +182,9 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
                 }
             } else {
                 $check = '√';
-            }
-            
+            }            
             echo "<td align='center'>$check";
+            $results[$group][$userId][$date] = $check;
         }
         $id++;
     }
@@ -212,7 +192,12 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     echo "<tr><td>出席总人数:";
     reset($attend);
     while (list($date, $users) = each($attend)) {
-        $count = substr_count($users, ',');
+        $count = 0;
+        foreach ($results[$group] as $user => $value) {
+            if ($value[$date] == '√') {
+                $count++;
+            }
+        }
         $total = (isset($classAttend[$date])? $classAttend[$date] : 0) + $count;
         $classAttend[$date] = $total;
         echo "<td align='center'>$count";
@@ -222,7 +207,12 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     echo "<tr><td>注册总人数:";
     reset($attend);
     while (list($date, $users) = each($attend)) {
-        $count = $totalUsers[$date];
+        $count = 0;
+        foreach ($results[$group] as $user => $value) {
+            if ($value[$date] != '-') {
+                $count++;
+            }
+        }
         $totalCountByDate[$date] = $count;
         $total = (isset($classTotal[$date])? $classTotal[$date] : 0) + $count;
         $classTotal[$date] = $total;
@@ -244,7 +234,6 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
     echo "</table>";
 }
-mysql_free_result($result);
 }
 
 if ($showGroup == 'adult' || $showGroup == 'sp' ) {

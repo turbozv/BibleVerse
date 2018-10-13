@@ -219,3 +219,71 @@ function getGroupDisplayName($class, $group) {
     
     return "其他小组1#".$group;
 }
+
+function getAdultGroups($class) {
+    $groups = array();
+
+    $query = "select distinct `group` from users where class=$class and `group` < 100 order by `group` asc";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($groups, $line["group"]);
+    }
+
+    mysql_free_result($result);
+
+    return $groups;
+}
+
+function getSPGroups($class) {
+    $groups = array();
+
+    $query = "select distinct `group` from users where class=$class and `group` >= 100 and `group` < 200 order by `group` asc ";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($groups, $line["group"]);
+    }
+
+    mysql_free_result($result);
+
+    return $groups;
+}
+
+function getSatelightGroups($class) {
+    $groups = array();
+
+    $query = "select distinct `group` from users where class=$class and `group` >= 500 and `group` < 600 order by `group` asc";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($groups, $line["group"]);
+    }
+
+    mysql_free_result($result);
+
+    return $groups;
+}
+
+function getAttendancedates($class, $group) {
+    $attendDates = array();
+
+    $query = "select date from attendanceDates where class=$class order by date asc";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        $date = $line["date"];
+        // find attendance by group
+        $row = getRow("select users from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
+        if ($row === false) {
+            $attendDates[$date] = "";
+        } else {
+            if ($row[0] == "[]") {
+                $attendDates[$date] = "";
+            } else {
+                $attendDates[$date] = substr($row[0], 1, -1).',';
+            }
+        }
+        //echo "$date => $attend[$date]<br>";
+    }
+
+    mysql_free_result($result);
+
+    return $attendDates;
+}
