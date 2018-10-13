@@ -180,3 +180,42 @@ function isUserInGroupOnDate($user, $group, $date)
     $row = getRow("SELECT id FROM userGroups WHERE user=$user AND `group`=$group AND fromDate <= '$date' AND endDate >= '$date'");
     return !!$row;
 }
+
+$g_groupName = array();
+
+function getGroupDisplayName($class, $group) {
+    global $g_groupName;
+
+    if (sizeof($g_groupName) == 0) {
+        $result = getQuery("select class, groupId, name from groups");
+        while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+            $key = mysql_real_escape_string($line["class"])."-".mysql_real_escape_string($line["groupId"]);
+            $g_groupName[$key] = mysql_real_escape_string($line["name"]);
+        }
+        mysql_free_result($result);
+    }
+
+    $key = $class."-".$group;
+    if (array_key_exists($key, $g_groupName))
+        return $g_groupName[$key]."#".$group;
+
+    $result = "";
+    $groupValue = intval($group);
+    if ($groupValue == 0) {
+        return "同工小组(周一)";
+    }
+
+    if ($groupValue < 100) {
+        return "成人小组#".$group;
+    }
+
+    if ($groupValue < 500) {
+        return "儿童小组#".$group;
+    }
+
+    if ($groupValue < 600) {
+        return "卫星小组#".$group;
+    }
+    
+    return "其他小组1#".$group;
+}

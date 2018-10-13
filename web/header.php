@@ -59,6 +59,7 @@ function getLink($page, $name)
 echo getLink("index.php", "Home");
 echo getLink("attendanceAdult.php", "Attendance(Adult)");
 echo getLink("attendanceSP.php", "Attendance(SP)");
+echo getLink("attendanceSG.php", "Attendance(Satelight)");
 echo getLink("editAttendance.php", "编辑出席表");
 echo getLink("users.php", "Users");
 echo getLink("feedback.php", "App用户反馈");
