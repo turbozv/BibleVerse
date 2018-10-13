@@ -404,12 +404,12 @@ app.get('/audio/*', function (req, res) {
   let query;
   if (lesson) {
     query = {
-      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1',
+      sql: 'SELECT audios.lesson, audios.notes, audios.seminar FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1',
       values: [cellphone, lesson]
     };
   } else {
     query = {
-      sql: 'SELECT audios.lesson, audios.notes FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
+      sql: 'SELECT audios.lesson, audios.notes, audios.seminar FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
       values: [cellphone]
     };
   }
@@ -424,6 +424,9 @@ app.get('/audio/*', function (req, res) {
     } else {
       if (getRequestValue(req, 'playNotes') === '1') {
         const file = `audios/${result[0].notes}.mp3`;
+        res.download(file);
+      } else if (getRequestValue(req, 'playSeminar') === '1') {
+        const file = `audios/${result[0].seminar}.mp3`;
         res.download(file);
       } else if (getRequestValue(req, 'play') === '1') {
         const file = `audios/${result[0].lesson}.mp3`;

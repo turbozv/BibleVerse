@@ -91,11 +91,19 @@ mysql_free_result($result);
 geoip_close($gi);
 
 $dataIP = '';
+$others = 0;
 arsort($array);
 foreach ($array as $key => $val) {
     $percent = round($val * 100 / $totalIpAddress, 2);
-    $dataIP .= "{y: $percent, count: $val, label: '$key'},";
+    if ($val > 10) {
+        $dataIP .= htmlspecialchars("{y: $percent, count: $val, label: '$key'},");
+    } else {
+        $others += $val;
+    }
 }
+$percent = round($others * 100 / $totalIpAddress, 2);
+$dataIP .= htmlspecialchars("{y: $percent, count: $others, label: 'Others'},");
+
 
 $query = 'SELECT lang, count(*) as count FROM clientInfo GROUP BY lang';
 $array = array();
