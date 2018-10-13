@@ -498,7 +498,7 @@ app.post('/attendance', jsonParser, function (req, res) {
 
   // leader may have multiple groups, we will add attendance row for each group
   mysqlConn.query({
-    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group`, users.class FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=? ORDER BY users.registerDate DESC LIMIT 1',
+    sql: 'SELECT attendanceLeaders.leader, attendanceLeaders.`group`, users.class FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=? ORDER BY users.registerDate DESC',
     values: [client.cellphone]
   }, function (error, result, fields) {
     if (error) {
