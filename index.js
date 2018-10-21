@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let https = require('https');
 let config = require('./config.js');
 let mysql = require('mysql');
+const util = require('util');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -11,6 +12,9 @@ const io = require('socket.io')(server);
 let dbBible = new sqlite3.Database('bible.db');
 let jsonParser = bodyParser.json()
 let mysqlConn = mysql.createConnection({ host: config.mysqlServer, user: config.mysqlUser, password: config.mysqlPassword, database: config.mysqlDatabase, timezone: 'pst', charset: 'utf8mb4' });
+
+// node native promisify
+const mysqlQuery = util.promisify(mysqlConn.query).bind(mysqlConn);
 
 // Keep connection alive
 mysqlConn.connect();
@@ -318,7 +322,7 @@ app.get('/logon', function (req, res) {
 })
 
 // Get attendance
-app.get('/attendance', function (req, res) {
+app.get('/attendance', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   if (!client.cellphone) {
@@ -328,66 +332,54 @@ app.get('/attendance', function (req, res) {
   }
 
   // Find out the leader's information and groups
-  mysqlConn.query({
-    sql: 'SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AND class=2',
-    values: [client.cellphone]
-  }, function (error, result, fields) {
-    if (error) {
-      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-      logger.error(error);
-    } else if (result.length === 0) {
+  try {
+    var result = await mysqlQuery('SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") AND class=2');
+
+    if (result.length === 0) {
       sendErrorObject(res, 401, { Error: "No permission" });
-      logger.error(error);
-    } else {
-      const classId = result[0].class;
-      let attendees = result;
-      // Find the current attendance date
-      mysqlConn.query({
-        sql: 'SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1',
-        values: [classId]
-      }, function (error, result, fields) {
-        if (error) {
-          sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-          logger.error(error);
-        } else if (result.length === 0) {
-          sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
-          logger.error(error);
-        } else {
-          const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
-          // Get users from all groups
-          mysqlConn.query({
-            sql: 'SELECT `group`, users FROM attendance WHERE date=? AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) ORDER BY submitDate DESC',
-            values: [nextClassDate, client.cellphone]
-          }, function (error, result, fields) {
-            if (error) {
-              sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-              logger.error(error);
-            } else {
-              let checkedInUsers = [];
-              for (let i in result) {
-                const group = result[i].group;
-                if (!checkedInUsers[group]) {
-                  checkedInUsers[group] = JSON.parse(result[i].users);
-                }
-              }
-
-              for (let i in attendees) {
-                delete attendees[i].class;
-                const group = attendees[i].group;
-                if (checkedInUsers[group] && checkedInUsers[group].includes(attendees[i].id)) {
-                  attendees[i].checked = true;
-                }
-              }
-
-              sendResultObject(res, { date: nextClassDate, attendees });
-              logger.succeed();
-            }
-          });
-        }
-      });
+      logger.error("No permission");
+      return;
     }
-  });
-})
+
+    const classId = result[0].class;
+    let attendees = result;
+    // Find the current attendance date
+
+    result = await mysqlQuery('SELECT date AS nextClassDate FROM attendanceDates WHERE class="' + classId + '" AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1');
+    if (result.length === 0) {
+      sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
+      logger.error("No class date set, please check with Admin");
+      return;
+    }
+
+    const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
+    // Get users from all groups
+    result = await mysqlQuery('SELECT `group`, users FROM attendance WHERE date="' + nextClassDate + '" AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") ORDER BY submitDate DESC');
+
+    let checkedInUsers = [];
+    for (let i in result) {
+      const group = result[i].group;
+      if (!checkedInUsers[group]) {
+        checkedInUsers[group] = JSON.parse(result[i].users);
+      }
+    }
+
+    for (let i in attendees) {
+      delete attendees[i].class;
+      const group = attendees[i].group;
+      if (checkedInUsers[group] && checkedInUsers[group].includes(attendees[i].id)) {
+        attendees[i].checked = true;
+      }
+    }
+
+    sendResultObject(res, { date: nextClassDate, attendees });
+    logger.succeed();
+
+  } catch (error) {
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+});
 
 // Get teaching audio
 app.get('/audio/*', function (req, res) {
