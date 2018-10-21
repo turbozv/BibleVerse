@@ -331,8 +331,8 @@ app.get('/attendance', async function (req, res) {
     return;
   }
 
-  // Find out the leader's information and groups
   try {
+    // Find out the leader's information and groups
     var result = await mysqlQuery('SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") AND class=2');
 
     if (result.length === 0) {
@@ -343,9 +343,14 @@ app.get('/attendance', async function (req, res) {
 
     const classId = result[0].class;
     let attendees = result;
-    // Find the current attendance date
 
-    result = await mysqlQuery('SELECT date AS nextClassDate FROM attendanceDates WHERE class="' + classId + '" AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1');
+    // Find the current attendance date
+    if (result[0].group === 0) {
+      // Co-worker group
+      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class="${classId}" AND date <= DATE(NOW()) UNION SELECT date AS nextClassDate FROM attendanceLeadersMeetingDates WHERE class="${classId}" AND date <= DATE(NOW()) ORDER BY nextClassDate DESC LIMIT 1`);
+    } else {
+      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class="${classId}" AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1`);
+    }
     if (result.length === 0) {
       sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
       logger.error("No class date set, please check with Admin");
@@ -353,6 +358,7 @@ app.get('/attendance', async function (req, res) {
     }
 
     const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
+
     // Get users from all groups
     result = await mysqlQuery('SELECT `group`, users FROM attendance WHERE date="' + nextClassDate + '" AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") ORDER BY submitDate DESC');
 
