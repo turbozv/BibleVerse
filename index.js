@@ -333,8 +333,7 @@ app.get('/attendance', async function (req, res) {
 
   try {
     // Find out the leader's information and groups
-    var result = await mysqlQuery('SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") AND class=2');
-
+    var result = await mysqlQuery('SELECT id, `group`, CONCAT(cname, " ", name) as name, cellphone, class FROM users WHERE `group` IN (SELECT attendanceLeaders.`group` FROM users INNER JOIN attendanceLeaders ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) AND class=2', [client.cellphone]);
     if (result.length === 0) {
       sendErrorObject(res, 401, { Error: "No permission" });
       logger.error("No permission");
@@ -347,9 +346,9 @@ app.get('/attendance', async function (req, res) {
     // Find the current attendance date
     if (result[0].group === 0) {
       // Co-worker group
-      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class="${classId}" AND date <= DATE(NOW()) UNION SELECT date AS nextClassDate FROM attendanceLeadersMeetingDates WHERE class="${classId}" AND date <= DATE(NOW()) ORDER BY nextClassDate DESC LIMIT 1`);
+      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) UNION SELECT date AS nextClassDate FROM attendanceLeadersMeetingDates WHERE class=? AND date <= DATE(NOW()) ORDER BY nextClassDate DESC LIMIT 1`, [classId, classId]);
     } else {
-      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class="${classId}" AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1`);
+      result = await mysqlQuery(`SELECT date AS nextClassDate FROM attendanceDates WHERE class=? AND date <= DATE(NOW()) ORDER BY date DESC LIMIT 1`, [classId]);
     }
     if (result.length === 0) {
       sendErrorObject(res, 400, { Error: "No class date set, please check with Admin" });
@@ -360,7 +359,7 @@ app.get('/attendance', async function (req, res) {
     const nextClassDate = getYYYYMMDD(result[0].nextClassDate);
 
     // Get users from all groups
-    result = await mysqlQuery('SELECT `group`, users FROM attendance WHERE date="' + nextClassDate + '" AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone="' + client.cellphone + '") ORDER BY submitDate DESC');
+    result = await mysqlQuery('SELECT `group`, users FROM attendance WHERE date=? AND `group` IN (SELECT attendanceLeaders.`group` FROM attendanceLeaders INNER JOIN users ON attendanceLeaders.leader=users.id WHERE users.cellphone=?) ORDER BY submitDate DESC', [nextClassDate, client.cellphone]);
 
     let checkedInUsers = [];
     for (let i in result) {
@@ -382,6 +381,7 @@ app.get('/attendance', async function (req, res) {
     logger.succeed();
 
   } catch (error) {
+    console.log(error);
     sendErrorObject(res, 400, { Error: JSON.stringify(error) });
     logger.error(error);
   }
@@ -438,7 +438,7 @@ app.get('/audio/*', function (req, res) {
 })
 
 // Get user information
-app.get('/user/*', function (req, res) {
+app.get('/user/*', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const cellphone = req.params[0];
@@ -448,43 +448,48 @@ app.get('/user/*', function (req, res) {
     return;
   }
 
-  mysqlConn.query({
-    sql: 'SELECT lesson FROM audios WHERE class=1'
-  }, function (error, result, fields) {
-    if (error) {
-      sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-      logger.error(error);
-    }
-    audios = [];
+  try {
+    // Get users from all groups
+    let result = await mysqlQuery('SELECT lesson FROM audios');
+
+    let audios = [];
     for (let i in result) {
       audios.push(result[i].lesson);
     }
-    mysqlConn.query({
-      sql: 'SELECT * FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1',
-      values: [cellphone]
-    }, function (error, result, fields) {
-      if (error) {
-        sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-        logger.error(error);
-      } else if (result.length === 0) {
-        sendErrorObject(res, 400, { Error: "Invalid user" });
-        logger.error(error);
-      } else {
-        const data = {
-          name: result[0].name,
-          audio: result[0].audio,
-          class: result[0].class,
-          isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(result[0].role) !== -1),
-          chat: 1
-        };
-        if (data.audio) {
-          data.audios = audios;
-        }
-        sendResultObject(res, data);
-        logger.succeed();
-      }
-    });
-  });
+
+    result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
+    if (result.length === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid user" });
+      logger.error(error);
+      return;
+    }
+    const user = result[0];
+
+    result = await mysqlQuery('SELECT `group` FROM attendanceLeaders WHERE leader=?', [user.id]);
+    let attendanceGroups = [];
+    for (let i in result) {
+      attendanceGroups.push(result[i].group);
+    }
+
+    const data = {
+      name: user.name,
+      audio: user.audio,
+      class: user.class,
+      isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(user.role) !== -1),
+      chat: 1,
+      attendanceGroups
+    };
+    if (data.audio) {
+      data.audios = audios;
+    }
+    sendResultObject(res, data);
+    logger.succeed();
+
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
 })
 
 // Post attendance
