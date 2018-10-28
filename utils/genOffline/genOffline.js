@@ -101,7 +101,7 @@ function parseHome(home, lang) {
       const lessonId = book.lessons[j].id;
       const lesson = getJson('/lessons/' + lessonId + '?lang=' + lang);
       addToCache('LESSON/' + lessonId + '?lang=' + lang, lesson);
-      parseLesson(lesson, lang);
+      //parseLesson(lesson, lang);
     }
   }
 }
