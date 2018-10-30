@@ -21,11 +21,17 @@ function showLeaderMeetingAttendance()
         $members[$line['id']] = $g_users[$line['id']];
     }
     mysql_free_result($result);
-    
+
+    $todatValue = date("Ymd");
     $attend = array();
     $result = getQuery("select * from attendanceLeadersMeetingDates where class=$class order by date asc");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $date = mysql_real_escape_string($line["date"]);
+        $dateValue = date("Ymd", strtotime($date));
+        if (intval($dateValue) > intval($todatValue)) {
+            continue;
+        }
+
         // find attendance by group
         $row = getRow("select users, totalUsers from attendance where `date`='$date' order by submitDate desc limit 1");
         if ($row === false) {

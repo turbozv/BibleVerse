@@ -265,10 +265,20 @@ function getSatelightGroups($class) {
 function getAttendancedates($class, $group) {
     $attendDates = array();
 
-    $query = "select date from attendanceDates where class=$class order by date asc";
+    if ($group == 0) {
+        $query = "select date from attendanceDates where class=$class order by date asc";
+    } else {
+        $query = "SELECT DISTINCT date FROM attendance WHERE class=$class and `group`=$group ORDER BY date ASC";
+    }
     $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    $todatValue = date("Ymd");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $date = $line["date"];
+        $dateValue = date("Ymd", strtotime($date));
+        if (intval($dateValue) > intval($todatValue)) {
+            continue;
+        }
+
         // find attendance by group
         $row = getRow("select users from attendance where `date`='$date' and `group`=$group order by submitDate desc limit 1");
         if ($row === false) {
