@@ -432,10 +432,21 @@ app.get('/attendanceV2/*', async function (req, res) {
       groups = [group];
     }
 
+    // Get group names
+    let groupNames = [];
+    result = await mysqlQuery('SELECT groupId, name FROM groups WHERE class=?', [user.class]);
+    if (result.length > 0) {
+      result.map(item => groupNames[item.groupId] = item.name);
+    }
+
     let response = [];
 
     for (let i in groups) {
       let currentGroup = { class: user.class, group: groups[i], date: date ? date : new Date().toLocaleDateString() };
+
+      if (groupNames[currentGroup.group]) {
+        currentGroup.name = groupNames[currentGroup.group];
+      }
 
       // Get attendees
       if (currentGroup.group === 0) {
