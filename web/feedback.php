@@ -19,12 +19,20 @@ if (isset($_POST['message']) && isset($_POST['room'])) {
 
 echo "<p>";
 
+$deviceIds = array();
+
 // GeoIP
 require 'vendor/autoload.php';
 $gi = geoip_open("GeoIP.dat", GEOIP_STANDARD);
-$result = getQuery('SELECT DISTINCT room FROM `messages` WHERE length(room) = 36 AND user != "System" ORDER BY createdAt DESC');
+$result = getQuery('SELECT * FROM `messages` WHERE length(room) = 36 AND user != "System" ORDER BY createdAt DESC');
 while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
     $room = $line['room'];
+    if (array_key_exists($room, $deviceIds)) {
+        continue;
+    }
+
+    $deviceIds[$room] = 1;
+
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
     echo "<p>$room";
     while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
