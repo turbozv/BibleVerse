@@ -20,10 +20,10 @@ function getCacheFile(url) {
 }
 
 function getCache(url) {
-  const file = getCacheFile(url);
+  /*const file = getCacheFile(url);
   if (fs.exists(file)) {
     return fs.read(file);
-  }
+  }*/
   return null;
 }
 
