@@ -4,10 +4,10 @@ let bodyParser = require('body-parser');
 let https = require('https');
 let config = require('./config.js');
 let mysql = require('mysql');
-const util = require('util');
-const app = require('express')();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+let util = require('util');
+let app = require('express')();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
 
 let dbBible = new sqlite3.Database('bible.db');
 let jsonParser = bodyParser.json()
@@ -847,7 +847,13 @@ app.get('/messages/*', function (req, res) {
 })
 
 // Set up socket.io for chat server
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
+  console.log(`user connected [${socket.handshake.address}]`);
+
+  socket.on('disconnect', function(){
+    console.log(`user disconnected [${socket.handshake.address}]`);
+  });
+
   // listen on new message and broadcast it
   socket.on('newMessage', function (data) {
     const ip = socket.handshake.address.replace('::ffff:', '');
@@ -884,4 +890,4 @@ io.sockets.on('connection', function (socket) {
 });
 
 app.use(bodyParser.text());
-server.listen(3000)
+http.listen(3000)
