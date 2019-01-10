@@ -1,1 +1,209 @@
-{"id":"2018_6","name":"","memoryVerse":"\"But you are to hold fast to the Lord your God, as you have until now.\" – Joshua 23:8","dayQuestions":{"one":{"title":"FIRST DAY: Read the notes and the references.","questions":[{"id":"2018_6_1","questionText":"1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)","answer":"","quotes":[]},{"id":"2018_6_2","questionText":"2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?","answer":"","quotes":[]}]},"two":{"title":"SECOND DAY: Read Ruth 1.\nRuth 1 explains why Elimelek moved his family to Moab and the events prior to Naomi's return to Israel.","readVerse":[{"book":"Ruth","verse":"1:1-22"}],"questions":[{"id":"2018_6_3","questionText":"3. Describe Israel's relationship with Moab. What happened to Elimelek's family in Moab? (See Numbers 25:1-3; Deuteronomy 23:3-6.)","answer":"","quotes":[{"book":"Numbers","verse":"25:1-3"},{"book":"Deuteronomy","verse":"23:3-6"}]},{"id":"2018_6_4","questionText":"4. What did Ruth potentially give up by going with Naomi? What did Ruth think she might gain by going with Naomi?","answer":"","quotes":[]},{"id":"2018_6_5","questionText":"5. In what way has suffering and misfortune affected your attitude, family or decisions? How has your view of God been impacted by these situations?","answer":"","quotes":[]}]},"three":{"title":"THIRD DAY: Read Ruth 2.\nRuth gleaned in Boaz's field because God's law allowed the poor to glean the leftovers so they could eat.","readVerse":[{"book":"Ruth","verse":"2:1-23"}],"questions":[{"id":"2018_6_6","questionText":"6. Who was Boaz, and what character traits did he display? Why did he help Ruth, the Moabite? (See Matthew 1:5.)","answer":"","quotes":[{"book":"Matthew","verse":"1:5"}]},{"id":"2018_6_7","questionText":"7. What does Scripture tell us about Boaz's potential responsibility as a near relative (guardian-redeemer) of Elimelek? (See Leviticus 25:23-25; Deuteronomy 25:5-6.)","answer":"","quotes":[{"book":"Leviticus","verse":"25:23-25"},{"book":"Deuteronomy","verse":"25:5-6"}]},{"id":"2018_6_8","questionText":"8. How does this passage impact your heart toward the marginalized (poor, refugee, homeless, etc.)?","answer":"","quotes":[]}]},"four":{"title":"FOURTH DAY: Read Ruth 3.\nRuth 3 relates Naomi's plan for Ruth and Boaz.","readVerse":[{"book":"Ruth","verse":"3:1-18"}],"questions":[{"id":"2018_6_9","questionText":"9. Why did Naomi resort to this plan? What were the potential pros and cons of the plan?","answer":"","quotes":[]},{"id":"2018_6_10","questionText":"10. The Hebrew word translated \"garment\" in Ruth 3:9 is the same Hebrew word translated as \"wings\" in Ruth 2:12. What was Ruth saying to Boaz in her actions? Why would she say it in that way?","answer":"","quotes":[{"book":"Ruth","verse":"3:9"},{"book":"Ruth","verse":"2:12"}]},{"id":"2018_6_11","questionText":"11. Give similarities and differences in how Boaz treated Ruth and how Jesus Christ treats those who come to Him. (You may use any additional Scripture references.)","answer":"","quotes":[]}]},"five":{"title":"FIFTH DAY: Read Ruth 4.\nRuth 4 gives perspective into ways God works through suffering for good.","readVerse":[{"book":"Ruth","verse":"4:1-22"}],"questions":[{"id":"2018_6_12","questionText":"12. What does \"redeem\" mean? Describe all the ways you see God's redemptive work in this chapter.","answer":"","quotes":[]},{"id":"2018_6_13","questionText":"13. What do you know about David? Why would Scripture twice emphasize Obed's relationship to David? (See 2 Samuel 7:5-29, Matthew 1:1 or any other scripture reference.)","answer":"","quotes":[{"book":"2 Samuel","verse":"7:5-29"},{"book":"Matthew","verse":"1:1"}]},{"id":"2018_6_14","questionText":"14. How does this story give you hope as you wait on the Lord in your present circumstances?","answer":"","quotes":[]}]},"six":{"title":"SIXTH DAY: Review Ruth 1-4.","readVerse":[{"book":"Ruth","verse":"1:1-4:22"}],"questions":[{"id":"2018_6_15","questionText":"15. What have you learned about God and Jesus your Redeemer in this week's study? How may your group pray for you as you make this truth a part of your life?","answer":"","quotes":[]},{"id":"2018_6_16","questionText":"16. Homiletics for group and administrative leaders: Ruth 1-4","answer":"","quotes":[{"book":"Ruth","verse":"1:1-4:22"}]},{"id":"2018_6_16","questionText":"16. Homiletics for group and administrative leaders: Ruth 1-4","answer":"","quotes":[{"book":"Ruth","verse":"1:1-4:22"}]}]}}}
+{
+    "id": "2018_6",
+    "name": "",
+    "memoryVerse": "\"But you are to hold fast to the Lord your God, as you have until now.\" – Joshua 23:8",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2018_6_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_6_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Ruth 1.\nRuth 1 explains why Elimelek moved his family to Moab and the events prior to Naomi's return to Israel.",
+            "readVerse": [
+                {
+                    "book": "Ruth",
+                    "verse": "1:1-22"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_6_3",
+                    "questionText": "3. Describe Israel's relationship with Moab. What happened to Elimelek's family in Moab? (See Numbers 25:1-3; Deuteronomy 23:3-6.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Numbers",
+                            "verse": "25:1-3"
+                        },
+                        {
+                            "book": "Deuteronomy",
+                            "verse": "23:3-6"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_6_4",
+                    "questionText": "4. What did Ruth potentially give up by going with Naomi? What did Ruth think she might gain by going with Naomi?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_6_5",
+                    "questionText": "5. In what way has suffering and misfortune affected your attitude, family or decisions? How has your view of God been impacted by these situations?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Ruth 2.\nRuth gleaned in Boaz's field because God's law allowed the poor to glean the leftovers so they could eat.",
+            "readVerse": [
+                {
+                    "book": "Ruth",
+                    "verse": "2:1-23"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_6_6",
+                    "questionText": "6. Who was Boaz, and what character traits did he display? Why did he help Ruth, the Moabite? (See Matthew 1:5.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Matthew",
+                            "verse": "1:5"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_6_7",
+                    "questionText": "7. What does Scripture tell us about Boaz's potential responsibility as a near relative (guardian-redeemer) of Elimelek? (See Leviticus 25:23-25; Deuteronomy 25:5-6.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Leviticus",
+                            "verse": "25:23-25"
+                        },
+                        {
+                            "book": "Deuteronomy",
+                            "verse": "25:5-6"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_6_8",
+                    "questionText": "8. How does this passage impact your heart toward the marginalized (poor, refugee, homeless, etc.)?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Ruth 3.\nRuth 3 relates Naomi's plan for Ruth and Boaz.",
+            "readVerse": [
+                {
+                    "book": "Ruth",
+                    "verse": "3:1-18"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_6_9",
+                    "questionText": "9. Why did Naomi resort to this plan? What were the potential pros and cons of the plan?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_6_10",
+                    "questionText": "10. The Hebrew word translated \"garment\" in Ruth 3:9 is the same Hebrew word translated as \"wings\" in Ruth 2:12. What was Ruth saying to Boaz in her actions? Why would she say it in that way?",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Ruth",
+                            "verse": "3:9"
+                        },
+                        {
+                            "book": "Ruth",
+                            "verse": "2:12"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_6_11",
+                    "questionText": "11. Give similarities and differences in how Boaz treated Ruth and how Jesus Christ treats those who come to Him. (You may use any additional Scripture references.)",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Ruth 4.\nRuth 4 gives perspective into ways God works through suffering for good.",
+            "readVerse": [
+                {
+                    "book": "Ruth",
+                    "verse": "4:1-22"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_6_12",
+                    "questionText": "12. What does \"redeem\" mean? Describe all the ways you see God's redemptive work in this chapter.",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_6_13",
+                    "questionText": "13. What do you know about David? Why would Scripture twice emphasize Obed's relationship to David? (See 2 Samuel 7:5-29, Matthew 1:1 or any other scripture reference.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "2 Samuel",
+                            "verse": "7:5-29"
+                        },
+                        {
+                            "book": "Matthew",
+                            "verse": "1:1"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_6_14",
+                    "questionText": "14. How does this story give you hope as you wait on the Lord in your present circumstances?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Ruth 1-4.",
+            "readVerse": [
+                {
+                    "book": "Ruth",
+                    "verse": "1:1-4:22"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_6_15",
+                    "questionText": "15. What have you learned about God and Jesus your Redeemer in this week's study? How may your group pray for you as you make this truth a part of your life?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_6_16",
+                    "questionText": "16. Homiletics for group and administrative leaders: Ruth 1-4",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Ruth",
+                            "verse": "1:1-4:22"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

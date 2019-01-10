@@ -1,58 +1,14 @@
 var fs = require('fs-sync');
-var syncRequest = require('sync-request');
-var request = require('request');
 var bookIds = require('./bookid.json');
 
-var globalCache = {};
-var globalCacheSize = 0;
-var globalBibleVerses = [];
-
 let Languages = ['chs', 'cht', 'eng', 'spa'];
-let BibleVerses = ['rcuvss', 'rcuvts', 'niv2011', 'nvi', 'ccb', 'cnvt', 'esv', 'niv1984', 'kjv', 'rvr1995'];
 
-function addToCache(key, value) {
-  globalCache[key] = value;
-  console.log("Add #" + ++globalCacheSize + ": " + key);
+function getHomeJson(lang) {
+  return fs.readJSON(`../../lessons/${lang}/home.json`);
 }
 
-function getCacheFile(url) {
-  return 'cache\\' + url.replace(/\//g, '.').replace(/\?/g, '.').replace(/:/g, '.').replace(/=/g, '.')
-}
-
-function getCache(url) {
-  /*const file = getCacheFile(url);
-  if (fs.exists(file)) {
-    return fs.read(file);
-  }*/
-  return null;
-}
-
-function writeCache(url, data) {
-  const file = getCacheFile(url);
-  fs.write(file, data);
-}
-
-function getJson(url, skipCache) {
-  if (!skipCache) {
-    let cache = getCache(url);
-    if (cache) {
-      return JSON.parse(cache);
-    }
-  }
-
-  const res = syncRequest('GET', 'http://localhost:3000' + url);
-  const body = res.getBody('utf-8');
-  start = 0;
-  while (body[start] != '{' && start < body.length) {
-    start++;
-  }
-
-  const data = body.substring(start);
-  if (!skipCache) {
-    writeCache(url, data);
-  }
-
-  return JSON.parse(data);
+function getLessonJson(lang, lesson) {
+  return fs.readJSON(`../../lessons/${lang}/${lesson}.json`);
 }
 
 function getId(book, verse) {
@@ -64,6 +20,11 @@ function getId(book, verse) {
     }
   }
   return bookId + "/" + verse;
+}
+
+function addToCache(key, value) {
+  globalCache[key] = value;
+  console.log("Add #" + ++globalCacheSize + ": " + key);
 }
 
 function parseDay(day, lang) {
@@ -99,38 +60,13 @@ function parseHome(home, lang) {
     const book = home.booklist[i];
     for (j in book.lessons) {
       const lessonId = book.lessons[j].id;
-      const lesson = getJson('/lessons/' + lessonId + '?lang=' + lang);
+      const lesson = getLessonJson(lang, lessonId);
       addToCache('LESSON/' + lessonId + '?lang=' + lang, lesson);
-      //parseLesson(lesson, lang);
     }
   }
-}
-
-function getVerses() {
-  const total = Object.keys(globalBibleVerses).length;
-  for (k in BibleVerses) {
-    globalCache = {};
-    globalCacheSize = 0;
-
-    const bibleVersion = BibleVerses[k];
-    let current = 0;
-    for (verse in globalBibleVerses) {
-      const bible = getJson('/verse/' + verse + '?bibleVersion=' + bibleVersion);
-      addToCache('PASSAGE/' + verse + '?bibleVersion=' + bibleVersion, bible);
-      console.log(`${parseInt(++current / total * 100)}%`);
-    }
-
-    console.log(`Write to ${bibleVersion}.json...`);
-    fs.write(`data\\${bibleVersion}.json`, JSON.stringify(globalCache));
-  }
-
-  console.log("Done!");
 }
 
 // Main
-if (!fs.isDir("cache")) {
-  fs.mkdir("cache");
-}
 if (!fs.isDir("data")) {
   fs.mkdir("data");
 }
@@ -140,7 +76,7 @@ for (i in Languages) {
   globalCache = {};
   globalCacheSize = 0;
   const lang = Languages[i];
-  const home = getJson('/lessons?lang=' + lang, true);
+  const home = getHomeJson(lang);
   books[lang] = home;
 
   addToCache('BOOK/?lang=' + lang, home);
@@ -150,24 +86,4 @@ for (i in Languages) {
 }
 
 fs.write(`data\\books.json`, JSON.stringify(books));
-
-var total = Object.keys(globalBibleVerses).length * BibleVerses.length;
-for (k in BibleVerses) {
-  const bibleVersion = BibleVerses[k];
-  let current = 0;
-  for (verse in globalBibleVerses) {
-    const url = '/verse/' + verse + '?bibleVersion=' + bibleVersion;
-    if (!getCache(url)) {
-      request('http://localhost:3000' + url, function (error, response, body) {
-        writeCache(url, body);
-        if (--total == 0) {
-          getVerses();
-        }
-      });
-    } else {
-      if (--total == 0) {
-        getVerses();
-      }
-    }
-  }
-}
+console.log('Done!');
