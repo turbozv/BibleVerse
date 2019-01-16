@@ -1,1 +1,135 @@
-{"id":"2018_16","name":"","memoryVerse":"\"For with you is the fountain of life; in your light we see light.\" – Psalm 36:9","dayQuestions":{"one":{"title":"FIRST DAY: Read the notes and the references.","questions":[{"id":"2018_16_1","questionText":"1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)","answer":"","quotes":[]},{"id":"2018_16_2","questionText":"2. From the past week's study, what made the most significant impact to you in the notes, lecture, group sharing or personal study?","answer":"","quotes":[]}]},"two":{"title":"SECOND DAY: Read 2 Samuel 1.\nDavid grieved Saul's and Jonathan's deaths.","readVerse":[{"book":"2 Samuel","verse":"1:1-27"}],"questions":[{"id":"2018_16_3","questionText":"3. How did the man's report of Saul's death compare with the actual events? Why might he have changed the story? (See 1 Samuel 31:1-7.)","answer":"","quotes":[{"book":"1 Samuel","verse":"31:1-7"}]},{"id":"2018_16_4","questionText":"4. Why was David unwilling to celebrate Saul's death? What does that say about David's relationship with and beliefs about God?","answer":"","quotes":[]},{"id":"2018_16_5","questionText":"5. What does David's response to the news reveal about him? Which qualities will you ask God to grow in you?","answer":"","quotes":[]}]},"three":{"title":"THIRD DAY: Read 2 Samuel 2:1-3:5.\nDavid's and Saul's men battled over who would be Israel's next king.","readVerse":[{"book":"2 Samuel","verse":"2:1-3:5"}],"questions":[{"id":"2018_16_6","questionText":"6. What decision did David face? How did David decide what to do next? (See 1 Samuel 16:12-13 and 2 Samuel 2:1-3.)","answer":"","quotes":[{"book":"1 Samuel","verse":"16:12-13"},{"book":"2 Samuel","verse":"2:1-3"}]},{"id":"2018_16_7","questionText":"7. Did Abner's actions make the situation better or worse between David's and Saul's men? Why?","answer":"","quotes":[]},{"id":"2018_16_8","questionText":"8. What reminders, warnings or examples do you see in this passage? How could you apply them to your life?","answer":"","quotes":[]}]},"four":{"title":"FOURTH DAY: Read 2 Samuel 3:6-29.\nAbner shifted his loyalty to David and was killed.","readVerse":[{"book":"2 Samuel","verse":"3:6-29"}],"questions":[{"id":"2018_16_9","questionText":"9. What prompted Abner's change in loyalty? How did Abner demonstrate his loyalty to David?","answer":"","quotes":[]},{"id":"2018_16_10","questionText":"10. What do you learn from the differences in how David and Joab responded to Abner? How do you respond to those who have hurt or harmed you?","answer":"","quotes":[]},{"id":"2018_16_11","questionText":"11. How do you see God working to establish David as king, in the good and hard times?","answer":"","quotes":[]}]},"five":{"title":"FIFTH DAY: Read 2 Samuel 4:1-12.\nDavid ordered the execution of Ish-Bosheth's murderers.","readVerse":[{"book":"2 Samuel","verse":"4:1-12"}],"questions":[{"id":"2018_16_12","questionText":"12. What were Saul's men hoping to gain by killing Ish-Bosheth? What were the consequences?","answer":"","quotes":[]},{"id":"2018_16_13","questionText":"13. How do you see people engaging in self-promotion today? Which are most tempting to you?","answer":"","quotes":[]},{"id":"2018_16_14","questionText":"14. What do you learn about choices and consequences from this passage?","answer":"","quotes":[]}]},"six":{"title":"SIXTH DAY: Review 2 Samuel 1-4.","readVerse":[{"book":"2 Samuel","verse":"1:1-4:12"}],"questions":[{"id":"2018_16_15","questionText":"15. Through this week's lesson, how is God challenging your view of the purpose of struggles or to remain patient instead of taking matters into your own hands?","answer":"","quotes":[]}]}}}
+{
+  "id": "2018_16",
+  "name": "",
+  "memoryVerse": "\"For with you is the fountain of life; in your light we see light.\" – Psalm 36:9",
+  "dayQuestions": {
+    "one": {
+      "title": "FIRST DAY: Read the notes and the references.",
+      "questions": [
+        {
+          "id": "2018_16_1",
+          "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_2",
+          "questionText": "2. From the past week's study, what made the most significant impact to you in the notes, lecture, group sharing or personal study?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "two": {
+      "title": "SECOND DAY: Read 2 Samuel 1.\nDavid grieved Saul's and Jonathan's deaths.",
+      "readVerse": [{ "book": "2 Samuel", "verse": "1:1-27" }],
+      "questions": [
+        {
+          "id": "2018_16_3",
+          "questionText": "3. How did the man's report of Saul's death compare with the actual events? Why might he have changed the story? (See 1 Samuel 31:1-7.)",
+          "answer": "",
+          "quotes": [{ "book": "1 Samuel", "verse": "31:1-7" }]
+        },
+        {
+          "id": "2018_16_4",
+          "questionText": "4. Why was David unwilling to celebrate Saul's death? What does that say about David's relationship with and beliefs about God?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_5",
+          "questionText": "5. What does David's response to the news reveal about him? Which qualities will you ask God to grow in you?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "three": {
+      "title": "THIRD DAY: Read 2 Samuel 2:1-3:5.\nDavid's and Saul's men battled over who would be Israel's next king.",
+      "readVerse": [{ "book": "2 Samuel", "verse": "2:1-3:5" }],
+      "questions": [
+        {
+          "id": "2018_16_6",
+          "questionText": "6. What decision did David face? How did David decide what to do next? (See 1 Samuel 16:12-13 and 2 Samuel 2:1-3.)",
+          "answer": "",
+          "quotes": [
+            { "book": "1 Samuel", "verse": "16:12-13" },
+            { "book": "2 Samuel", "verse": "2:1-3" }
+          ]
+        },
+        {
+          "id": "2018_16_7",
+          "questionText": "7. Did Abner's actions make the situation better or worse between David's and Saul's men? Why?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_8",
+          "questionText": "8. What reminders, warnings or examples do you see in this passage? How could you apply them to your life?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "four": {
+      "title": "FOURTH DAY: Read 2 Samuel 3:6-29.\nAbner shifted his loyalty to David and was killed.",
+      "readVerse": [{ "book": "2 Samuel", "verse": "3:6-29" }],
+      "questions": [
+        {
+          "id": "2018_16_9",
+          "questionText": "9. What prompted Abner's change in loyalty? How did Abner demonstrate his loyalty to David?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_10",
+          "questionText": "10. What do you learn from the differences in how David and Joab responded to Abner? How do you respond to those who have hurt or harmed you?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_11",
+          "questionText": "11. How do you see God working to establish David as king, in the good and hard times?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "five": {
+      "title": "FIFTH DAY: Read 2 Samuel 4:1-12.\nDavid ordered the execution of Ish-Bosheth's murderers.",
+      "readVerse": [{ "book": "2 Samuel", "verse": "4:1-12" }],
+      "questions": [
+        {
+          "id": "2018_16_12",
+          "questionText": "12. What were Saul's men hoping to gain by killing Ish-Bosheth? What were the consequences?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_13",
+          "questionText": "13. How do you see people engaging in self-promotion today? Which are most tempting to you?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_16_14",
+          "questionText": "14. What do you learn about choices and consequences from this passage?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "six": {
+      "title": "SIXTH DAY: Review 2 Samuel 1-4.",
+      "readVerse": [{ "book": "2 Samuel", "verse": "1:1-4:12" }],
+      "questions": [
+        {
+          "id": "2018_16_15",
+          "questionText": "15. Through this week's lesson, how is God challenging your view of the purpose of struggles or to remain patient instead of taking matters into your own hands?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    }
+  }
+}

@@ -1,73 +1,73 @@
 {
-    "id": "2018_30",
-    "name": "",
-    "memoryVerse": "\"Many are the plans in a person's heart, but it is the Lord's purpose that prevails.\" – Proverbs 19:21",
-    "dayQuestions": {
-        "one": {
-            "title": "FIRST DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_1",
-                    "questionText": "1. What did you learn about God through the study of People of the Promised Land I, and what difference has that made in your life?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "two": {
-            "title": "SECOND DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_2",
-                    "questionText": "2. What did you learn about yourself during the study, and how did God use that to draw you closer to Him?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "three": {
-            "title": "THIRD DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_3",
-                    "questionText": "3. In what ways did you experience God changing your thoughts, attitudes, desires and actions this year? How did you see Him work in the lives of the children you bring to BSF?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "four": {
-            "title": "FOURTH DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_4",
-                    "questionText": "4. How has your relationship with Jesus Christ changed this year, and what impact has that had on your relationships with others?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "five": {
-            "title": "FIFTH DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_5",
-                    "questionText": "5. Now that you have completed the study of People of the Promised Land I, what do you think God's plan for you includes?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "six": {
-            "title": "SIXTH DAY:",
-            "questions": [
-                {
-                    "id": "2018_30_6",
-                    "questionText": "6. What do you want to tell others about God's work in your life during the study of People of the Promised Land I? Who might need that encouragement to trust Jesus at this time?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
+  "id": "2018_30",
+  "name": "",
+  "memoryVerse": "\"Many are the plans in a person's heart, but it is the Lord's purpose that prevails.\" – Proverbs 19:21",
+  "dayQuestions": {
+    "one": {
+      "title": "FIRST DAY:",
+      "questions": [
+        {
+          "id": "2018_30_1",
+          "questionText": "1. What did you learn about God through the study of People of the Promised Land I, and what difference has that made in your life?",
+          "answer": "",
+          "quotes": []
         }
+      ]
+    },
+    "two": {
+      "title": "SECOND DAY:",
+      "questions": [
+        {
+          "id": "2018_30_2",
+          "questionText": "2. What did you learn about yourself during the study, and how did God use that to draw you closer to Him?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "three": {
+      "title": "THIRD DAY:",
+      "questions": [
+        {
+          "id": "2018_30_3",
+          "questionText": "3. In what ways did you experience God changing your thoughts, attitudes, desires and actions this year? How did you see Him work in the lives of the children you bring to BSF?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "four": {
+      "title": "FOURTH DAY:",
+      "questions": [
+        {
+          "id": "2018_30_4",
+          "questionText": "4. How has your relationship with Jesus Christ changed this year, and what impact has that had on your relationships with others?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "five": {
+      "title": "FIFTH DAY:",
+      "questions": [
+        {
+          "id": "2018_30_5",
+          "questionText": "5. Now that you have completed the study of People of the Promised Land I, what do you think God's plan for you includes?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "six": {
+      "title": "SIXTH DAY:",
+      "questions": [
+        {
+          "id": "2018_30_6",
+          "questionText": "6. What do you want to tell others about God's work in your life during the study of People of the Promised Land I? Who might need that encouragement to trust Jesus at this time?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
     }
+  }
 }

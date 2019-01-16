@@ -1,245 +1,245 @@
 {
-    "id": "2018_29",
-    "name": "",
-    "memoryVerse": "\"Because of the Lord's eternal love for Israel, he has made you king to maintain justice and righteousness.\" – 1 Kings 10:9b",
-    "dayQuestions": {
-        "one": {
-            "title": "FIRST DAY: Read the notes and the references.",
-            "questions": [
-                {
-                    "id": "2018_29_1",
-                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
-                    "answer": "",
-                    "quotes": []
-                },
-                {
-                    "id": "2018_29_2",
-                    "questionText": "2. From the past week's study, what made the most significant impact to you in the notes, lecture, group sharing or personal study?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
+  "id": "2018_29",
+  "name": "",
+  "memoryVerse": "\"Because of the Lord's eternal love for Israel, he has made you king to maintain justice and righteousness.\" – 1 Kings 10:9b",
+  "dayQuestions": {
+    "one": {
+      "title": "FIRST DAY: Read the notes and the references.",
+      "questions": [
+        {
+          "id": "2018_29_1",
+          "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+          "answer": "",
+          "quotes": []
         },
-        "two": {
-            "title": "SECOND DAY: Read 1 Kings 11:1-8.\nSolomon loved forbidden women and worshipped false gods.",
-            "readVerse": [
-                {
-                    "book": "1 Kings",
-                    "verse": "11:1-8"
-                }
-            ],
-            "questions": [
-                {
-                    "id": "2018_29_3",
-                    "questionText": "3. What commands did Solomon disobey? (See Exodus 34:11-17; Deuteronomy 17:16-17 or any other Scripture reference.)",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "Exodus",
-                            "verse": "34:11-17"
-                        },
-                        {
-                            "book": "Deuteronomy",
-                            "verse": "17:16-17"
-                        }
-                    ]
-                },
-                {
-                    "id": "2018_29_4",
-                    "questionText": "4. Why does God set boundaries around marriage? How are God's boundaries for marriage for the good of His children, then and now?",
-                    "answer": "",
-                    "quotes": []
-                },
-                {
-                    "id": "2018_29_5",
-                    "questionText": "5. How do you proceed when God's commands come into conflict with your decisions and desires?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "three": {
-            "title": "THIRD DAY: Read 1 Kings 11:9-13.\nGod promised to divide the kingdom because of Solomon's disobedience.",
-            "readVerse": [
-                {
-                    "book": "1 Kings",
-                    "verse": "11:9-13"
-                }
-            ],
-            "questions": [
-                {
-                    "id": "2018_29_6",
-                    "questionText": "6. Why was God angry with Solomon? Why does God command our undivided worship? (Use Psalm 16:11; Ecclesiastes 2:1-10; Isaiah 45:5-6; 46:3-10; Acts 17:25 or any Scripture reference.)",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "Psalm",
-                            "verse": "16:11"
-                        },
-                        {
-                            "book": "Ecclesiastes",
-                            "verse": "2:1-10"
-                        },
-                        {
-                            "book": "Isaiah",
-                            "verse": "45:5-6"
-                        },
-                        {
-                            "book": "Isaiah",
-                            "verse": "46:3-10"
-                        },
-                        {
-                            "book": "Acts",
-                            "verse": "17:25"
-                        }
-                    ]
-                },
-                {
-                    "id": "2018_29_7",
-                    "questionText": "7. Solomon attempted to worship God and idols. What are some present-day examples of idolatry? What in your life might be an idol?",
-                    "answer": "",
-                    "quotes": []
-                },
-                {
-                    "id": "2018_29_8",
-                    "questionText": "8. What consequences did God promise would come to Solomon and his kingdom? What do you learn about God's timing, justice and mercy?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "four": {
-            "title": "FOURTH DAY: Read 1 Kings 11:14-26.\nGod raised up adversaries against Solomon.",
-            "readVerse": [
-                {
-                    "book": "1 Kings",
-                    "verse": "11:14-26"
-                }
-            ],
-            "questions": [
-                {
-                    "id": "2018_29_9",
-                    "questionText": "9. Describe the adversaries God \"raised up\" against Solomon. How did God demonstrate faithfulness to His promises? (See 1 Kings 6:12; 9:3-9)",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "1 Kings",
-                            "verse": "6:12"
-                        },
-                        {
-                            "book": "1 Kings",
-                            "verse": "9:3-9"
-                        }
-                    ]
-                },
-                {
-                    "id": "2018_29_10",
-                    "questionText": "10. What are the opposing forces God's people face today? (For help, see John 15:18-21; Ephesians 6:12; 1 Peter 5:8; James 1:13-14; 1 John 2:16.)",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "John",
-                            "verse": "15:18-21"
-                        },
-                        {
-                            "book": "Ephesians",
-                            "verse": "6:12"
-                        },
-                        {
-                            "book": "1 Peter",
-                            "verse": "5:8"
-                        },
-                        {
-                            "book": "James",
-                            "verse": "1:13-14"
-                        },
-                        {
-                            "book": "1 John",
-                            "verse": "2:16"
-                        }
-                    ]
-                },
-                {
-                    "id": "2018_29_11",
-                    "questionText": "11. What is your first response when hardship and adversaries arise? How has God used opposition and hardship to turn your heart and attention back to Him?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "five": {
-            "title": "FIFTH DAY: Read 1 Kings 11:26-43; Ecclesiastes 9:12; 12:1-14.\nJeroboam learned God's intent to give him 10 tribes.",
-            "readVerse": [
-                {
-                    "book": "1 Kings",
-                    "verse": "11:26-43"
-                },
-                {
-                    "book": "Ecclesiastes",
-                    "verse": "9:12"
-                },
-                {
-                    "book": "Ecclesiastes",
-                    "verse": "12:1-14"
-                }
-            ],
-            "questions": [
-                {
-                    "id": "2018_29_12",
-                    "questionText": "12. What did the Lord promise Jeroboam? What were the conditions?",
-                    "answer": "",
-                    "quotes": []
-                },
-                {
-                    "id": "2018_29_13",
-                    "questionText": "13. What can you infer about Solomon's last months of life? Why did he summarize life as he did? (See Ecclesiastes 9:12; 12:1-14.)",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "Ecclesiastes",
-                            "verse": "9:12"
-                        },
-                        {
-                            "book": "Ecclesiastes",
-                            "verse": "12:1-14"
-                        }
-                    ]
-                },
-                {
-                    "id": "2018_29_14",
-                    "questionText": "14. As you reflect back over Solomon's life, what lessons do you want to remember? How will they shape the way you live?",
-                    "answer": "",
-                    "quotes": []
-                }
-            ]
-        },
-        "six": {
-            "title": "SIXTH DAY: Review 1 Kings 11.",
-            "readVerse": [
-                {
-                    "book": "1 Kings",
-                    "verse": "11:1-43"
-                }
-            ],
-            "questions": [
-                {
-                    "id": "2018_29_15",
-                    "questionText": "15. What attribute of God resonated most from your study of this week's passage? How do you see that attribute displayed in the world today?",
-                    "answer": "",
-                    "quotes": []
-                },
-                {
-                    "id": "2018_29_16",
-                    "questionText": "16. Homiletics for group and administrative leaders: 1 Kings 11.",
-                    "answer": "",
-                    "quotes": [
-                        {
-                            "book": "1 Kings",
-                            "verse": "11:1-43"
-                        }
-                    ]
-                }
-            ]
+        {
+          "id": "2018_29_2",
+          "questionText": "2. From the past week's study, what made the most significant impact to you in the notes, lecture, group sharing or personal study?",
+          "answer": "",
+          "quotes": []
         }
+      ]
+    },
+    "two": {
+      "title": "SECOND DAY: Read 1 Kings 11:1-8.\nSolomon loved forbidden women and worshipped false gods.",
+      "readVerse": [
+        {
+          "book": "1 Kings",
+          "verse": "11:1-8"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2018_29_3",
+          "questionText": "3. What commands did Solomon disobey? (See Exodus 34:11-17; Deuteronomy 17:16-17 or any other Scripture reference.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Exodus",
+              "verse": "34:11-17"
+            },
+            {
+              "book": "Deuteronomy",
+              "verse": "17:16-17"
+            }
+          ]
+        },
+        {
+          "id": "2018_29_4",
+          "questionText": "4. Why does God set boundaries around marriage? How are God's boundaries for marriage for the good of His children, then and now?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_29_5",
+          "questionText": "5. How do you proceed when God's commands come into conflict with your decisions and desires?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "three": {
+      "title": "THIRD DAY: Read 1 Kings 11:9-13.\nGod promised to divide the kingdom because of Solomon's disobedience.",
+      "readVerse": [
+        {
+          "book": "1 Kings",
+          "verse": "11:9-13"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2018_29_6",
+          "questionText": "6. Why was God angry with Solomon? Why does God command our undivided worship? (Use Psalm 16:11; Ecclesiastes 2:1-10; Isaiah 45:5-6; 46:3-10; Acts 17:25 or any Scripture reference.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Psalm",
+              "verse": "16:11"
+            },
+            {
+              "book": "Ecclesiastes",
+              "verse": "2:1-10"
+            },
+            {
+              "book": "Isaiah",
+              "verse": "45:5-6"
+            },
+            {
+              "book": "Isaiah",
+              "verse": "46:3-10"
+            },
+            {
+              "book": "Acts",
+              "verse": "17:25"
+            }
+          ]
+        },
+        {
+          "id": "2018_29_7",
+          "questionText": "7. Solomon attempted to worship God and idols. What are some present-day examples of idolatry? What in your life might be an idol?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_29_8",
+          "questionText": "8. What consequences did God promise would come to Solomon and his kingdom? What do you learn about God's timing, justice and mercy?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "four": {
+      "title": "FOURTH DAY: Read 1 Kings 11:14-26.\nGod raised up adversaries against Solomon.",
+      "readVerse": [
+        {
+          "book": "1 Kings",
+          "verse": "11:14-26"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2018_29_9",
+          "questionText": "9. Describe the adversaries God \"raised up\" against Solomon. How did God demonstrate faithfulness to His promises? (See 1 Kings 6:12; 9:3-9)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "1 Kings",
+              "verse": "6:12"
+            },
+            {
+              "book": "1 Kings",
+              "verse": "9:3-9"
+            }
+          ]
+        },
+        {
+          "id": "2018_29_10",
+          "questionText": "10. What are the opposing forces God's people face today? (For help, see John 15:18-21; Ephesians 6:12; 1 Peter 5:8; James 1:13-14; 1 John 2:16.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "John",
+              "verse": "15:18-21"
+            },
+            {
+              "book": "Ephesians",
+              "verse": "6:12"
+            },
+            {
+              "book": "1 Peter",
+              "verse": "5:8"
+            },
+            {
+              "book": "James",
+              "verse": "1:13-14"
+            },
+            {
+              "book": "1 John",
+              "verse": "2:16"
+            }
+          ]
+        },
+        {
+          "id": "2018_29_11",
+          "questionText": "11. What is your first response when hardship and adversaries arise? How has God used opposition and hardship to turn your heart and attention back to Him?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "five": {
+      "title": "FIFTH DAY: Read 1 Kings 11:26-43; Ecclesiastes 9:12; 12:1-14.\nJeroboam learned God's intent to give him 10 tribes.",
+      "readVerse": [
+        {
+          "book": "1 Kings",
+          "verse": "11:26-43"
+        },
+        {
+          "book": "Ecclesiastes",
+          "verse": "9:12"
+        },
+        {
+          "book": "Ecclesiastes",
+          "verse": "12:1-14"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2018_29_12",
+          "questionText": "12. What did the Lord promise Jeroboam? What were the conditions?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_29_13",
+          "questionText": "13. What can you infer about Solomon's last months of life? Why did he summarize life as he did? (See Ecclesiastes 9:12; 12:1-14.)",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "Ecclesiastes",
+              "verse": "9:12"
+            },
+            {
+              "book": "Ecclesiastes",
+              "verse": "12:1-14"
+            }
+          ]
+        },
+        {
+          "id": "2018_29_14",
+          "questionText": "14. As you reflect back over Solomon's life, what lessons do you want to remember? How will they shape the way you live?",
+          "answer": "",
+          "quotes": []
+        }
+      ]
+    },
+    "six": {
+      "title": "SIXTH DAY: Review 1 Kings 11.",
+      "readVerse": [
+        {
+          "book": "1 Kings",
+          "verse": "11:1-43"
+        }
+      ],
+      "questions": [
+        {
+          "id": "2018_29_15",
+          "questionText": "15. What attribute of God resonated most from your study of this week's passage? How do you see that attribute displayed in the world today?",
+          "answer": "",
+          "quotes": []
+        },
+        {
+          "id": "2018_29_16",
+          "questionText": "16. Homiletics for group and administrative leaders: 1 Kings 11.",
+          "answer": "",
+          "quotes": [
+            {
+              "book": "1 Kings",
+              "verse": "11:1-43"
+            }
+          ]
+        }
+      ]
     }
+  }
 }
