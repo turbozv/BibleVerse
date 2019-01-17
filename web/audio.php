@@ -77,10 +77,18 @@ $lines = split("\n", $row[0]);
       border-radius: 10px;
     }
 
+    .section {
+      border: 2px solid;
+      border-color: #FFE8A1;
+      background-color: #FFF2CC;
+      border-radius: 10px 10px;
+      padding: 10px;
+    }
+
     .cont {
       margin-bottom: 0px;
     }
-
+    
     .cont h3 {
       font-family: 'Lato';
       font-size: 17px;
@@ -255,9 +263,10 @@ $lines = split("\n", $row[0]);
 
 <body oncontextmenu="return false">
   <article>
-    <div class="cont">
-      <h3><?php echo $lines[0];?>
-      <h3><?php echo $lines[1];?>
+    <div class="section">
+     <div class="cont">
+      <h3>讲道录音
+      <h3><?php echo $lines[0]." ".$lines[1];?>
       <ul style='text-align: left;'>
 <?php
 for ($i=2; $i<count($lines); $i++) {
@@ -269,17 +278,20 @@ for ($i=2; $i<count($lines); $i++) {
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone;?>?lesson=<?php echo $lesson;?>&play=1">
     </audio>
+    </div>
 
 <?php 
 if (trim($notes) != '') {
     ?>
     <p>
+    <div class="section">
     <div class="cont">
       <h3>讲义录音：
     </div>
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone; ?>?lesson=<?php echo $lesson; ?>&playNotes=1">
     </audio>
+    </div>
 <?php
 }
 
@@ -288,12 +300,14 @@ if (trim($notes) != '') {
 if (trim($seminar) != '') {
     ?>
     <p>
+    <div class="section">
     <div class="cont">
       <h3>讲座录音：
     </div>
     <audio class="audio" controls="controls" controlsList="nodownload">
       <source type="audio/mpeg" src="http://mycbsf.org:3000/audio/<?php echo $cellphone; ?>?lesson=<?php echo $lesson; ?>&playSeminar=1">
     </audio>
+    </div>
 <?php
 }
 ?>
