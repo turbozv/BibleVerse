@@ -547,6 +547,30 @@ app.get('/audio/*', function (req, res) {
   });
 })
 
+// Get teaching audio info
+app.get('/audioInfo/*', async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const cellphone = client.cellphone;
+  const lesson = req.params[0];
+  if (!cellphone || (/[^a-zA-Z0-9\_]/.test(lesson))) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1 AND users.class=2',
+    [cellphone, lesson]);
+  if (result.length === 0) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.succeed();
+    return;
+  }
+
+  sendResultObject(res, result[0]);
+  logger.succeed();
+})
+
 // Get user information
 app.get('/user/*', async function (req, res) {
   const client = getClientInfo(req);
@@ -850,7 +874,7 @@ app.get('/messages/*', function (req, res) {
 io.on('connection', function (socket) {
   console.log(`user connected [${socket.handshake.address}]`);
 
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function () {
     console.log(`user disconnected [${socket.handshake.address}]`);
   });
 
