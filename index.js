@@ -924,5 +924,36 @@ io.on('connection', function (socket) {
   });
 });
 
+// Delete message
+app.delete('/delete/:createdAt', jsonParser, async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const createdAt = req.params.createdAt;
+  const user = `${client.platformOS} ${client.deviceId}`;
+
+  if (!createdAt || !client.platformOS || !client.deviceId ||
+    /[^0-9]/.test(createdAt) || /[^a-zA-Z0-9 \_\-]/.test(user)) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  try {
+    let result = await mysqlQuery('DELETE FROM messages WHERE createdAt=? AND user=?', [createdAt, user]);
+    if (result.affectedRows === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error();
+    }
+
+    res.status(200).send();
+    logger.succeed();
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+})
+
+
 app.use(bodyParser.text());
 http.listen(3000)
