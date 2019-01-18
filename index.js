@@ -517,7 +517,7 @@ app.get('/audio/*', function (req, res) {
     };
   } else {
     query = {
-      sql: 'SELECT audios.lesson, audios.notes, audios.seminar FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 ORDER BY lesson DESC LIMIT 1',
+      sql: 'SELECT audios.lesson, audios.notes, audios.seminar FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 ORDER BY audios.id DESC LIMIT 1',
       values: [cellphone]
     };
   }
@@ -569,7 +569,7 @@ app.get('/audioInfo/*', async function (req, res) {
     result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1 AND users.class=2',
       [cellphone, lesson]);
   } else {
-    result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 AND users.class=2 ORDER BY lesson DESC LIMIT 1',
+    result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 AND users.class=2 ORDER BY audios.id DESC LIMIT 1',
       [cellphone]);
   }
   if (result.length === 0) {
