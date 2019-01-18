@@ -925,7 +925,7 @@ io.on('connection', function (socket) {
 });
 
 // Delete message
-app.delete('/delete/:createdAt', jsonParser, async function (req, res) {
+app.delete('/deleteMessage/:createdAt', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const createdAt = req.params.createdAt;
