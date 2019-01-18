@@ -552,15 +552,26 @@ app.get('/audioInfo/*', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const cellphone = client.cellphone;
-  const lesson = req.params[0];
-  if (!cellphone || (/[^a-zA-Z0-9\_]/.test(lesson))) {
+  if (!cellphone) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
-  result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1 AND users.class=2',
-    [cellphone, lesson]);
+  const lesson = req.params[0];
+  if (lesson && /[^a-zA-Z0-9\_]/.test(lesson)) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  if (lesson) {
+    result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND lesson=? AND audio=1 AND users.class=2',
+      [cellphone, lesson]);
+  } else {
+    result = await mysqlQuery('SELECT audios.lesson, audios.message, audios.notes, audios.notes_message, audios.seminar, audios.seminar_message FROM users INNER JOIN audios WHERE cellphone=? AND audio=1 AND users.class=2 ORDER BY lesson DESC LIMIT 1',
+      [cellphone]);
+  }
   if (result.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.succeed();
