@@ -925,21 +925,20 @@ io.on('connection', function (socket) {
 });
 
 // Delete message
-app.delete('/deleteMessage/:createdAt', jsonParser, async function (req, res) {
+app.delete('/deleteMessage/:token', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const createdAt = req.params.createdAt;
+  const token = req.params.token;
   const user = `${client.platformOS} ${client.deviceId}`;
 
-  if (!createdAt || !client.platformOS || !client.deviceId ||
-    /[^0-9]/.test(createdAt) || /[^a-zA-Z0-9 \_\-]/.test(user)) {
+  if (!token || !client.platformOS || !client.deviceId || /[^a-zA-Z0-9 \_\-]/.test(user)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
   try {
-    let result = await mysqlQuery('DELETE FROM messages WHERE createdAt=? AND user=?', [createdAt, user]);
+    let result = await mysqlQuery('DELETE FROM messages WHERE MD5(CONCAT(user, message))=?', [token]);
     if (result.affectedRows === 0) {
       sendErrorObject(res, 400, { Error: "Invalid input" });
       logger.error();
