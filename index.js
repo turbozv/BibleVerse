@@ -785,24 +785,27 @@ io.on('connection', function (socket) {
 });
 
 // Delete message
-app.delete('/deleteMessage/:token', jsonParser, async function (req, res) {
+app.delete('/deleteMessage/:createdAt', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const token = req.params.token;
+  const createdAt = req.params.createdAt;
   const user = `${client.platformOS} ${client.deviceId}`;
 
-  if (!token || !client.platformOS || !client.deviceId || /[^a-zA-Z0-9 \_\-]/.test(user)) {
+  if (!createdAt || !client.platformOS || !client.deviceId || /[^a-zA-Z0-9 \_\-]/.test(user)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
   try {
-    let result = await mysqlQuery('DELETE FROM messages WHERE createdAt=? AND user=?', [token, user]);
+    let result = await mysqlQuery('DELETE FROM messages WHERE createdAt=? AND user=?', [createdAt, user]);
     if (result.affectedRows === 0) {
       sendErrorObject(res, 400, { Error: "Invalid input" });
       logger.error();
     }
+
+    // broadcast it to everyone (including sender)
+    io.emit('deleteMessage', { createdAt, user });
 
     res.status(200).send();
     logger.succeed();
