@@ -8,6 +8,7 @@ let util = require('util');
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
+let nodeoutlook = require('nodejs-nodemailer-outlook');
 
 let dbBible = new sqlite3.Database('bible.db');
 let jsonParser = bodyParser.json()
@@ -551,7 +552,6 @@ app.get('/user/*', async function (req, res) {
     }
 
     const data = {
-      name: user.name,
       audio: user.audio,
       class: user.class,
       isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(user.role) !== -1),
@@ -779,6 +779,21 @@ io.on('connection', function (socket) {
           user: data.user,
           message: data.message
         });
+
+        // also send email to admins
+        if (room.length === 36) {
+          nodeoutlook.sendEmail({
+            auth: {
+              user: config.outlookEmail,
+              pass: config.outlookPassword
+            },
+            from: `"${config.senderName}" <${config.outlookEmail}>`,
+            to: config.adminEmails,
+            subject: 'New feedback from CBSF user',
+            html: `<b>${data.user}: ${data.message}</b>`,
+            text: `${data.user}: ${data.message}`
+          });
+        }
       }
     });
   });
@@ -815,7 +830,6 @@ app.delete('/deleteMessage/:createdAt', jsonParser, async function (req, res) {
     logger.error(error);
   }
 })
-
 
 app.use(bodyParser.text());
 http.listen(3000)
