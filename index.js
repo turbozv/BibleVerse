@@ -781,7 +781,7 @@ io.on('connection', function (socket) {
         });
 
         // also send email to admins
-        if (room.length === 36) {
+        if (data.room.length === 36) {
           nodeoutlook.sendEmail({
             auth: {
               user: config.outlookEmail,
@@ -790,8 +790,8 @@ io.on('connection', function (socket) {
             from: `"${config.senderName}" <${config.outlookEmail}>`,
             to: config.adminEmails,
             subject: 'New feedback from CBSF user',
-            html: `<b>${data.user}: ${data.message}</b>`,
-            text: `${data.user}: ${data.message}`
+            html: `<b>${data.user}:</b><p>${data.message}`,
+            text: `${data.user}:\n${data.message}`
           });
         }
       }
