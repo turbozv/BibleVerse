@@ -8,7 +8,7 @@ let util = require('util');
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
-let nodeoutlook = require('nodejs-nodemailer-outlook');
+const nodemailer = require('nodemailer');
 
 let dbBible = new sqlite3.Database('bible.db');
 let jsonParser = bodyParser.json()
@@ -782,16 +782,16 @@ io.on('connection', function (socket) {
 
         // also send email to admins
         if (data.room.length === 36) {
-          nodeoutlook.sendEmail({
-            auth: {
-              user: config.outlookEmail,
-              pass: config.outlookPassword
-            },
-            from: `"${config.senderName}" <${config.outlookEmail}>`,
-            to: config.adminEmails,
+          const transporter = nodemailer.createTransport({ host: config.mail.host, port: 465, secure: true, auth: { user: config.mail.user, pass: config.mail.pass } });
+          const mailOptions = {
+            from: config.mail.sender,
+            to: config.mail.to,
             subject: 'New feedback from CBSF user',
-            html: `<b>${data.user}:</b><p>${data.message}`,
-            text: `${data.user}:\n${data.message}`
+            text: `${data.user}:\n${data.message}`,
+            html: `<b>${data.user}:</b><p>${data.message}`
+          };
+          transporter.sendMail(mailOptions).then(info => {
+            console.log("Message sent: %s", info.messageId);
           });
         }
       }
