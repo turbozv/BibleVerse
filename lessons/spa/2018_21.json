@@ -1,0 +1,193 @@
+{
+    "id": "2018_21",
+    "name": "",
+    "memoryVerse": "\"Ten compasión de mí, oh Dios, conforme a tu gran amor; conforme a tu inmensa bondad, borra mis transgresiones\". – Salmo 51:1",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2018_21_1",
+                    "questionText": "1. Use este espacio para anotar cómo ha visto a Dios obrar durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_2",
+                    "questionText": "2. Del estudio de la semana pasada, ¿Qué fue lo que más le impactó de las notas, de la conferencia, o del tiempo en grupo?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea 2 Samuel 13.\nEl hijo de David, Amnón, violó a su media hermana Tamar, y su medio hermano Absalón lo mató.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "13:1-39"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_21_3a",
+                    "questionText": "3. a. ¿Qué signos alarmantes ve en el comportamiento de Amnón? ¿Qué pecados cometió? (Vea Éxodo 20:1-17 y Levítico 18:9.)",
+                    "quotes": [
+                        {
+                            "book": "Éxodo",
+                            "verse": "20:1-17"
+                        },
+                        {
+                            "book": "Levítico",
+                            "verse": "18:9"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_21_3b",
+                    "questionText": "3. b. ¿Qué aprende acerca de la devastación que sigue al pecado desenfrenado? ¿Cómo pueden las personas establecer salvaguardas para protegerse para que el pecado no llegue a ese nivel de gravedad?",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_4",
+                    "questionText": "4. ¿Qué aprende de las formas en que los hombres en este pasaje reaccionaron a la violación de Tamar? ¿Qué requería la ley de Dios? (Vea Levítico 18:9-11 y Deuteronomio 22:25-27.)",
+                    "quotes": [
+                        {
+                            "book": "Levítico",
+                            "verse": "18:9-11"
+                        },
+                        {
+                            "book": "Deuteronomio",
+                            "verse": "22:25-27"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_21_5",
+                    "questionText": "5. ¿Qué escrituras enfatizan el consuelo y la compasión de Dios por los dolidos y los de corazones quebrantados? ¿Cómo podrían estos versículos confortarle a usted o a los demás? (Use cualquier referencia de las Escrituras).",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea 2 Samuel 14–15:12.\nJoab arregló el regreso de Absalón a Israel y Absalón conspiró para ser rey.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "1415:12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_21_6",
+                    "questionText": "6. ¿Cómo complica la renuencia de David a actuar sus decisiones y los conflictos entre sus hijos?",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_7",
+                    "questionText": "7. ¿Qué revela sobre Absalón su estrategia para convertirse en rey? ® 8 \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 21 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_8",
+                    "questionText": "8. ¿Cómo maneja las decisiones difíciles y los posibles conflictos? ¿Cómo podría responder de manera diferente en el futuro?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea 2 Samuel 15:13–16:14 y Salmo 3.\nDavid abandonó Jerusalén y soportó la traición y el ridículo.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "15:1316:14"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_21_9",
+                    "questionText": "9. ¿Por qué eligió David abandonar Jerusalén? ¿Qué aprende acerca de David a partir de su trato con las personas a lo largo del viaje?",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_10",
+                    "questionText": "10. Describa lo que hizo David y cómo se sintió cuando supo que su consejero de confianza, Ajitofel, se unió a Absalón. (Ver Salmo 41:7-9.)",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_11",
+                    "questionText": "11. Describa la sumisión de David y confianza en Dios. ¿Qué verdades le son confortantes? ¿Por qué?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea 2 Samuel 16:15–18:33.\nEl intento de Absalón de matar a David resultó en su propia muerte.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "16:1518:33"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_21_12",
+                    "questionText": "12. Según 2 Samuel 16:15-23, ¿cómo se cumplieron las palabras de Natán a través del consejo de Ajitofel? (Vea 2 Samuel 12:11-12.)",
+                    "quotes": [
+                        {
+                            "book": "2 Samuel",
+                            "verse": "16:15-23"
+                        },
+                        {
+                            "book": "2 Samuel",
+                            "verse": "12:11-12"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_21_13",
+                    "questionText": "13. Según 2 Samuel 17:1-23, ¿cómo fue contestada la oración de David? (Vea 2 Samuel 15:31.) ¿Qué aprende sobre las profecías de Dios y / o la oración?",
+                    "quotes": [
+                        {
+                            "book": "2 Samuel",
+                            "verse": "17:1-23"
+                        },
+                        {
+                            "book": "2 Samuel",
+                            "verse": "15:31"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_21_14",
+                    "questionText": "14. ¿Cuál fue la respuesta de David ante la noticia de la muerte de Absalón? ¿Qué pudo estar pasando por su mente y corazón?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase 2 Samuel 13–18 y Salmo 3.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "1318:1-undefined"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_21_15",
+                    "questionText": "15. ¿Qué atributo de Dios resonaba más en su estudio del pasaje de esta semana? ¿Cómo ve ese atributo en el mundo de hoy?",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_21_16",
+                    "questionText": "16. Homilética para líderes de grupo y administrativos: 2 Samuel 13-18.",
+                    "quotes": [
+                        {
+                            "book": "2 Samuel",
+                            "verse": "13:1-18:33"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

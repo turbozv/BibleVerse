@@ -16,7 +16,7 @@ let Year = 2018;
 let Lesson = 1;
 let Index = 1;
 let DayQuestionSpliter = [
-  'Scripture Memory Verse', 'Versículo de las Escrituras para memorizar', '背诵经文',
+  'Scripture Memory Verse', 'Versículo de las Escrituras para memorizar', 'Versículo de la Escritura para memorizar', '背诵经文',
   'FIRST DAY:', 'PRIMER DÍA:', '第一天：',
   'SECOND DAY:', 'SEGUNDO DÍA:', '第二天：',
   'THIRD DAY:', 'TERCER DÍA:', '第三天：',
@@ -71,7 +71,7 @@ function split(spliters, content) {
 function parseLessonId(content) {
   var value = getNextString(['Lesson ', 'Lección ', '第'], content);
 
-  if (value.after.startsWith('Review')) {
+  if (!value.after || value.after.startsWith('Review')) {
     Lesson = 30;
   } else {
     const intValue = parseInt(value.after);
@@ -223,7 +223,6 @@ function parseQuestions(indexString, content) {
     result.push({
       id,
       questionText,
-      answer: '',
       quotes: parseQuotes(questionText)
     });
   });
@@ -346,26 +345,25 @@ function parse(dir, file) {
 }
 
 function main() {
-  /*['spa', 'eng']*/['chs'].forEach(dir => {
-    Lang = dir;
-    fs.readdir(dir, (err, files) => {
-      files.forEach(file => {
-        /*
-        if (!file.endsWith('.pdf')) {
-          return;
-        }
+  /*['spa', 'eng']*/['spa'].forEach(dir => {
+  Lang = dir;
+  fs.readdir(dir, (err, files) => {
+    files.forEach(file => {
+      if (!file.endsWith('.pdf')) {
+        return;
+      }
 
-        textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
-          fsSync.write(dir + '\\' + file + '.txt', text);
-          parse(dir, file + '.txt');
-        });*/
-
-        if (file.endsWith('.txt')) {
-          parse(dir, file);
-        }
+      textract.fromFileWithPath(dir + '\\' + file, { preserveLineBreaks: true }, function (error, text) {
+        fsSync.write(dir + '\\' + file + '.txt', text);
+        parse(dir, file + '.txt');
       });
+
+      // if (file.endsWith('.txt')) {
+      //   parse(dir, file);
+      // }
     });
   });
+});
 }
 
 main();
