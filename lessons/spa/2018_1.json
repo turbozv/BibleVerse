@@ -9,13 +9,13 @@
         {
           "id": "2018_1_1",
           "questionText": "1. Use este espacio para anotar cómo ha visto la actividad de Dios durante la semana. (¿Cómo Dios ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_2",
           "questionText": "2. ¿Qué fue lo que más le impactó de las notas o conferencias?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -32,25 +32,25 @@
         {
           "id": "2018_1_3",
           "questionText": "3. ¿Qué comisión personal y promesas le dio Dios a Josué? ¿Qué promesa significa más para usted?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_4a",
           "questionText": "4. a. ¿Cuáles son algunos atributos importantes de los mandamientos de Dios para Josué?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_4b",
           "questionText": "   b. ¿Qué medidas tomó Josué después de recibirlas, y cómo podría aplicar estas acciones a su vida?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_5",
           "questionText": "5. ¿Cómo manejó Josué a las dos tribus y media (Rubén, Gad y Manasés) que se habían poblado el lado oriental del Jordán? ¿Cómo habría alentado a Josué escuchar la respuesta que dieron dichas tribus?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -67,13 +67,13 @@
         {
           "id": "2018_1_6a",
           "questionText": "6. a. ¿Cómo obtuvo Josué información sobre Jericó?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_6b",
           "questionText": "   b. ¿Cómo pudo Rajab llegar a tener una fe firme en Dios? ¿Cuáles son las formas en que Rajab expresó su fe? (Véase también Hebreos 11:31 y Santiago 2:18,22,25.)",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Hebreos",
@@ -96,13 +96,13 @@
         {
           "id": "2018_1_7",
           "questionText": "7. ¿Qué ha aprendido o experimentado de Dios que le da valor para confiar en él en una situación nueva o arriesgada a la que se enfrenta ahora?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_8",
           "questionText": "8. ¿Cómo mostró Dios favor a Rajab por confiar en él? (Vea Josué 6:17-25 y Mateo 1:5-6.) ¿De qué manera le ha mostrado Dios favor conforme confía en él?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Josué",
@@ -128,19 +128,19 @@
         {
           "id": "2018_1_9a",
           "questionText": "9. a. ¿Qué detalles se destacan sobre la preparación para cruzar el Jordán?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_9b",
           "questionText": "  b. ¿Qué le había dicho Josué a la gente que Dios haría? ¿Cómo fue que el cruce en sí mismo le demostró que estaba en lo cierto?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_10",
           "questionText": "10. ¿Qué era el arca? ¿Por qué sería significativo que los sacerdotes la llevaran adelante de la gente? (Vea Éxodo 25:10-22; Hebreos 9:3-5).",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Éxodo",
@@ -166,7 +166,7 @@
         {
           "id": "2018_1_11",
           "questionText": "11. ¿Qué le ordenó Dios a Josué que hiciera, y por qué? (Vea Génesis 17:10-14; Éxodo 12:48; Deuteronomio 30:6).",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Génesis",
@@ -185,7 +185,7 @@
         {
           "id": "2018_1_12a",
           "questionText": "12. a. ¿Qué celebró la gente después de sanar? ¿Por qué sería esto significativo? (Vea Números 9:1-5).",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Números",
@@ -196,13 +196,13 @@
         {
           "id": "2018_1_12b",
           "questionText": "  b. ¿Qué más significaba el final de su experiencia en el desierto, y qué esperanza les daría?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_1_13",
           "questionText": "13. ¿Dónde ha hecho Dios un nuevo camino para usted y le ha dado la esperanza de una nueva provisión y abundancia de fruto ¿Cómo le agradecerá a Dios por esto?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -219,7 +219,7 @@
         {
           "id": "2018_1_14",
           "questionText": "14. ¿Cómo impactó el estudio de esta semana la manera en que usted piensa acerca de Dios? ¿Cómo afectará eso las acciones que llevará a cabo con respecto a algún llamado específico a servir, en su trato con otra persona, o sobre cierto compromiso o posición de liderazgo?",
-          "answer": "",
+          
           "quotes": []
         }
       ]

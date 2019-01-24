@@ -9,13 +9,13 @@
         {
           "id": "2018_5_1",
           "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_2",
           "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -27,19 +27,19 @@
         {
           "id": "2018_5_3",
           "questionText": "3. How did Joshua commend and challenge the eastern tribes? (See Joshua 22:1-8.)",
-          "answer": "",
+          
           "quotes": [{ "book": "Joshua", "verse": "22:1-8" }]
         },
         {
           "id": "2018_5_4",
           "questionText": "4. What did the western tribes fear after the eastern tribes built the altar? How did the eastern tribes defend their motives in building the altar? (For help, see Deuteronomy 12:10-14.)",
-          "answer": "",
+          
           "quotes": [{ "book": "Deuteronomy", "verse": "12:10-14" }]
         },
         {
           "id": "2018_5_5",
           "questionText": "5. What does this encounter teach you about dealing with confrontation in a God-honoring manner?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -51,25 +51,25 @@
         {
           "id": "2018_5_6",
           "questionText": "6. What did Joshua want the Israelites to recognize and remember about God?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_7",
           "questionText": "7. What truths about God can we learn from all He did for Israel?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_8",
           "questionText": "8. How did Joshua instruct Israel? What was the danger for Israel should they choose to disobey?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_9",
           "questionText": "9. Why would Joshua address the leaders separately? What does this teach you about the need for and value of godly leadership?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -81,19 +81,19 @@
         {
           "id": "2018_5_10",
           "questionText": "10. What stands out to you in reading Israel's history, and why?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_11",
           "questionText": "11. What does the retelling of Israel's history reveal about God?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_12",
           "questionText": "12. Why is it important to read, tell and hear stories of God's past faithfulness? How do you or could you put that into practice?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -105,19 +105,19 @@
         {
           "id": "2018_5_13",
           "questionText": "13. What choice did Joshua present to the nation? How do we make choices everyday about whom we will serve?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_14",
           "questionText": "14. Why do you think Joshua did not readily accept their pledge to serve the Lord in verse 18? What lessons do you learn from Joshua's example?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_5_15",
           "questionText": "15. What did Joshua mean by God's jealousy in 24:19? What examples can you think of where jealousy is an appropriate response? (See 2 Corinthians 11:2-4.)",
-          "answer": "",
+          
           "quotes": [{ "book": "2 Corinthians", "verse": "11:2-4" }]
         }
       ]
@@ -129,7 +129,7 @@
         {
           "id": "2018_5_16",
           "questionText": "16. What would you like to see God do in your heart or in your life this week?",
-          "answer": "",
+          
           "quotes": []
         }
       ]

@@ -9,13 +9,13 @@
         {
           "id": "2018_25_1",
           "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_25_2",
           "questionText": "2. From the past week's study, what made the most significant impact to you in the notes, lecture, group sharing or personal study?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -32,7 +32,7 @@
         {
           "id": "2018_25_3",
           "questionText": "3. Explain Proverbs 1:7 in your own words. What does it mean to \"fear the Lord\"?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -43,13 +43,13 @@
         {
           "id": "2018_25_4",
           "questionText": "4. What are some of the benefits of wisdom? Which one is most relevant or comforting to you?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_25_5",
           "questionText": "5. Skim Proverbs 2-3 to note a few warnings and commands that stand out to you. Which one calls you to change your response to a current circumstance?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -75,7 +75,7 @@
         {
           "id": "2018_25_6",
           "questionText": "6. How does Proverbs 14 describe a wise person? Which characteristics would you like God to grow in you?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -86,7 +86,7 @@
         {
           "id": "2018_25_7",
           "questionText": "7. What does Proverbs 14 reveal about God? What truth comforts or challenges you most?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -97,7 +97,7 @@
         {
           "id": "2018_25_8",
           "questionText": "8. What truths does Proverbs 16 reveal about speech? How will you practice wise speech in your home, friendships, church and workplace?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -123,19 +123,19 @@
         {
           "id": "2018_25_9",
           "questionText": "9. Which verses about leadership (rulers) will you apply? How?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_25_10",
           "questionText": "10. Which verses about wealth and poverty will you put into practice? How?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_25_11",
           "questionText": "11. What did you learn about righteous and wicked living? How do these verses challenge or comfort you?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -152,7 +152,7 @@
         {
           "id": "2018_25_12",
           "questionText": "12. From Proverbs 30, what observations about nature and life are most practical to you? Why?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -163,7 +163,7 @@
         {
           "id": "2018_25_13a",
           "questionText": "13. a. Proverbs 31 personifies wisdom as \"the wife of noble character.\" What aspects of this ideal image stand out to you?",
-          "answer": "",
+          
           "quotes": [
             {
               "book": "Proverbs",
@@ -174,13 +174,13 @@
         {
           "id": "2018_25_13b",
           "questionText": "13. b. How do these descriptions help you recognize wisdom in others and call you to become a wiser member in your family and church?",
-          "answer": "",
+          
           "quotes": []
         },
         {
           "id": "2018_25_14",
           "questionText": "14. Which of these verses will you share with those who have been entrusted to your care?",
-          "answer": "",
+          
           "quotes": []
         }
       ]
@@ -221,7 +221,7 @@
         {
           "id": "2018_25_15",
           "questionText": "15. Choose a few verses from this lesson and think about how the truths line up with your daily actions. Where do you see yourself living out these verses? Where do you see a need for change? Share with your group what God's Word has revealed to you.",
-          "answer": "",
+          
           "quotes": []
         }
       ]
