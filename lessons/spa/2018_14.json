@@ -1,1 +1,203 @@
-{"id":"2018_14","name":"","memoryVerse":"\"Pero Dios es mi socorro; el Señor es quien me sostiene\". – Salmo 54:4","dayQuestions":{"one":{"title":"PRIMER DÍA: repase la conferencia, lea las notas y las referencias.","questions":[{"id":"2018_14_1","questionText":"1. Use este espacio para anotar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)","answer":"","quotes":[]},{"id":"2018_14_2","questionText":"2. Qué fue lo que más le impactó de las notas o conferencias?","answer":"","quotes":[]}]},"two":{"title":"SEGUNDO DÍA: lea 1 Samuel 25:1-13.\nLa ira de David aumentó cuando Nabal rechazó su pedido.","readVerse":[{"book":"1 Samuel","verse":"25:1-13"}],"questions":[{"id":"2018_14_3","questionText":"3. Describe el personaje de Nabal. ¿Qué cualidades de Nabal ve en sí mismo?","answer":"","quotes":[]},{"id":"2018_14_4","questionText":"4. ¿Qué aprende acerca de David a través del rechazo de Nabal? ¿De qué manera la reacción impulsiva de David casi resulta en gran sufrimiento?","answer":"","quotes":[]},{"id":"2018_14_5","questionText":"5. ¿Quién está en riesgo de ser lastimado cuando no se sale con la suya? ¿Cómo puede ser que Dios le esté dando una advertencia a través de este pasaje?","answer":"","quotes":[]}]},"three":{"title":"TERCER DÍA: lea 1 Samuel 25:14-44 con el Salmo 37.\nDios usó a Abigail para apaciguar la ira de David.","readVerse":[{"book":"1 Samuel","verse":"25:14-44"}],"questions":[{"id":"2018_14_6","questionText":"6. Describe el personaje de Abigaíl. (Véase 1 Samuel 25:3). ¿Qué cualidades le gustaría que Dios desarrollara en usted?","answer":"","quotes":[{"book":"1 Samuel","verse":"25:3"}]},{"id":"2018_14_7","questionText":"7. ¿Cómo extendió Dios la misericordia a David a pesar de su enojo? Comparta un tiempo en el que Dios le extendió misericordia a usted. ® 8 \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 14 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)","answer":"","quotes":[]},{"id":"2018_14_8","questionText":"8. ¿Qué se destaca en el Salmo 37? ¿Cómo se aplican estos versículos a usted y a sus circunstancias actuales?","answer":"","quotes":[]}]},"four":{"title":"CUARTO DÍA: lea 1 Samuel 26.\nDavid se encontró y salvó a Saúl.","readVerse":[{"book":"1 Samuel","verse":"26:1-25"}],"questions":[{"id":"2018_14_9","questionText":"9. ¿Cómo podrían los primeros encuentros de David con Saúl y Nabal afectar sus decisiones y comportamiento en este encuentro con Saúl? (Ver 1 Samuel 24 – 25 para ayuda).","answer":"","quotes":[{"book":"1 Samuel","verse":"24:1-22"},{"book":"1 Samuel","verse":"25:1-44"}]},{"id":"2018_14_10","questionText":"10. Compare y contraste la evaluación de David y Abisay de la situación. ¿Por qué le perdonó David la vida a Saúl?","answer":"","quotes":[]},{"id":"2018_14_11","questionText":"11. ¿Qué revela el discurso de David a Saúl acerca de Dios? ¿Qué verdades le pedirá a Dios que le ayude a recordar?","answer":"","quotes":[]}]},"five":{"title":"QUINTO DÍA: lea 1 Samuel 27.\nDavid y sus hombres salieron de Israel.","readVerse":[{"book":"1 Samuel","verse":"27:1-12"}],"questions":[{"id":"2018_14_12","questionText":"12. ¿Qué motivó las razones de David para mudarse a Gat? ¿Eran válidas sus razones? ¿Por qué o por qué no?","answer":"","quotes":[]},{"id":"2018_14_13","questionText":"13. ¿Cuándo ha sido probado la fe de usted? ¿Cómo lidió con esa experiencia?","answer":"","quotes":[]},{"id":"2018_14_14","questionText":"14. ¿Qué seguridad da Dios a los que ponen su fe en él? Que promesas le alientan en su situación actual? (Vea Juan 10:27-30; Romanos 8:30-39; Filipenses 1:6 u otras Escrituras para obtener ayuda).","answer":"","quotes":[{"book":"Juan","verse":"10:27-30"},{"book":"Romanos","verse":"8:30-39"},{"book":"Filipenses","verse":"1:6"}]}]},"six":{"title":"SEXTO DÍA: repase 1 Samuel 25 – 27 con Salmo 37.","readVerse":[{"book":"1 Samuel","verse":"25:1-44"},{"book":"1 Samuel","verse":"27:1-12"}],"questions":[{"id":"2018_14_15","questionText":"15. ¿Qué atributo de Dios resonaba más en su estudio del pasaje de esta semana? ¿Cómo ve que se muestre ese atributo en el mundo de hoy?","answer":"","quotes":[]},{"id":"2018_14_16","questionText":"16. Homilética para líderes de grupo y administrativos: 1 Samuel 25 – 27","answer":"","quotes":[{"book":"1 Samuel","verse":"25:1-44"},{"book":"1 Samuel","verse":"27:1-12"}]}]}}}
+{
+    "id": "2018_14",
+    "name": "",
+    "memoryVerse": "\"Pero Dios es mi socorro; el Señor es quien me sostiene\". – Salmo 54:4",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: repase la conferencia, lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2018_14_1",
+                    "questionText": "1. Use este espacio para anotar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_2",
+                    "questionText": "2. Qué fue lo que más le impactó de las notas o conferencias?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea 1 Samuel 25:1-13.\nLa ira de David aumentó cuando Nabal rechazó su pedido.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "25:1-13"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_14_3",
+                    "questionText": "3. Describe el personaje de Nabal. ¿Qué cualidades de Nabal ve en sí mismo?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_4",
+                    "questionText": "4. ¿Qué aprende acerca de David a través del rechazo de Nabal? ¿De qué manera la reacción impulsiva de David casi resulta en gran sufrimiento?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_5",
+                    "questionText": "5. ¿Quién está en riesgo de ser lastimado cuando no se sale con la suya? ¿Cómo puede ser que Dios le esté dando una advertencia a través de este pasaje?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea 1 Samuel 25:14-44 con el Salmo 37.\nDios usó a Abigail para apaciguar la ira de David.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "25:14-44"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_14_6",
+                    "questionText": "6. Describe el personaje de Abigaíl. (Véase 1 Samuel 25:3). ¿Qué cualidades le gustaría que Dios desarrollara en usted?",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "25:3"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_14_7",
+                    "questionText": "7. ¿Cómo extendió Dios la misericordia a David a pesar de su enojo? Comparta un tiempo en el que Dios le extendió misericordia a usted.",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_8",
+                    "questionText": "8. ¿Qué se destaca en el Salmo 37? ¿Cómo se aplican estos versículos a usted y a sus circunstancias actuales?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea 1 Samuel 26.\nDavid se encontró y salvó a Saúl.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "26:1-25"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_14_9",
+                    "questionText": "9. ¿Cómo podrían los primeros encuentros de David con Saúl y Nabal afectar sus decisiones y comportamiento en este encuentro con Saúl? (Ver 1 Samuel 24 – 25 para ayuda).",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "24:1-22"
+                        },
+                        {
+                            "book": "1 Samuel",
+                            "verse": "25:1-44"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_14_10",
+                    "questionText": "10. Compare y contraste la evaluación de David y Abisay de la situación. ¿Por qué le perdonó David la vida a Saúl?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_11",
+                    "questionText": "11. ¿Qué revela el discurso de David a Saúl acerca de Dios? ¿Qué verdades le pedirá a Dios que le ayude a recordar?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea 1 Samuel 27.\nDavid y sus hombres salieron de Israel.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "27:1-12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_14_12",
+                    "questionText": "12. ¿Qué motivó las razones de David para mudarse a Gat? ¿Eran válidas sus razones? ¿Por qué o por qué no?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_13",
+                    "questionText": "13. ¿Cuándo ha sido probado la fe de usted? ¿Cómo lidió con esa experiencia?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_14",
+                    "questionText": "14. ¿Qué seguridad da Dios a los que ponen su fe en él? Que promesas le alientan en su situación actual? (Vea Juan 10:27-30; Romanos 8:30-39; Filipenses 1:6 u otras Escrituras para obtener ayuda).",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Juan",
+                            "verse": "10:27-30"
+                        },
+                        {
+                            "book": "Romanos",
+                            "verse": "8:30-39"
+                        },
+                        {
+                            "book": "Filipenses",
+                            "verse": "1:6"
+                        }
+                    ]
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase 1 Samuel 25 – 27 con Salmo 37.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "25:1-44"
+                },
+                {
+                    "book": "1 Samuel",
+                    "verse": "27:1-12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_14_15",
+                    "questionText": "15. ¿Qué atributo de Dios resonaba más en su estudio del pasaje de esta semana? ¿Cómo ve que se muestre ese atributo en el mundo de hoy?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_14_16",
+                    "questionText": "16. Homilética para líderes de grupo y administrativos: 1 Samuel 25 – 27",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "25:1-44"
+                        },
+                        {
+                            "book": "1 Samuel",
+                            "verse": "27:1-12"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

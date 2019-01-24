@@ -1,1 +1,198 @@
-{"id":"2018_16","name":"","memoryVerse":"\"Porque en ti está la fuente de la vida, y en tu luz podemos ver la luz\". – Salmo 36:9","dayQuestions":{"one":{"title":"PRIMER DÍA: repase la conferencia, lea las notas y las referencias.","questions":[{"id":"2018_16_1","questionText":"1. Use este espacio para anotar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)","answer":"","quotes":[]},{"id":"2018_16_2","questionText":"2. Qué fue lo que más le impactó de las notas o conferencias?","answer":"","quotes":[]}]},"two":{"title":"SEGUNDO DÍA: lea 2 Samuel 1.\nDavid sufrió las muertes de Saúl y Jonatán.","readVerse":[{"book":"2 Samuel","verse":"1:1-27"}],"questions":[{"id":"2018_16_3","questionText":"3. ¿Cómo se compara el informe del hombre sobre la muerte de Saúl con los eventos reales? ¿Por qué podría haber cambiado la historia? (Vea 1 Samuel 31:1-7).","answer":"","quotes":[{"book":"1 Samuel","verse":"31:1-7"}]},{"id":"2018_16_4","questionText":"4. ¿Por qué David no estaba dispuesto a celebrar la muerte de Saúl? ¿Qué dice eso acerca de la relación de David con Dios y sus creencias?","answer":"","quotes":[]},{"id":"2018_16_5","questionText":"5. ¿Qué revela sobre David la manera en que respondió a las noticias de la muerte de Saúl? ¿Qué cualidades le pedirás a Dios que crezcan en usted?","answer":"","quotes":[]}]},"three":{"title":"TERCER DÍA: lea 2 Samuel 2:1 – 3: 5.\nLos hombres de David y Saúl lucharon por quién sería el próximo rey de Israel.","readVerse":[{"book":"2 Samuel","verse":"2:1"},{"book":"2 Samuel","verse":"3:"},{"book":"2 Samuel","verse":"2:5"}],"questions":[{"id":"2018_16_6","questionText":"6. ¿A qué decisión se enfrentó David? ¿Cómo decidió David qué hacer? (Vea 1 Samuel 16:12-13 y 2 Samuel 2:1-3).","answer":"","quotes":[{"book":"1 Samuel","verse":"16:12-13"},{"book":"2 Samuel","verse":"2:1-3"}]},{"id":"2018_16_7","questionText":"7. ¿Las acciones de Abner mejoraron o empeoraron la situación entre los hombres de David y Saúl? ¿Por qué? ® 8 \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 16 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)","answer":"","quotes":[]},{"id":"2018_16_8","questionText":"8. ¿Qué recordatorios, advertencias o ejemplos ve en este pasaje? ¿Cómo podría aplicarlos a su propia vida?","answer":"","quotes":[]}]},"four":{"title":"CUARTO DÍA: lea 2 Samuel 3:6-29.\nAbner cambió su lealtad a David y fue asesinado.","readVerse":[{"book":"2 Samuel","verse":"3:6-29"}],"questions":[{"id":"2018_16_9","questionText":"9. ¿Qué provocó el cambio de lealtad de Abner? ¿Cómo demostró Abner su lealtad hacia David?","answer":"","quotes":[]},{"id":"2018_16_10","questionText":"10. ¿Qué aprende usted de las diferencias en cómo David y Joab respondieron a Abner? ¿Cómo responde usted a aquellos que le han hecho daño o lastimado?","answer":"","quotes":[]},{"id":"2018_16_11","questionText":"11. ¿Cómo ve usted a Dios obrando para establecer a David como rey —en los buenos momentos y en los difíciles?","answer":"","quotes":[]}]},"five":{"title":"QUINTO DÍA: lea 2 Samuel 4:1-12.\nDavid ordenó la ejecución de los asesinos de Isboset.","readVerse":[{"book":"2 Samuel","verse":"4:1-12"}],"questions":[{"id":"2018_16_12","questionText":"12. ¿Qué esperaban ganar los hombres de Saúl matando a Isboset? ¿Cuáles fueron las consecuencias?","answer":"","quotes":[]},{"id":"2018_16_13","questionText":"13. ¿Cómo ve usted a las personas involucrarse en autopromoción hoy? ¿Cuáles autopromociones son más tentadoras para usted?","answer":"","quotes":[]},{"id":"2018_16_14","questionText":"14. ¿Qué aprende usted de este pasaje sobre las decisiones que se hicieron y las consecuencias?","answer":"","quotes":[]}]},"six":{"title":"SEXTO DÍA: repase 2 Samuel 1 – 4.","readVerse":[{"book":"2 Samuel","verse":"1:1-27"},{"book":"2 Samuel","verse":"4:1-12"}],"questions":[{"id":"2018_16_15","questionText":"15. A través de la lección de esta semana, ¿cómo desafía Dios su punto de vista sobre el propósito de las luchas o para permanecer paciente en lugar de tomar el asunto en sus propias manos?","answer":"","quotes":[]},{"id":"2018_16_16","questionText":"16. Homilética para líderes de grupo y administrativos: 2 Samuel 1 – 4","answer":"","quotes":[{"book":"2 Samuel","verse":"1:1-27"},{"book":"2 Samuel","verse":"4:1-12"}]}]}}}
+{
+    "id": "2018_16",
+    "name": "",
+    "memoryVerse": "\"Porque en ti está la fuente de la vida, y en tu luz podemos ver la luz\". – Salmo 36:9",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: repase la conferencia, lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2018_16_1",
+                    "questionText": "1. Use este espacio para anotar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_2",
+                    "questionText": "2. Qué fue lo que más le impactó de las notas o conferencias?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea 2 Samuel 1.\nDavid sufrió las muertes de Saúl y Jonatán.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "1:1-27"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_16_3",
+                    "questionText": "3. ¿Cómo se compara el informe del hombre sobre la muerte de Saúl con los eventos reales? ¿Por qué podría haber cambiado la historia? (Vea 1 Samuel 31:1-7).",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "31:1-7"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_16_4",
+                    "questionText": "4. ¿Por qué David no estaba dispuesto a celebrar la muerte de Saúl? ¿Qué dice eso acerca de la relación de David con Dios y sus creencias?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_5",
+                    "questionText": "5. ¿Qué revela sobre David la manera en que respondió a las noticias de la muerte de Saúl? ¿Qué cualidades le pedirás a Dios que crezcan en usted?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea 2 Samuel 2:1 – 3: 5.\nLos hombres de David y Saúl lucharon por quién sería el próximo rey de Israel.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "2:1"
+                },
+                {
+                    "book": "2 Samuel",
+                    "verse": "3:"
+                },
+                {
+                    "book": "2 Samuel",
+                    "verse": "2:5"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_16_6",
+                    "questionText": "6. ¿A qué decisión se enfrentó David? ¿Cómo decidió David qué hacer? (Vea 1 Samuel 16:12-13 y 2 Samuel 2:1-3).",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "16:12-13"
+                        },
+                        {
+                            "book": "2 Samuel",
+                            "verse": "2:1-3"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_16_7",
+                    "questionText": "7. ¿Las acciones de Abner mejoraron o empeoraron la situación entre los hombres de David y Saúl? ¿Por qué? ® 8 \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 16 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_8",
+                    "questionText": "8. ¿Qué recordatorios, advertencias o ejemplos ve en este pasaje? ¿Cómo podría aplicarlos a su propia vida?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea 2 Samuel 3:6-29.\nAbner cambió su lealtad a David y fue asesinado.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "3:6-29"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_16_9",
+                    "questionText": "9. ¿Qué provocó el cambio de lealtad de Abner? ¿Cómo demostró Abner su lealtad hacia David?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_10",
+                    "questionText": "10. ¿Qué aprende usted de las diferencias en cómo David y Joab respondieron a Abner? ¿Cómo responde usted a aquellos que le han hecho daño o lastimado?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_11",
+                    "questionText": "11. ¿Cómo ve usted a Dios obrando para establecer a David como rey —en los buenos momentos y en los difíciles?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea 2 Samuel 4:1-12.\nDavid ordenó la ejecución de los asesinos de Isboset.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "4:1-12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_16_12",
+                    "questionText": "12. ¿Qué esperaban ganar los hombres de Saúl matando a Isboset? ¿Cuáles fueron las consecuencias?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_13",
+                    "questionText": "13. ¿Cómo ve usted a las personas involucrarse en autopromoción hoy? ¿Cuáles autopromociones son más tentadoras para usted?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_14",
+                    "questionText": "14. ¿Qué aprende usted de este pasaje sobre las decisiones que se hicieron y las consecuencias?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase 2 Samuel 1 – 4.",
+            "readVerse": [
+                {
+                    "book": "2 Samuel",
+                    "verse": "1:1-27"
+                },
+                {
+                    "book": "2 Samuel",
+                    "verse": "4:1-12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_16_15",
+                    "questionText": "15. A través de la lección de esta semana, ¿cómo desafía Dios su punto de vista sobre el propósito de las luchas o para permanecer paciente en lugar de tomar el asunto en sus propias manos?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_16_16",
+                    "questionText": "16. Homilética para líderes de grupo y administrativos: 2 Samuel 1 – 4",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "2 Samuel",
+                            "verse": "1:1-27"
+                        },
+                        {
+                            "book": "2 Samuel",
+                            "verse": "4:1-12"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

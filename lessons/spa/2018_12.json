@@ -1,1 +1,195 @@
-{"id":"2018_12","name":"","memoryVerse":"\"Se acordarán del Señor y se volverán a él todos los confines de la tierra; ante él se postrarán todas las familias de las naciones\". – Salmo 22:27","dayQuestions":{"one":{"title":"PRIMER DÍA: repase la conferencia, lea las notas y las referencias.","questions":[{"id":"2018_12_1","questionText":"1. Use este espacio para registrar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)","answer":"","quotes":[]},{"id":"2018_12_2","questionText":"2. Qué fue lo que más le impactó de las notas o conferencias.","answer":"","quotes":[]}]},"two":{"title":"SEGUNDO DÍA: lea 1 Samuel 18.\nDavid experimentó relaciones tensas con Saúl y fuertes relaciones con los hijos de Saúl.","readVerse":[{"book":"1 Samuel","verse":"18:1-30"}],"questions":[{"id":"2018_12_3","questionText":"3. ¿Qué es lo más interesante para usted con respecto a las relaciones de David con Saúl, Jonatán y Mical, y por qué?","answer":"","quotes":[]},{"id":"2018_12_4","questionText":"4. ¿Qué lecciones o advertencias ha podido aprender de Saúl? ¿En qué área de su vida puede aplicar estas lecciones?","answer":"","quotes":[]},{"id":"2018_12_5","questionText":"5. ¿Cómo experimenta David la bendición y el costo de seguir a Dios? ¿Cómo ha visto usted tanto la bendición como el costo de seguir a Jesús en su propia vida?","answer":"","quotes":[]}]},"three":{"title":"TERCER DÍA: lea 1 Samuel 19 con el Salmo 59.\nLos hijos de Saúl protegieron a David de su padre.","readVerse":[{"book":"1 Samuel","verse":"19:1-24"}],"questions":[{"id":"2018_12_6","questionText":"6. ¿Qué riesgos tomaron Jonatán y Mical para proteger a David?","answer":"","quotes":[]},{"id":"2018_12_7","questionText":"7. ¿Dónde le está llamando Dios para hacer lo correcto —incluso pagando un costo personal o corriendo riesgo usted mismo?","answer":"","quotes":[]},{"id":"2018_12_8","questionText":"8. ¿Cómo profundiza el Salmo 59 su percepción de la fe de David y el peligro que enfrentaba? ¿Cómo le fortaleció a David su fe? ® AdP \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 12 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)","answer":"","quotes":[]},{"id":"2018_12_9","questionText":"9. ¿De qué manera puede transformar su perspectiva actual describir y nombrar a Dios en sus oraciones?","answer":"","quotes":[]}]},"four":{"title":"CUARTO DÍA: lea 1 Samuel 20.\nDavid y Jonatán prepararon un plan para proteger a David de Saúl.","readVerse":[{"book":"1 Samuel","verse":"20:1-42"}],"questions":[{"id":"2018_12_10","questionText":"10. ¿Qué aprende sobre Jonatán a través de sus palabras y acciones? ¿Qué es lo más encomiable? (1 Samuel 18-20)","answer":"","quotes":[{"book":"1 Samuel","verse":"18:1-20:42"}]},{"id":"2018_12_11","questionText":"11. ¿Por qué Jonatán le daría lealtad a David en lugar de Saúl? ¿Qué es lo que parece que Jonatán entiende sobre David? (Use cualquier referencia de las Escrituras).","answer":"","quotes":[]},{"id":"2018_12_12","questionText":"12. ¿Qué le enseña la relación de David y Jonatán sobre la verdadera amistad?","answer":"","quotes":[]}]},"five":{"title":"QUINTO DÍA: lea los Salmos 23 y 36.\nDavid elogió a Dios por su protección y amor.","readVerse":[{"book":"Salmos","verse":"23:1-6"}],"questions":[{"id":"2018_12_13","questionText":"13. ¿Cómo describe David el cuidado tierno de Dios en el Salmo 23? ¿Qué aspecto del cuidado de Dios es más significativo para usted?","answer":"","quotes":[]},{"id":"2018_12_14","questionText":"14. ¿Cómo se compara lo que David entiende sobre la pecaminosidad de los malvados con lo que usted piensa sobre el pecado? (Salmo 36)","answer":"","quotes":[]},{"id":"2018_12_15","questionText":"15. ¿De qué manera le ayuda a usted hoy lo que David entiende sobre Dios?","answer":"","quotes":[]}]},"six":{"title":"SEXTO DÍA: repase 1 Samuel 18 – 20 con los Salmos 23, 36 y 59.","readVerse":[{"book":"1 Samuel","verse":"18:1-30"},{"book":"1 Samuel","verse":"20:1-42"},{"book":"Salmos","verse":"23:1-6"},{"book":"Salmos","verse":"36:1-12"}],"questions":[{"id":"2018_12_16","questionText":"16. ¿Qué ha aprendido en el estudio de esta semana sobre Dios o sobre el sufrimiento de cada creyente?","answer":"","quotes":[]},{"id":"2018_12_17","questionText":"17. Homilética para líderes de grupo y administrativos: 1 Samuel 18 – 20","answer":"","quotes":[{"book":"1 Samuel","verse":"18:1-30"},{"book":"1 Samuel","verse":"20:1-42"}]}]}}}
+{
+    "id": "2018_12",
+    "name": "",
+    "memoryVerse": "\"Se acordarán del Señor y se volverán a él todos los confines de la tierra; ante él se postrarán todas las familias de las naciones\". – Salmo 22:27",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: repase la conferencia, lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2018_12_1",
+                    "questionText": "1. Use este espacio para registrar cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_2",
+                    "questionText": "2. Qué fue lo que más le impactó de las notas o conferencias.",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea 1 Samuel 18.\nDavid experimentó relaciones tensas con Saúl y fuertes relaciones con los hijos de Saúl.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "18:1-30"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_12_3",
+                    "questionText": "3. ¿Qué es lo más interesante para usted con respecto a las relaciones de David con Saúl, Jonatán y Mical, y por qué?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_4",
+                    "questionText": "4. ¿Qué lecciones o advertencias ha podido aprender de Saúl? ¿En qué área de su vida puede aplicar estas lecciones?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_5",
+                    "questionText": "5. ¿Cómo experimenta David la bendición y el costo de seguir a Dios? ¿Cómo ha visto usted tanto la bendición como el costo de seguir a Jesús en su propia vida?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea 1 Samuel 19 con el Salmo 59.\nLos hijos de Saúl protegieron a David de su padre.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "19:1-24"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_12_6",
+                    "questionText": "6. ¿Qué riesgos tomaron Jonatán y Mical para proteger a David?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_7",
+                    "questionText": "7. ¿Dónde le está llamando Dios para hacer lo correcto —incluso pagando un costo personal o corriendo riesgo usted mismo?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_8",
+                    "questionText": "8. ¿Cómo profundiza el Salmo 59 su percepción de la fe de David y el peligro que enfrentaba? ¿Cómo le fortaleció a David su fe? ® AdP \" AdP (06.2018) www.bsfinternational.org \" El pueblo de la Tierra Prometida I: Lección 12 Copyright © Bible Study Fellowship 2017 (Nota: Estas preguntas son para el uso exclusivo de los miembros de clase de BSF. Con la excepción de la descarga por internet en www.bsf.international.org por los miembros de clase, ninguna porción de este material podrá ser reproducida sin un consentimiento por escrito, de acuerdo a los derechos de autor.)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_9",
+                    "questionText": "9. ¿De qué manera puede transformar su perspectiva actual describir y nombrar a Dios en sus oraciones?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea 1 Samuel 20.\nDavid y Jonatán prepararon un plan para proteger a David de Saúl.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "20:1-42"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_12_10",
+                    "questionText": "10. ¿Qué aprende sobre Jonatán a través de sus palabras y acciones? ¿Qué es lo más encomiable? (1 Samuel 18-20)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "18:1-20:42"
+                        }
+                    ]
+                },
+                {
+                    "id": "2018_12_11",
+                    "questionText": "11. ¿Por qué Jonatán le daría lealtad a David en lugar de Saúl? ¿Qué es lo que parece que Jonatán entiende sobre David? (Use cualquier referencia de las Escrituras).",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_12",
+                    "questionText": "12. ¿Qué le enseña la relación de David y Jonatán sobre la verdadera amistad?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea los Salmos 23 y 36.\nDavid elogió a Dios por su protección y amor.",
+            "readVerse": [
+                {
+                    "book": "Salmos",
+                    "verse": "23:1-6"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_12_13",
+                    "questionText": "13. ¿Cómo describe David el cuidado tierno de Dios en el Salmo 23? ¿Qué aspecto del cuidado de Dios es más significativo para usted?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_14",
+                    "questionText": "14. ¿Cómo se compara lo que David entiende sobre la pecaminosidad de los malvados con lo que usted piensa sobre el pecado? (Salmo 36)",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_15",
+                    "questionText": "15. ¿De qué manera le ayuda a usted hoy lo que David entiende sobre Dios?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase 1 Samuel 18 – 20 con los Salmos 23, 36 y 59.",
+            "readVerse": [
+                {
+                    "book": "1 Samuel",
+                    "verse": "18:1-30"
+                },
+                {
+                    "book": "1 Samuel",
+                    "verse": "20:1-42"
+                },
+                {
+                    "book": "Salmos",
+                    "verse": "23:1-6"
+                },
+                {
+                    "book": "Salmos",
+                    "verse": "36:1-12"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2018_12_16",
+                    "questionText": "16. ¿Qué ha aprendido en el estudio de esta semana sobre Dios o sobre el sufrimiento de cada creyente?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2018_12_17",
+                    "questionText": "17. Homilética para líderes de grupo y administrativos: 1 Samuel 18 – 20",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "1 Samuel",
+                            "verse": "18:1-30"
+                        },
+                        {
+                            "book": "1 Samuel",
+                            "verse": "20:1-42"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
