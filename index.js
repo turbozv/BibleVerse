@@ -554,7 +554,7 @@ app.get('/user/*', async function (req, res) {
     const data = {
       audio: user.audio,
       class: user.class,
-      isGroupLeader: ([0, 1, 2, 3, 4, 6, 7, 9, 10, 11].indexOf(user.role) !== -1),
+      isGroupLeader: (user.role !== 255),
       chat: 1,
       attendanceGroups
     };
@@ -786,9 +786,9 @@ io.on('connection', function (socket) {
           const mailOptions = {
             from: config.mail.sender,
             to: config.mail.to,
-            subject: 'New feedback from CBSF user',
-            text: `${data.user}:\n${data.message}`,
-            html: `<b>${data.user}:</b><p>${data.message}`
+            subject: `New feedback from CBSF user[${data.user}]`,
+            text: `${data.message}\n\nIP: ${ip}\n\nPlease go to https://mycbsf.org to reply`,
+            html: `${data.message}<br><br>IP: ${ip}<br><br>Please go to <a href='https://mycbsf.org'>https://mycbsf.org</a> to reply`
           };
           transporter.sendMail(mailOptions).then(info => {
             console.log("Message sent: %s", info.messageId);
