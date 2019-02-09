@@ -624,7 +624,7 @@ app.post('/attendance', jsonParser, async function (req, res) {
       users: JSON.stringify(req.body.users),
     };
 
-    result = await mysqlQuery('INSERT INTO attend SET ?', data);
+    result = await mysqlQuery('REPLACE INTO attend SET ?', data);
 
     res.status(201).send();
     logger.succeed();
