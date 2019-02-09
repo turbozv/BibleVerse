@@ -79,6 +79,10 @@ class Logger {
   }
 }
 
+function isNullOrUndefined(value) {
+  return value === null || value === undefined;
+}
+
 function getYYYYMMDD(date) {
   return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
 }
@@ -596,7 +600,8 @@ app.get('/attendance/*', async function (req, res) {
 app.post('/attendance', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  if (!req.body || !req.body.lesson || !req.body.users || !client.cellphone || !req.body.class || req.body.group == null) {
+  if (isNullOrUndefined(req.body) || isNullOrUndefined(req.body.lesson) || isNullOrUndefined(req.body.users) || isNullOrUndefined(client.cellphone) ||
+      isNullOrUndefined(req.body.class) || isNullOrUndefined(req.body.group)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
