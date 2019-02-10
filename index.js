@@ -589,6 +589,14 @@ app.get('/attendance/*', async function (req, res) {
       return;
     }
 
+    // Get substitute leader info for specified lesson
+    let substitute = {};
+    if (lesson) {
+      result = await mysqlQuery('SELECT users.id, attendLeaders.`group`, CONCAT(cname, " ", name) as name FROM attendLeaders' +
+        ' INNER JOIN users ON users.id=attendLeaders.leader WHERE attendLeaders.lesson=? AND attendLeaders.group=?', [lesson, group]);
+      substitute = { id: result[0].id, name: result[0].name };
+    }
+
     // Get attendees
     if (group === 0) {
       // Co-worker group includes all GL (which is not in group#0)
@@ -608,7 +616,7 @@ app.get('/attendance/*', async function (req, res) {
       }
     }
 
-    sendResultObject(res, response);
+    sendResultObject(res, { users: response, substitute });
     logger.succeed();
 
   } catch (error) {
