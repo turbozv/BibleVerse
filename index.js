@@ -621,7 +621,7 @@ app.post('/attendance/*', jsonParser, async function (req, res) {
     const user = result[0];
 
     // Verify group exists
-    result = await mysqlQuery('SELECT `group` FROM attendLeaders WHERE leader=? AND `group`=?', [user.id, group]);
+    result = await mysqlQuery('SELECT `group` FROM attendLeaders WHERE leader=? AND `group`=?', [user.id, req.body.group]);
     if (result.length === 0) {
       sendErrorObject(res, 401, { Error: "No permission" });
       logger.error("No permission");
@@ -631,7 +631,7 @@ app.post('/attendance/*', jsonParser, async function (req, res) {
     // Add to database
     const data = {
       lesson: req.body.lesson,
-      leader: result[0].id,
+      leader: user.id,
       group: req.body.group,
       users: JSON.stringify(req.body.users),
     };
