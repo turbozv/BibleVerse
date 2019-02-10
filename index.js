@@ -436,12 +436,12 @@ app.get('/attendanceV2/*', async function (req, res) {
   }
 });
 
-// Get attendance summary '/cellphone'
+// Get attendance summary '/cellphone/{lesson}'
 app.get('/attendanceSummary/*', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const data = req.params[0].split('/');
-  if (!data || data.length !== 1) {
+  if (!data || data.length < 1 || data.length > 3) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -449,6 +449,13 @@ app.get('/attendanceSummary/*', async function (req, res) {
 
   const cellphone = data[0];
   if (!cellphone) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  const lesson = data.length > 1 ? data[1] : null;
+  if (lesson !== null && (lesson <= 0 || lesson >= 30)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -471,6 +478,14 @@ app.get('/attendanceSummary/*', async function (req, res) {
       result.map(item => groupNames[item.groupId] = item.name);
     }
 
+    // Get substitute leader info for specified lesson
+    let substitutes = {};
+    if (lesson) {
+      result = await mysqlQuery('SELECT users.id, attendLeaders.`group`, CONCAT(cname, " ", name) as name FROM attendLeaders' +
+        ' INNER JOIN users ON users.id=attendLeaders.leader WHERE attendLeaders.lesson=?', [lesson]);
+      result.map(item => substitutes[item.group] = { id: item.id, name: item.name });
+    }
+
     // Get groups info
     var result = await mysqlQuery('SELECT `group`, lesson FROM attendLeaders WHERE leader=?', [user.id]);
     if (result.length === 0) {
@@ -479,12 +494,12 @@ app.get('/attendanceSummary/*', async function (req, res) {
       return;
     }
 
-    let response = { user: user.id, groups: [], attendance: [] };
+    let response = { user: user.id, groups: [], attendance: [], substitute: [] };
 
     // Populate groups with names
     for (let i in result) {
       const group = result[i].group;
-      const lesson = result[i].lesson
+      const leaderLesson = result[i].lesson;
 
       // Get attendees count
       let userResult;
@@ -498,10 +513,10 @@ app.get('/attendanceSummary/*', async function (req, res) {
 
       // Get attendance data
       let attendanceResult;
-      if (lesson === 0) {
+      if (leaderLesson === 0) {
         attendanceResult = await mysqlQuery('SELECT lesson, users FROM attend WHERE class=? AND `group`=?', [user.class, group]);
       } else {
-        attendanceResult = await mysqlQuery('SELECT lesson, users FROM attend WHERE class=? AND `group`=? AND lesson=?', [user.class, group, lesson]);
+        attendanceResult = await mysqlQuery('SELECT lesson, users FROM attend WHERE class=? AND `group`=? AND lesson=?', [user.class, group, leaderLesson]);
       }
 
       attendanceResult.map(item => {
@@ -515,9 +530,16 @@ app.get('/attendanceSummary/*', async function (req, res) {
 
       response.groups.push({
         id: group,
-        lesson: lesson,
+        lesson: leaderLesson,
         name: groupNames[group] ? groupNames[group] : '',
       });
+
+      if (substitutes[group]) {
+        response.substitute.push({
+          group: group,
+          ...substitutes[group]
+        });
+      }
     }
 
     sendResultObject(res, response);
