@@ -560,7 +560,7 @@ app.get('/attendance/*', async function (req, res) {
     const user = result[0];
 
     // Verify group exists
-    var result = await mysqlQuery('SELECT `group` FROM attendLeaders WHERE leader=? AND `group`=?', [user.id, group]);
+    result = await mysqlQuery('SELECT `group` FROM attendLeaders WHERE leader=? AND `group`=?', [user.id, group]);
     if (result.length === 0) {
       sendErrorObject(res, 401, { Error: "No permission" });
       logger.error("No permission");
@@ -597,26 +597,38 @@ app.get('/attendance/*', async function (req, res) {
 });
 
 // Post attendance
-app.post('/attendance', jsonParser, async function (req, res) {
+app.post('/attendance/*', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  if (isNullOrUndefined(req.body) || isNullOrUndefined(req.body.lesson) || isNullOrUndefined(req.body.users) || isNullOrUndefined(client.cellphone) ||
-      isNullOrUndefined(req.body.class) || isNullOrUndefined(req.body.group)) {
+  const data = req.params[0].split('/');
+  if (!data || data.length !== 1 || isNullOrUndefined(data[0]) || isNullOrUndefined(req.body) ||
+    isNullOrUndefined(req.body.lesson) || isNullOrUndefined(req.body.users) ||
+    isNullOrUndefined(client.cellphone) || isNullOrUndefined(req.body.group)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
+  const cellphone = data[0];
   try {
-    // Verify user has the permission
-    let result = await mysqlQuery('SELECT users.id as id FROM attendLeaders INNER JOIN users ON users.id=attendLeaders.leader WHERE users.class=? AND attendLeaders.`group`=? AND users.cellphone=?',
-      [req.body.class, req.body.group, client.cellphone]);
+    // Find out the leader's information
+    var result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
     if (result.length === 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
-      logger.error();
+      sendErrorObject(res, 401, { Error: "No such user" });
+      logger.error("No such user");
+      return;
+    }
+    const user = result[0];
+
+    // Verify group exists
+    result = await mysqlQuery('SELECT `group` FROM attendLeaders WHERE leader=? AND `group`=?', [user.id, group]);
+    if (result.length === 0) {
+      sendErrorObject(res, 401, { Error: "No permission" });
+      logger.error("No permission");
+      return;
     }
 
-    // TODO: Verify users
+    // Add to database
     const data = {
       lesson: req.body.lesson,
       leader: result[0].id,
@@ -624,7 +636,83 @@ app.post('/attendance', jsonParser, async function (req, res) {
       users: JSON.stringify(req.body.users),
     };
 
-    result = await mysqlQuery('REPLACE INTO attend SET ?', data);
+    await mysqlQuery('REPLACE INTO attend SET ?', data);
+
+    res.status(201).send();
+    logger.succeed();
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+})
+
+// Get leaders info '/cellphone'
+app.get('/leaders/*', async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const data = req.params[0].split('/');
+  if (!data || data.length !== 1 || !data[0]) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  const cellphone = data[0];
+  try {
+    // Verify leader and get all leaders
+    var result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name FROM users WHERE class=(SELECT class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1) AND role!=255', [cellphone]);
+    if (result.length === 0) {
+      sendErrorObject(res, 401, { Error: "No such user" });
+      logger.error("No such user");
+      return;
+    }
+
+    sendResultObject(res, result);
+    logger.succeed();
+
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+});
+
+// Transfer leader
+app.post('/transferLeader/*', jsonParser, async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const data = req.params[0].split('/');
+  if (!data || data.length !== 1 || isNullOrUndefined(data[0]) || isNullOrUndefined(req.body) ||
+    isNullOrUndefined(req.body.lesson) || req.body.lesson <= 0 || req.body.lesson > 30 ||
+    isNullOrUndefined(req.body.group) || isNullOrUndefined(req.body.leader)) {
+    sendErrorObject(res, 401, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  const cellphone = data[0];
+  try {
+    // Verify leader and get the transfering leader
+    var result = await mysqlQuery('SELECT id, cellphone FROM users WHERE class=(SELECT class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1) AND role!=255 AND id=?', [cellphone, req.body.leader]);
+    if (result.length === 0) {
+      sendErrorObject(res, 401, { Error: "No such user" });
+      logger.error("No such user");
+      return;
+    }
+
+    // Remove existing delegate leader
+    await mysqlQuery('DELETE FROM attendLeaders WHERE lesson=? AND `group`=?', [req.body.lesson, req.body.group]);
+
+    if (result[0].cellphone !== cellphone) {
+      // Add to database if it's not self
+      const data = {
+        group: req.body.group,
+        lesson: req.body.lesson,
+        leader: req.body.leader
+      };
+      await mysqlQuery('INSERT INTO attendLeaders SET ?', data);
+    }
 
     res.status(201).send();
     logger.succeed();
