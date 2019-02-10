@@ -543,7 +543,7 @@ app.get('/attendance/*', async function (req, res) {
   const cellphone = data[0];
   const group = data[1];
   const lesson = data[2];
-  if (!cellphone || !group || !lesson) {
+  if (!cellphone || !group || lesson <= 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -647,18 +647,26 @@ app.post('/attendance/*', jsonParser, async function (req, res) {
   }
 })
 
-// Get leaders info '/cellphone'
+// Get leaders info '/cellphone/group/lesson'
 app.get('/leaders/*', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const data = req.params[0].split('/');
-  if (!data || data.length !== 1 || !data[0]) {
+  if (!data || data.length !== 3) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
 
   const cellphone = data[0];
+  const group = data[1];
+  const lesson = data[2];
+  if (!cellphone || !group || lesson <= 0 || lesson >= 30) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
   try {
     // Verify leader and get all leaders
     var result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name FROM users WHERE class=(SELECT class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1) AND role!=255', [cellphone]);
@@ -666,6 +674,16 @@ app.get('/leaders/*', async function (req, res) {
       sendErrorObject(res, 401, { Error: "No such user" });
       logger.error("No such user");
       return;
+    }
+
+    // Get the current delegate leader
+    var delegateLeaderResult = await mysqlQuery('SELECT users.id FROM attendLeaders INNER JOIN users ON users.id=attendLeaders.leader WHERE attendLeaders.`group`=? AND attendLeaders.lesson=?', [group, lesson]);
+    if (delegateLeaderResult.length > 0) {
+      for (let i in result) {
+        if (result[i].id === delegateLeaderResult[0].id) {
+          result[i].current = true;
+        }
+      }
     }
 
     sendResultObject(res, result);
@@ -684,7 +702,7 @@ app.post('/transferLeader/*', jsonParser, async function (req, res) {
   let logger = new Logger(req, client);
   const data = req.params[0].split('/');
   if (!data || data.length !== 1 || isNullOrUndefined(data[0]) || isNullOrUndefined(req.body) ||
-    isNullOrUndefined(req.body.lesson) || req.body.lesson < 0 || req.body.lesson >= 30 ||
+    isNullOrUndefined(req.body.lesson) || req.body.lesson <= 0 || req.body.lesson >= 30 ||
     isNullOrUndefined(req.body.group) || isNullOrUndefined(req.body.leader)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
