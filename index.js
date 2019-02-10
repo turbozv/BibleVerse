@@ -594,7 +594,9 @@ app.get('/attendance/*', async function (req, res) {
     if (lesson) {
       result = await mysqlQuery('SELECT users.id, attendLeaders.`group`, CONCAT(cname, " ", name) as name FROM attendLeaders' +
         ' INNER JOIN users ON users.id=attendLeaders.leader WHERE attendLeaders.lesson=? AND attendLeaders.group=?', [lesson, group]);
-      substitute = { id: result[0].id, name: result[0].name };
+      if (result.length > 0) {
+        substitute = { id: result[0].id, name: result[0].name };
+      }
     }
 
     // Get attendees
