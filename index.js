@@ -479,7 +479,7 @@ app.get('/attendanceSummary/*', async function (req, res) {
       return;
     }
 
-    let response = { groups: [], attendance: [] };
+    let response = { user: user.id, groups: [], attendance: [] };
 
     // Populate groups with names
     for (let i in result) {
@@ -682,6 +682,7 @@ app.get('/leaders/*', async function (req, res) {
       for (let i in result) {
         if (result[i].id === delegateLeaderResult[0].id) {
           result[i].current = true;
+          break;
         }
       }
     }
