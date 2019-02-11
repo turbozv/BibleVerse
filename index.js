@@ -388,9 +388,9 @@ app.get('/attendanceV2/*', async function (req, res) {
       }
 
       // Get attendees
-      if (currentGroup.group === 0) {
+      if (currentGroup.group === 0 || currentGroup.group === 1000) {
         // Co-worker group includes all GL (which is not in group#0)
-        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=? AND role!=255) OR (`group` != 0 AND role=6)) ORDER BY role, name ASC', [user.class, currentGroup.group]);
+        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group`!=0 AND role=6)) ORDER BY role, name ASC', [user.class]);
       } else {
         result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, currentGroup.group]);
       }
@@ -503,9 +503,9 @@ app.get('/attendanceSummary/*', async function (req, res) {
 
       // Get attendees count
       let userResult;
-      if (group === 0) {
+      if (group === 0 || group === 1000) {
         // Co-worker group includes all GL (which is not in group#0)
-        userResult = await mysqlQuery('SELECT COUNT(*) AS count FROM users WHERE class=? AND ((`group`=? AND role!=255) OR (`group` != 0 AND role=6)) ORDER BY role, name ASC', [user.class, group]);
+        userResult = await mysqlQuery('SELECT COUNT(*) AS count FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group`!=0 AND role=6)) ORDER BY role, name ASC', [user.class]);
       } else {
         userResult = await mysqlQuery('SELECT COUNT(*) AS count FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, group]);
       }
@@ -528,11 +528,17 @@ app.get('/attendanceSummary/*', async function (req, res) {
         });
       });
 
-      response.groups.push({
+      const groupData = {
         id: group,
         lesson: leaderLesson,
         name: groupNames[group] ? groupNames[group] : '',
-      });
+      };
+      if (group === 0 || group === 1000) {
+        // Co-worker group needs to show first
+        response.groups.unshift(groupData);
+      } else {
+        response.groups.push(groupData);
+      }
 
       if (substitutes[group]) {
         response.substitute.push({
@@ -563,9 +569,9 @@ app.get('/attendance/*', async function (req, res) {
   }
 
   const cellphone = data[0];
-  const group = data[1];
-  const lesson = data[2];
-  if (!cellphone || !group || lesson <= 0 || lesson >= 30) {
+  const group = parseInt(data[1]);
+  const lesson = parseInt(data[2]);
+  if (!cellphone || lesson <= 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -600,9 +606,9 @@ app.get('/attendance/*', async function (req, res) {
     }
 
     // Get attendees
-    if (group === 0) {
+    if (group === 0 || group === 1000) {
       // Co-worker group includes all GL (which is not in group#0)
-      result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=? AND role!=255) OR (`group` != 0 AND role=6)) ORDER BY role, name ASC', [user.class, group]);
+      result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group` != 0 AND role=6)) ORDER BY role, name ASC', [user.class]);
     } else {
       result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, group]);
     }
@@ -691,9 +697,9 @@ app.get('/leaders/*', async function (req, res) {
   }
 
   const cellphone = data[0];
-  const group = data[1];
-  const lesson = data[2];
-  if (!cellphone || !group || lesson <= 0 || lesson >= 30) {
+  const group = parseInt(data[1]);
+  const lesson = parseInt(data[2]);
+  if (!cellphone || lesson <= 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
