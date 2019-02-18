@@ -902,6 +902,11 @@ app.get('/downloadToken/*', async function (req, res) {
         audio = result[0].lesson;
         break;
     }
+    if (audio.length === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error("Invalid input");
+      return;
+    }
     const token = uuid.v4();
     const data = {
       token: token,
@@ -909,7 +914,7 @@ app.get('/downloadToken/*', async function (req, res) {
       file: `audios/${audio}.mp3`
     };
 
-    result = await mysqlQuery('INSERT INTO downloads SET ?', data);
+    result = await mysqlQuery('REPLACE INTO downloads SET ?', data);
     sendResultObject(res, { token });
     logger.succeed();
   } catch (error) {
