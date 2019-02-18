@@ -850,6 +850,12 @@ app.get('/download/*', async function (req, res) {
       return;
     }
 
+    let resultDelete = await mysqlQuery('DELETE FROM downloads WHERE token=?', [token]);
+    if (resultDelete.affectedRows === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error();
+    }
+
     const file = result[0].file;
     res.download(file);
     logger.succeed();
