@@ -9,6 +9,7 @@ let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 const nodemailer = require('nodemailer');
+const uuid = require('uuid');
 
 let dbBible = new sqlite3.Database('bible.db');
 let jsonParser = bodyParser.json()
@@ -830,6 +831,94 @@ app.get('/audio/*', function (req, res) {
   });
 })
 
+// get download file
+app.get('/download/*', async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const token = req.params[0];
+  if (!token) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  try {
+    let result = await mysqlQuery('SELECT file FROM downloads WHERE token=?', [token]);
+    if (result.length === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error("Invalid input");
+      return;
+    }
+
+    const file = result[0].file;
+    res.download(file);
+    logger.succeed();
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+});
+
+// generate download token
+app.get('/downloadToken/*', async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const data = req.params[0].split('/');
+  if (data.length !== 3 || !data[0] || !data[1] || !data[2]) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  const cellphone = data[0];
+  const lesson = data[1];
+  const item = data[2];
+
+  try {
+    let result = await mysqlQuery('SELECT audio FROM users WHERE cellphone=? LIMIT 1', [cellphone]);
+    if (result.length === 0 || !result[0].audio) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error("Invalid input");
+      return;
+    }
+
+    result = await mysqlQuery('SELECT lesson, notes, seminar FROM audios WHERE lesson=?', [lesson]);
+    if (result.length === 0) {
+      sendErrorObject(res, 400, { Error: "Invalid input" });
+      logger.error("Invalid input");
+      return;
+    }
+
+    let audio;
+    switch (item) {
+      case '1':
+        audio = result[0].notes;
+        break;
+      case '2':
+        audio = result[0].seminar;
+        break;
+      default:
+        audio = result[0].lesson;
+        break;
+    }
+    const token = uuid.v4();
+    const data = {
+      token: token,
+      cellphone: cellphone,
+      file: `audios/${audio}.mp3`
+    };
+
+    result = await mysqlQuery('INSERT INTO downloads SET ?', data);
+    sendResultObject(res, { token });
+    logger.succeed();
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+});
+
 // Get teaching audio info
 app.get('/audioInfo/*', async function (req, res) {
   const client = getClientInfo(req);
@@ -950,7 +1039,6 @@ app.post('/attendanceV2', jsonParser, async function (req, res) {
 
     res.status(201).send();
     logger.succeed();
-
   } catch (error) {
     console.log(error);
     sendErrorObject(res, 400, { Error: JSON.stringify(error) });

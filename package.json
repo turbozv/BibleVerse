@@ -16,6 +16,7 @@
     "nodejs-nodemailer-outlook": "^1.0.8",
     "socket.io": "2.2.0",
     "sqlite3": "4.0.4",
-    "util": "0.11.1"
+    "util": "0.11.1",
+    "uuid": "^3.3.2"
   }
 }
