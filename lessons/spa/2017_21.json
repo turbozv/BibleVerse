@@ -9,13 +9,11 @@
         {
           "id": "2017_21_1",
           "questionText": "1.  ¿Qué parte de la conferencia tuvo un significado especial para usted?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_2",
           "questionText": "2.  ¿Cómo le ayudaron las notas?",
-          
           "quotes": []
         }
       ]
@@ -32,19 +30,16 @@
         {
           "id": "2017_21_3",
           "questionText": "3.  ¿Qué puntos específicos de Romanos estaba pensando Pablo al comenzar esta sección con la palabra “por lo tanto”?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_4",
           "questionText": "4.  ¿Qué deben hacer los cristianos como resultado de las verdades aprendidas a través del estudio de los Romanos?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_5",
           "questionText": "5.  ¿Qué cualidades o comportamientos deben hacer a los cristianos diferentes del mundo que los rodea? Hable de un cristiano que ha tenido una profunda influencia en su vida.",
-          
           "quotes": []
         }
       ]
@@ -61,7 +56,6 @@
         {
           "id": "2017_21_6",
           "questionText": "6. ¿Qué aprende acerca de Dios y su misericordia de los siguientes versículos?  Romanos 9:15",
-          
           "quotes": [
             {
               "book": "Romanos",
@@ -72,7 +66,6 @@
         {
           "id": "2017_21_6b",
           "questionText": "6.  Romanos 9:23",
-          
           "quotes": [
             {
               "book": "Romanos",
@@ -83,7 +76,6 @@
         {
           "id": "2017_21_6c",
           "questionText": "6.  Efesios 2:4-5",
-          
           "quotes": [
             {
               "book": "Efesios",
@@ -94,7 +86,6 @@
         {
           "id": "2017_21_6d",
           "questionText": "6.  1 Pedro 1: 3",
-          
           "quotes": [
             {
               "book": "1 Pedro",
@@ -105,13 +96,11 @@
         {
           "id": "2017_21_6e",
           "questionText": "6. 7  ¿Cómo ha mostrado Dios su misericordia a su país, a su familia y a usted?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_8f",
           "questionText": "8.  Defina el “sacrificio”. Compare y contraste los sacrificios de animales del Antiguo Testamento con la clase de sacrificio que Pablo está instando a los cristianos a ser. (Ver Levítico 16; Hebreos 10:1-10 y Romanos 6:3-4).",
-          
           "quotes": [
             {
               "book": "Levítico",
@@ -130,7 +119,6 @@
         {
           "id": "2017_21_9g",
           "questionText": " 9.  Compartir ejemplos ordinarios y extraordinarios en los que las personas hoy ofrecen sus cuerpos como sacrificios vivos.",
-          
           "quotes": []
         }
       ]
@@ -155,13 +143,11 @@
         {
           "id": "2017_21_10h",
           "questionText": "10.  ¿Cómo se utiliza la palabra “mundo” en este contexto?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_11i",
           "questionText": "11.  ¿Cómo se describe el patrón de este mundo en 1 Juan 2:15-17? ¿Cómo describiría el patrón de este mundo en sus propias palabras?",
-          
           "quotes": [
             {
               "book": "1 Juan",
@@ -172,7 +158,6 @@
         {
           "id": "2017_21_12j",
           "questionText": "12.  ¿De qué manera ha penetrado el patrón del mundo en sus pensamientos, elecciones, hábitos, perspectivas, relaciones o prioridades?",
-          
           "quotes": []
         }
       ]
@@ -189,7 +174,6 @@
         {
           "id": "2017_21_13k",
           "questionText": "13.  Según Romanos 12:2; 2 Corintios 3:18 y Filipenses 2:13, ¿cómo es transformada una persona?",
-          
           "quotes": [
             {
               "book": "Romanos",
@@ -208,19 +192,16 @@
         {
           "id": "2017_21_14l",
           "questionText": "14.  ¿Cómo renueva su mente una persona? ¿Cómo está ayudando usted a renovar las mentes de otros, incluyendo a la próxima generación?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_15m",
           "questionText": "15.  ¿Cómo describe Pablo la voluntad de Dios? ¿Cómo difiere esto de las ideas del mundo (y de algunos cristianos) de la voluntad de Dios?",
-          
           "quotes": []
         },
         {
           "id": "2017_21_16n",
           "questionText": "16.  ¿Qué enseñan estos versículos sobre la buena, agradable y perfecta voluntad de Dios?  Juan 14:15",
-          
           "quotes": [
             {
               "book": "Juan",
@@ -231,7 +212,6 @@
         {
           "id": "2017_21_NaN",
           "questionText": "16.  2 Corintios 10:5",
-          
           "quotes": [
             {
               "book": "2 Corintios",
@@ -242,7 +222,6 @@
         {
           "id": "2017_21_16c",
           "questionText": "16.  1 Tesalonicenses 4:3-7",
-          
           "quotes": [
             {
               "book": "1 Tesalonicenses",
@@ -253,7 +232,6 @@
         {
           "id": "2017_21_16d",
           "questionText": "16.  Santiago 5:13-16",
-          
           "quotes": [
             {
               "book": "Santiago",
@@ -264,7 +242,6 @@
         {
           "id": "2017_21_16e",
           "questionText": "16.  1 Pedro 2:15",
-          
           "quotes": [
             {
               "book": "1 Pedro",
@@ -275,7 +252,6 @@
         {
           "id": "2017_21_16f",
           "questionText": "16.  1 Pedro 3:17",
-          
           "quotes": [
             {
               "book": "1 Pedro",
@@ -286,7 +262,6 @@
         {
           "id": "2017_21_16g",
           "questionText": "16.  1 Pedro 4:1-11",
-          
           "quotes": [
             {
               "book": "1 Pedro",
@@ -308,7 +283,6 @@
         {
           "id": "2017_21_17",
           "questionText": "17. ¿Qué ha aprendido usted sobre Dios del estudio de esta semana? ¿Cómo podría orar su grupo por usted mientras incorpora esta verdad en su vida? No hay homilética para líderes de grupo y administrativos.",
-          
           "quotes": []
         }
       ]

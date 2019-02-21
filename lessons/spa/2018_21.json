@@ -72,7 +72,7 @@
             "readVerse": [
                 {
                     "book": "2 Samuel",
-                    "verse": "1415:12"
+                    "verse": "14:1-15:12"
                 }
             ],
             "questions": [
@@ -98,7 +98,7 @@
             "readVerse": [
                 {
                     "book": "2 Samuel",
-                    "verse": "15:1316:14"
+                    "verse": "15:13-16:14"
                 }
             ],
             "questions": [
@@ -124,7 +124,7 @@
             "readVerse": [
                 {
                     "book": "2 Samuel",
-                    "verse": "16:1518:33"
+                    "verse": "16:15-18:33"
                 }
             ],
             "questions": [
@@ -168,7 +168,7 @@
             "readVerse": [
                 {
                     "book": "2 Samuel",
-                    "verse": "1318:1-undefined"
+                    "verse": "13-18"
                 }
             ],
             "questions": [
