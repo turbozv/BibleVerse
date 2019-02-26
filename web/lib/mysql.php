@@ -297,3 +297,16 @@ function getAttendancedates($class, $group) {
 
     return $attendDates;
 }
+
+function getAttendanceReportGroups($class) {
+    $groups = array();
+
+    $query = "select distinct `group` from users where class=$class and `group` < 500 order by `group` asc";
+    $result = mysql_query($query) or die('Query failed: ' . mysql_error());
+    while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($groups, $line["group"]);
+    }
+
+    mysql_free_result($result);
+    return $groups;
+}

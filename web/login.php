@@ -23,10 +23,8 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         } else {
             $_SESSION['login_user_id'] = $row[1];
             $_SESSION['login_user_email'] = $row[2];
-            $_SESSION['attendanceAdult.php'] = $row[3];
-            $_SESSION['attendanceSP.php'] = $row[4];
-            $_SESSION['attendanceSG.php'] = $row[4];
-            $_SESSION['editAttendance.php'] = $row[5];
+            $_SESSION['attendance.php'] = $row[3] || $row[4] || $row[4];
+            // $_SESSION['editAttendance.php'] = $row[5];
             $_SESSION['feedback.php'] = $row[6];
             $_SESSION['status.php'] = $row[7];
             $_SESSION['phpMyAdmin.php'] = $row[8];
