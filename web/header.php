@@ -60,7 +60,7 @@ echo getLink("index.php", "Home");
 echo getLink("attendance.php", "Attendance");
 // echo getLink("attendanceAdult.php", "Attendance(Adult)");
 // echo getLink("attendanceSP.php", "Attendance(SP)");
-// echo getLink("attendanceSG.php", "Attendance(Satelight)");
+echo getLink("attendanceSG.php", "Attendance(Satelight)");
 echo getLink("users.php", "Users");
 echo getLink("feedback.php", "Feedback");
 echo getLink("status.php", "CBSF Chart");
