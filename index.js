@@ -1,7 +1,6 @@
 let sqlite3 = require('sqlite3');
 let fs = require('fs');
 let bodyParser = require('body-parser');
-let https = require('https');
 let config = require('./config.js');
 let mysql = require('mysql');
 let util = require('util');
@@ -288,45 +287,6 @@ app.get('/lessons/*', function (req, res) {
   });
 })
 
-// Get Logon
-app.get('/logon', function (req, res) {
-  const client = getClientInfo(req);
-  let logger = new Logger(req, client);
-  if (!client.cellphone) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const options = {
-    host: 'resources.bsfinternational.org',
-    port: 443,
-    path: '/BSFAjaxUtils/Dispatch?action=AjaxGetClassMeetingInfo&phoneNumber=' + client.cellphone,
-    method: 'GET'
-  };
-
-  const bsfReq = https.request(options, (bsfRes) => {
-    bsfRes.on('data', (d) => {
-      const body = d.toString('utf8');
-      const result = JSON.parse(body);
-      if (result && result.length > 0) {
-        sendResultObject(res, { logon: true });
-        logger.succeed();
-      } else {
-        sendErrorObject(res, 404, { Error: "No such user" });
-        logger.error("No such user");
-      }
-    });
-  });
-
-  bsfReq.on('error', (e) => {
-    sendErrorObject(res, 404, { Error: e.message });
-    logger.error(e.message);
-  });
-
-  bsfReq.end();
-})
-
 // Get attendance '/cellphone/{group}/{date}'
 app.get('/attendanceV2/*', async function (req, res) {
   const client = getClientInfo(req);
@@ -389,9 +349,12 @@ app.get('/attendanceV2/*', async function (req, res) {
       }
 
       // Get attendees
-      if (currentGroup.group === 0 || currentGroup.group === 1000) {
+      if (currentGroup.group === 1000) {
         // Co-worker group includes all GL (which is not in group#0)
         result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group`!=0 AND role=6)) ORDER BY role, name ASC', [user.class]);
+      } else if (currentGroup.group === 0) {
+        // Co-worker group excludes all GL
+        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=0 AND role!=255 AND role!=6 ORDER BY role, name ASC', [user.class]);
       } else {
         result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, currentGroup.group]);
       }
@@ -607,9 +570,12 @@ app.get('/attendance/*', async function (req, res) {
     }
 
     // Get attendees
-    if (group === 0 || group === 1000) {
+    if (group === 1000) {
       // Co-worker group includes all GL (which is not in group#0)
       result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group` != 0 AND role=6)) ORDER BY role, name ASC', [user.class]);
+    } else if (group === 0) {
+      // Co-worker group excludes GL
+      result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=0 AND role!=255 AND role!=6 ORDER BY role, name ASC', [user.class]);
     } else {
       result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, group]);
     }
