@@ -15,6 +15,7 @@ $class = $row[1];
 echo "<h3>出席表 Class: $className</h3>";
 
 $adultData = array();
+$spData = array();
 $sp1Data = array();
 $sp3Data = array();
 $sp6Data = array();
@@ -56,6 +57,7 @@ for ($lesson = 0; $lesson < 30; $lesson++) {
             $sp6Data[$lesson] = $users;
         }
     }
+    $spData[$lesson] = array_merge($sp1Data[$lesson], $sp3Data[$lesson], $sp6Data[$lesson]);
 
     $sgData[$lesson] = array();
     foreach ($sgGroups as $key => $group) {
@@ -101,9 +103,7 @@ foreach ($spGroups as $key => $group) {
         echo "<td align='center'>".count($data);
     }
 }
-
 echo "</table>";
-
 
 $allGroups = array_merge($adultGroups, $spGroups, $sgGroups);
 foreach ($allGroups as $key => $group) {
@@ -114,15 +114,20 @@ foreach ($allGroups as $key => $group) {
     }
     echo "</tr>";
 
+    $totalCount = array();
+    for ($lesson = 0; $lesson < 30; $lesson++) {
+        $totalCount[$lesson] = 0;
+    }
     $members = getMembers($class, $group);
-    reset($members);
     $id = 1;
     while (list($userId, $name) = each($members)) {
         echo "<tr><td>$id. $name (<a href='users.php?user=$userId'>#$userId</a>)";
         for ($lesson = 0; $lesson < 30; $lesson++) {
-            if ($group < 500 && in_array($userId, $adultData[$lesson]) ||
+            if ($group < 100 && in_array($userId, $adultData[$lesson]) ||
+                $group < 500 && in_array($userId, $spData[$lesson]) ||
                 $group >= 500 && in_array($userId, $sgData[$lesson])) {
                 $check = '√';
+                $totalCount[$lesson]++;
             } else {
                 $check = ' ';
             }
@@ -130,6 +135,11 @@ foreach ($allGroups as $key => $group) {
             echo "<td align='center'>$check";
         }
         $id++;
+    }
+
+    echo "<tr><td style='min-width: 280px;'>出勤人数";
+    for ($lesson = 0; $lesson < 30; $lesson++) {
+        echo "<td width='30' align='center'>".$totalCount[$lesson];
     }
 
     echo "</table>";
