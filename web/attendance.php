@@ -33,8 +33,10 @@ for ($lesson = 0; $lesson < 30; $lesson++) {
             continue;
         }
         $users = explode(',', $usersStr);
-        if (count($users) > 1) {
-            $adultTotalUsers = array_merge($adultTotalUsers, $users);
+        foreach ($users as $key => $user) {
+            if (!in_array($user, $adultTotalUsers)) {
+                array_push($adultTotalUsers, $user);
+            }
         }
     }
     $adultData[$lesson] = $adultTotalUsers;
@@ -76,7 +78,6 @@ echo "<table border=1><tr><td style='min-width: 280px;'>";
 for ($lesson = 0; $lesson < 30; $lesson++) {
     echo "<td width='30' align='center'>#$lesson";
 }
-echo "</tr>";
 
 echo "<tr><td>成人小组";
 for ($lesson = 0; $lesson < 30; $lesson++) {
@@ -105,6 +106,10 @@ foreach ($spGroups as $key => $group) {
 }
 echo "</table>";
 
+$adultTotalCount = array();
+for ($lesson = 0; $lesson < 30; $lesson++) {
+    $adultTotalCount[$lesson] = 0;
+}
 $allGroups = array_merge($adultGroups, $spGroups, $sgGroups);
 foreach ($allGroups as $key => $group) {
     echo "<h4>".getGroupDisplayName($class, $group)."<br>";
@@ -112,7 +117,6 @@ foreach ($allGroups as $key => $group) {
     for ($lesson = 0; $lesson < 30; $lesson++) {
         echo "<td width='30' align='center'>#$lesson";
     }
-    echo "</tr>";
 
     $totalCount = array();
     for ($lesson = 0; $lesson < 30; $lesson++) {
@@ -140,10 +144,28 @@ foreach ($allGroups as $key => $group) {
     echo "<tr><td style='min-width: 280px;'>出勤人数";
     for ($lesson = 0; $lesson < 30; $lesson++) {
         echo "<td width='30' align='center'>".$totalCount[$lesson];
+        if (in_array($group, $adultGroups)) {
+            $adultTotalCount[$lesson] += $totalCount[$lesson];
+        }
     }
 
     echo "</table>";
 }
+
+echo "<h4>系统核对<br>";
+echo "<table border=1><tr><td style='min-width: 280px;'>";
+for ($lesson = 0; $lesson < 30; $lesson++) {
+    echo "<td width='30' align='center'>#$lesson";
+}
+echo "<tr><td>BSF报表成人小组";
+for ($lesson = 0; $lesson < 30; $lesson++) {
+    echo "<td align='center'>".count($adultData[$lesson]);
+}
+echo "<tr><td style='min-width: 280px;'>各小组出勤总数";
+for ($lesson = 0; $lesson < 30; $lesson++) {
+    echo "<td width='30' align='center'>".$adultTotalCount[$lesson];
+}
+echo "</table>";
 
 require("footer.php");
 ?>
