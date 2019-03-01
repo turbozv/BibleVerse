@@ -929,21 +929,20 @@ app.get('/audioInfo/*', async function (req, res) {
 app.get('/user/*', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const cellphone = req.params[0];
-  if (!cellphone) {
+  const data = req.params[0].split('/');
+  if (data.length < 1 || data.length > 2) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
+  const cellphone = data[0];
+  const lastCheckTime = data.length > 1 ? parseInt(data[1]) : 0;
 
   try {
     // Get users from all groups
     let result = await mysqlQuery('SELECT lesson FROM audios');
-
     let audios = [];
-    for (let i in result) {
-      audios.push(result[i].lesson);
-    }
+    result.map(item => audios.push(item.lesson));
 
     result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
     if (result.length === 0) {
@@ -953,22 +952,24 @@ app.get('/user/*', async function (req, res) {
     }
     const user = result[0];
 
-    result = await mysqlQuery('SELECT `group` FROM attendanceLeaders WHERE leader=?', [user.id]);
-    let attendanceGroups = [];
-    for (let i in result) {
-      attendanceGroups.push(result[i].group);
-    }
+    let discussions = [];
+    const checkTime = new Date().getTime();
+    result = await mysqlQuery('SELECT room, COUNT(*) AS count FROM DiscussionRooms WHERE createdAt>? AND createdAt<=? GROUP BY room', [lastCheckTime, checkTime]);
+    result.map(item => {
+      const obj = {};
+      obj[item.room] = item.count;
+      discussions.push(obj)
+    });
 
     const data = {
       audio: user.audio,
       class: user.class,
       isGroupLeader: (user.role !== 255),
       chat: 1,
-      attendanceGroups
+      checkTime: checkTime,
+      discussions: discussions,
+      audios: audios
     };
-    if (data.audio) {
-      data.audios = audios;
-    }
     sendResultObject(res, data);
     logger.succeed();
 
