@@ -952,14 +952,10 @@ app.get('/user/*', async function (req, res) {
     }
     const user = result[0];
 
-    let discussions = [];
+    let discussions = {};
     const checkTime = new Date().getTime();
     result = await mysqlQuery('SELECT room, COUNT(*) AS count FROM DiscussionRooms WHERE createdAt>? AND createdAt<=? GROUP BY room', [lastCheckTime, checkTime]);
-    result.map(item => {
-      const obj = {};
-      obj[item.room] = item.count;
-      discussions.push(obj)
-    });
+    result.map(item => discussions[item.room] = item.count);
 
     const data = {
       audio: user.audio,
