@@ -1,1 +1,222 @@
-{"id":"2017_5","name":"Romanos2017_5","memoryVerse":"“Así está escrito: ‘No hay un solo justo, ni siquiera uno; no hay nadie que entienda, nadie que busque a Dios’ ”. –  Romanos 3:10-11","dayQuestions":{"one":{"title":"PRIMER DÍA: leer las notas y las referencias.","questions":[{"id":"2017_5_1","questionText":"1.  ¿Qué parte de la conferencia tuvo un significado especial para usted?","answer":"","quotes":[]},{"id":"2017_5_2","questionText":"2.  ¿Cómo le ayudaron las notas?","answer":"","quotes":[]}]},"two":{"title":"SEGUNDO DÍA: leer Romanos 3: 21-23.","readVerse":[{"book":"Romanos","verse":"3:21-23"}],"questions":[{"id":"2017_5_3","questionText":"3.  Defina “la justicia”. ¿De dónde viene y cómo se recibe? ¿Cómo se compara esto con su manera de entender lo que es la justicia?","answer":"","quotes":[]},{"id":"2017_5_4","questionText":"4.  ¿Qué significa “sin la mediación de ley” o “aparte de la ley”?","answer":"","quotes":[]},{"id":"2017_5_5a","questionText":"5. a.  ¿Cómo muestra también el Antiguo Testamento que la justicia que Dios da es sin la mediación de la ley? ¿Por qué importa esto? (Vea Génesis 15:6; Jeremías 31:33-34; Ezequiel 36:26-27 o cualquier otra referencia del Antiguo Testamento.)","answer":"","quotes":[{"book":"Génesis","verse":"15:6"},{"book":"Jeremías","verse":"31:33-34"},{"book":"Ezequiel","verse":"36:26-27"}]},{"id":"2017_5_5b","questionText":"5. b.  ¿Quién puede recibir la justicia de Dios, y cuál es su respuesta a ese regalo del Señor? (Vea también Romanos 10:9-10, 14.)","answer":"","quotes":[{"book":"Romanos","verse":"10:9-10"},{"book":"Romanos","verse":"10:14"}]}]},"three":{"title":"TERCER DÍA: leer Romanos 3: 23-24.","readVerse":[{"book":"Romanos","verse":"3:23-24"}],"questions":[{"id":"2017_5_6","questionText":"6.  ¿Qué ejemplos podría usar de la Biblia, la historia, la cultura actual o su propia vida para ayudar a un incrédulo a entender que “todos han pecado y están privados de la gloria de Dios”?","answer":"","quotes":[]},{"id":"2017_5_7a","questionText":"7. a.   Defina “justificado”. ¿Cómo se alcanza la justificación, y por qué es eso una buena noticia? (Vea también Gé- nesis 15: 6; Isaías 53:11; 2 Corintios 5:21.)","answer":"","quotes":[{"book":"is","verse":"15:6"},{"book":"Isaías","verse":"53:11"},{"book":"2 Corintios","verse":"5:21"}]},{"id":"2017_5_7b","questionText":"7. b.  Explique “la redención que Cristo Jesús efectuó”. ¿Qué le enseña la redención acerca de Dios? (Para ayuda adicional vea Marcos 10:45; Efesios 1:7-8; Tito 2:14; 1 Pedro 1:18.)","answer":"","quotes":[{"book":"Marcos","verse":"10:45"},{"book":"Efesios","verse":"1:7-8"},{"book":"Tito","verse":"2:14"},{"book":"1 Pedro","verse":"1:18"}]},{"id":"2017_5_8","questionText":"8.  ¿Cómo revela la gracia de Dios —en la justificación y la redención— que usted es amado(a) y querido(a) por Dios? ¿Cómo afecta eso su respuesta a Él?","answer":"","quotes":[]}]},"four":{"title":"CUARTO DÍA: leer Romanos 3: 24-26.","readVerse":[{"book":"Romanos","verse":"3:24-26"}],"questions":[{"id":"2017_5_9","questionText":"9.  ¿Qué significa que Jesús es un “sacrificio de expiación” o “propiciación” (RVR 1960)? ¿Cómo le asegura esto que la justicia de Dios ha sido satisfecha? (Para ayuda vea Hebreos 2:17; 1 Juan 2:2, 4:10, use un diccionario si lo desea.)","answer":"","quotes":[{"book":"Hebreos","verse":"2:17"},{"book":"1 Juan","verse":"2:2"},{"book":"1 Juan","verse":"2:4"}]},{"id":"2017_5_10","questionText":"10.  ¿Por qué presentaría Dios a su propio Hijo como un sacrificio de expiación y cómo puede usted expresar su grati-tud por un amor tan grande?","answer":"","quotes":[]}]},"five":{"title":"QUINTO DÍA: leer Romanos 3: 25-26.","readVerse":[{"book":"Romanos","verse":"3:25-26"}],"questions":[{"id":"2017_5_11","questionText":"11.  ¿Cómo demostró Dios su justicia en Jesucristo?","answer":"","quotes":[]},{"id":"2017_5_12","questionText":"12.  ¿Cómo puede saber que nunca tendrá que enfrentar el justo castigo de Dios y con quién compartirá la libertad que este conocimiento da?","answer":"","quotes":[]}]},"six":{"title":"SEXTO DÍA: Repasar Romanos 3: 21-26.","readVerse":[{"book":"Romanos","verse":"3:21-26"}],"questions":[{"id":"2017_5_13","questionText":"13.  ¿Qué ha aprendido usted sobre Dios del estudio de esta semana? ¿Cómo podría orar su grupo por usted mientras incorpora esta verdad en su vida?","answer":"","quotes":[]}]}}}
+{
+    "id": "2017_5",
+    "name": "Romanos2017_5",
+    "memoryVerse": "“Así está escrito: ‘No hay un solo justo, ni siquiera uno; no hay nadie que entienda, nadie que busque a Dios’ ”. –  Romanos 3:10-11",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: leer las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2017_5_1",
+                    "questionText": "1.  ¿Qué parte de la conferencia tuvo un significado especial para usted?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2017_5_2",
+                    "questionText": "2.  ¿Cómo le ayudaron las notas?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: leer Romanos 3: 21-23.",
+            "readVerse": [
+                {
+                    "book": "Romanos",
+                    "verse": "3:21-23"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2017_5_3",
+                    "questionText": "3.  Defina “la justicia”. ¿De dónde viene y cómo se recibe? ¿Cómo se compara esto con su manera de entender lo que es la justicia?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2017_5_4",
+                    "questionText": "4.  ¿Qué significa “sin la mediación de ley” o “aparte de la ley”?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2017_5_5a",
+                    "questionText": "5. a.  ¿Cómo muestra también el Antiguo Testamento que la justicia que Dios da es sin la mediación de la ley? ¿Por qué importa esto? (Vea Génesis 15:6; Jeremías 31:33-34; Ezequiel 36:26-27 o cualquier otra referencia del Antiguo Testamento.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Génesis",
+                            "verse": "15:6"
+                        },
+                        {
+                            "book": "Jeremías",
+                            "verse": "31:33-34"
+                        },
+                        {
+                            "book": "Ezequiel",
+                            "verse": "36:26-27"
+                        }
+                    ]
+                },
+                {
+                    "id": "2017_5_5b",
+                    "questionText": "5. b.  ¿Quién puede recibir la justicia de Dios, y cuál es su respuesta a ese regalo del Señor? (Vea también Romanos 10:9-10, 14.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Romanos",
+                            "verse": "10:9-10"
+                        },
+                        {
+                            "book": "Romanos",
+                            "verse": "10:14"
+                        }
+                    ]
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: leer Romanos 3: 23-24.",
+            "readVerse": [
+                {
+                    "book": "Romanos",
+                    "verse": "3:23-24"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2017_5_6",
+                    "questionText": "6.  ¿Qué ejemplos podría usar de la Biblia, la historia, la cultura actual o su propia vida para ayudar a un incrédulo a entender que “todos han pecado y están privados de la gloria de Dios”?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2017_5_7a",
+                    "questionText": "7. a.   Defina “justificado”. ¿Cómo se alcanza la justificación, y por qué es eso una buena noticia? (Vea también Gé- nesis 15: 6; Isaías 53:11; 2 Corintios 5:21.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Genesis",
+                            "verse": "15:6"
+                        },
+                        {
+                            "book": "Isaías",
+                            "verse": "53:11"
+                        },
+                        {
+                            "book": "2 Corintios",
+                            "verse": "5:21"
+                        }
+                    ]
+                },
+                {
+                    "id": "2017_5_7b",
+                    "questionText": "7. b.  Explique “la redención que Cristo Jesús efectuó”. ¿Qué le enseña la redención acerca de Dios? (Para ayuda adicional vea Marcos 10:45; Efesios 1:7-8; Tito 2:14; 1 Pedro 1:18.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Marcos",
+                            "verse": "10:45"
+                        },
+                        {
+                            "book": "Efesios",
+                            "verse": "1:7-8"
+                        },
+                        {
+                            "book": "Tito",
+                            "verse": "2:14"
+                        },
+                        {
+                            "book": "1 Pedro",
+                            "verse": "1:18"
+                        }
+                    ]
+                },
+                {
+                    "id": "2017_5_8",
+                    "questionText": "8.  ¿Cómo revela la gracia de Dios —en la justificación y la redención— que usted es amado(a) y querido(a) por Dios? ¿Cómo afecta eso su respuesta a Él?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: leer Romanos 3: 24-26.",
+            "readVerse": [
+                {
+                    "book": "Romanos",
+                    "verse": "3:24-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2017_5_9",
+                    "questionText": "9.  ¿Qué significa que Jesús es un “sacrificio de expiación” o “propiciación” (RVR 1960)? ¿Cómo le asegura esto que la justicia de Dios ha sido satisfecha? (Para ayuda vea Hebreos 2:17; 1 Juan 2:2, 4:10, use un diccionario si lo desea.)",
+                    "answer": "",
+                    "quotes": [
+                        {
+                            "book": "Hebreos",
+                            "verse": "2:17"
+                        },
+                        {
+                            "book": "1 Juan",
+                            "verse": "2:2"
+                        },
+                        {
+                            "book": "1 Juan",
+                            "verse": "2:4"
+                        }
+                    ]
+                },
+                {
+                    "id": "2017_5_10",
+                    "questionText": "10.  ¿Por qué presentaría Dios a su propio Hijo como un sacrificio de expiación y cómo puede usted expresar su grati-tud por un amor tan grande?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: leer Romanos 3: 25-26.",
+            "readVerse": [
+                {
+                    "book": "Romanos",
+                    "verse": "3:25-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2017_5_11",
+                    "questionText": "11.  ¿Cómo demostró Dios su justicia en Jesucristo?",
+                    "answer": "",
+                    "quotes": []
+                },
+                {
+                    "id": "2017_5_12",
+                    "questionText": "12.  ¿Cómo puede saber que nunca tendrá que enfrentar el justo castigo de Dios y con quién compartirá la libertad que este conocimiento da?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: Repasar Romanos 3: 21-26.",
+            "readVerse": [
+                {
+                    "book": "Romanos",
+                    "verse": "3:21-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2017_5_13",
+                    "questionText": "13.  ¿Qué ha aprendido usted sobre Dios del estudio de esta semana? ¿Cómo podría orar su grupo por usted mientras incorpora esta verdad en su vida?",
+                    "answer": "",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

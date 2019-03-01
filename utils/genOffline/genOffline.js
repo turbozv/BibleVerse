@@ -12,14 +12,18 @@ function getLessonJson(lang, lesson) {
 }
 
 function getId(book, verse) {
-  let bookId = 1;
+  let bookId = -1;
   for (var i in bookIds) {
     if (bookIds[i].name == book) {
       bookId = bookIds[i].id;
       break;
     }
   }
-  return bookId + "/" + verse;
+  if (bookId === -1) {
+    console.error(`Wrong book name ${book}`);
+  }
+
+  return bookId + (verse ? "/" + verse : '');
 }
 
 function addToCache(key, value) {
@@ -40,9 +44,6 @@ function parseDay(day, lang) {
     const book = verses[i].book;
     const verse = verses[i].verse;
     const bookId = getId(book, verse);
-    if (!globalBibleVerses[bookId]) {
-      globalBibleVerses[bookId] = 1;
-    }
   }
 }
 
@@ -61,6 +62,7 @@ function parseHome(home, lang) {
     for (j in book.lessons) {
       const lessonId = book.lessons[j].id;
       const lesson = getLessonJson(lang, lessonId);
+      parseLesson(lesson, lang);
       addToCache('LESSON/' + lessonId + '?lang=' + lang, lesson);
     }
   }
