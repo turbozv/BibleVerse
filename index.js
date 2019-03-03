@@ -56,7 +56,7 @@ class Logger {
     const dt = this.getTime();
     const data = {
       cost: dt.time,
-      ip: this.req.ip.replace('::ffff:', ''),
+      ip: getIp(this.req),
       path: this.req.path,
       deviceId: this.client.deviceId,
       sessionId: this.client.sessionId,
@@ -137,6 +137,16 @@ function getVerseText(verseText) {
   return verseText;
 }
 
+function getIp(req) {
+  let ip = req.headers['x-forwarded-for'];
+  if (!ip) {
+    ip = req.ip.replace('::ffff:', '');
+  }
+  console.log(req.headers['x-forwarded-for'] + ' ' + req.ip.replace('::ffff:', '') + ' ' + ip);
+
+  return ip;
+}
+
 function getClientInfo(req) {
   let language = getRequestValue(req, 'lang');
   if (ValidLanguages.indexOf(language.toLowerCase()) === -1) {
@@ -156,7 +166,7 @@ function getClientInfo(req) {
   if (bibleVersion === 'rcuvss') bibleVersion = 'cunpss';
   if (bibleVersion === 'rcuvts') bibleVersion = 'cunpts';
 
-  return { deviceId, sessionId, language, ip: req.ip.replace('::ffff:', ''), platformOS, deviceYearClass, cellphone, bibleVersion, version };
+  return { deviceId, sessionId, language, ip: getIp(req), platformOS, deviceYearClass, cellphone, bibleVersion, version };
 }
 
 function getVerseRange(verse) {
@@ -1026,7 +1036,7 @@ app.post('/feedback', jsonParser, function (req, res) {
   }
 
   const data = {
-    ip: req.ip.replace('::ffff:', ''),
+    ip: getIp(req),
     createdAt: new Date().getTime(),
     room: client.deviceId,
     user: client.platformOS + ' ' + client.deviceId,
