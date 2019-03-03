@@ -54,6 +54,8 @@ function getMembers($class, $group)
     $group = mysql_real_escape_string($group);
     if ($group == 0) {
         $result = getQuery("select id from users where class=$class and role NOT IN (6,255) order by role, cname asc");
+    } else if ($group == 1000) {
+        $result = getQuery("select id from users where class=$class and role !=255 order by role, cname asc");
     } else {
         // 6 - GL shows first
         $result = getQuery("select id from users where class=$class and `group`=$group order by FIELD(role, '255', '6') desc, registerDate asc, cname asc");

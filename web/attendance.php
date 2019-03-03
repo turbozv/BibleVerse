@@ -15,6 +15,7 @@ $class = $row[1];
 echo "<h3>出席表 Class: $className</h3>";
 
 $adultData = array();
+$leaderMeetingData = array();
 $spData = array();
 $sp1Data = array();
 $sp3Data = array();
@@ -25,6 +26,19 @@ $spGroups = getSPGroups($class);
 $sgGroups = getSatelightGroups($class);
 
 for ($lesson = 0; $lesson < 30; $lesson++) {
+    $leaderTotalUsers = array();
+    $row = getRow("select users from attend where class=$class and lesson=$lesson and `group`=1000");
+    $usersStr = substr($row[0], 1, strlen($row[0])-2);
+    if (strlen($usersStr) > 0) {
+        $users = explode(',', $usersStr);
+        foreach ($users as $key => $user) {
+            if (!in_array($user, $leaderTotalUsers)) {
+                array_push($leaderTotalUsers, $user);
+            }
+        }
+    }
+    $leaderMeetingData[$lesson] = $leaderTotalUsers;
+
     $adultTotalUsers = array();
     foreach ($adultGroups as $key => $group) {
         $row = getRow("select users from attend where class=$class and lesson=$lesson and `group`=$group");
@@ -110,7 +124,7 @@ $adultTotalCount = array();
 for ($lesson = 0; $lesson < 30; $lesson++) {
     $adultTotalCount[$lesson] = 0;
 }
-$allGroups = array_merge($adultGroups, $spGroups, $sgGroups);
+$allGroups = array_merge(array(1000));//, $adultGroups, $spGroups, $sgGroups);
 foreach ($allGroups as $key => $group) {
     echo "<h4>".getGroupDisplayName($class, $group)."<br>";
     echo "<table border=1><tr><td style='min-width: 280px;'>";
@@ -129,7 +143,8 @@ foreach ($allGroups as $key => $group) {
         for ($lesson = 0; $lesson < 30; $lesson++) {
             if ($group < 100 && in_array($userId, $adultData[$lesson]) ||
                 $group < 500 && in_array($userId, $spData[$lesson]) ||
-                $group >= 500 && in_array($userId, $sgData[$lesson])) {
+                $group >= 500 && in_array($userId, $sgData[$lesson]) ||
+                $group == 1000 && in_array($userId, $leaderMeetingData[$lesson])) {
                 $check = '√';
                 $totalCount[$lesson]++;
             } else {
