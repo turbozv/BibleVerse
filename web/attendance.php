@@ -124,7 +124,7 @@ $adultTotalCount = array();
 for ($lesson = 0; $lesson < 30; $lesson++) {
     $adultTotalCount[$lesson] = 0;
 }
-$allGroups = array_merge(array(1000));//, $adultGroups, $spGroups, $sgGroups);
+$allGroups = array_merge(array(1000), $adultGroups, $spGroups, $sgGroups);
 foreach ($allGroups as $key => $group) {
     echo "<h4>".getGroupDisplayName($class, $group)."<br>";
     echo "<table border=1><tr><td style='min-width: 280px;'>";

@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 09, 2018 at 04:13 AM
--- Server version: 5.5.61
+-- Generation Time: Mar 03, 2019 at 05:12 AM
+-- Server version: 5.5.62
 -- PHP Version: 5.4.45
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -13,6 +13,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `cbsf`
 --
+CREATE DATABASE IF NOT EXISTS `cbsf` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `cbsf`;
 
 -- --------------------------------------------------------
 
@@ -20,6 +22,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `admins`
 --
 
+DROP TABLE IF EXISTS `admins`;
 CREATE TABLE IF NOT EXISTS `admins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -39,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
 -- Table structure for table `answers`
 --
 
+DROP TABLE IF EXISTS `answers`;
 CREATE TABLE IF NOT EXISTS `answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -56,12 +60,34 @@ CREATE TABLE IF NOT EXISTS `answers` (
 -- Table structure for table `answerUsers`
 --
 
+DROP TABLE IF EXISTS `answerUsers`;
 CREATE TABLE IF NOT EXISTS `answerUsers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accessToken` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `resetToken` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attend`
+--
+
+DROP TABLE IF EXISTS `attend`;
+CREATE TABLE IF NOT EXISTS `attend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `submitDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `class` int(11) NOT NULL DEFAULT '2',
+  `lesson` int(11) NOT NULL,
+  `group` int(11) NOT NULL,
+  `users` varchar(4096) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `leader` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `class` (`class`,`lesson`,`group`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=388 ;
 
 -- --------------------------------------------------------
 
@@ -69,9 +95,11 @@ CREATE TABLE IF NOT EXISTS `answerUsers` (
 -- Table structure for table `attendance`
 --
 
+DROP TABLE IF EXISTS `attendance`;
 CREATE TABLE IF NOT EXISTS `attendance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `submitDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `class` int(11) NOT NULL DEFAULT '2',
   `group` int(11) NOT NULL,
   `date` date NOT NULL,
   `leader` int(11) NOT NULL,
@@ -80,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   PRIMARY KEY (`id`),
   KEY `leader` (`leader`),
   KEY `date` (`date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=793 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1295 ;
 
 -- --------------------------------------------------------
 
@@ -88,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 -- Table structure for table `attendanceDates`
 --
 
+DROP TABLE IF EXISTS `attendanceDates`;
 CREATE TABLE IF NOT EXISTS `attendanceDates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` int(11) NOT NULL DEFAULT '2',
@@ -102,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `attendanceDates` (
 -- Table structure for table `attendanceLeaders`
 --
 
+DROP TABLE IF EXISTS `attendanceLeaders`;
 CREATE TABLE IF NOT EXISTS `attendanceLeaders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` int(11) NOT NULL DEFAULT '2',
@@ -109,9 +139,10 @@ CREATE TABLE IF NOT EXISTS `attendanceLeaders` (
   `leader` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `class` (`class`,`group`,`leader`),
   KEY `group` (`group`),
   KEY `leader` (`leader`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=56 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=74 ;
 
 -- --------------------------------------------------------
 
@@ -119,12 +150,31 @@ CREATE TABLE IF NOT EXISTS `attendanceLeaders` (
 -- Table structure for table `attendanceLeadersMeetingDates`
 --
 
+DROP TABLE IF EXISTS `attendanceLeadersMeetingDates`;
 CREATE TABLE IF NOT EXISTS `attendanceLeadersMeetingDates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` int(11) NOT NULL DEFAULT '2',
   `date` date NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `class` (`class`,`date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=63 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendLeaders`
+--
+
+DROP TABLE IF EXISTS `attendLeaders`;
+CREATE TABLE IF NOT EXISTS `attendLeaders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group` int(11) NOT NULL,
+  `lesson` int(11) NOT NULL DEFAULT '0',
+  `leader` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `leader` (`leader`),
+  KEY `group` (`group`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=120 ;
 
 -- --------------------------------------------------------
 
@@ -132,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `attendanceLeadersMeetingDates` (
 -- Table structure for table `audios`
 --
 
+DROP TABLE IF EXISTS `audios`;
 CREATE TABLE IF NOT EXISTS `audios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` int(11) NOT NULL DEFAULT '1',
@@ -144,13 +195,14 @@ CREATE TABLE IF NOT EXISTS `audios` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `lesson` (`lesson`),
   KEY `class` (`class`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=54 ;
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `AverageResponseTime`
 --
+DROP VIEW IF EXISTS `AverageResponseTime`;
 CREATE TABLE IF NOT EXISTS `AverageResponseTime` (
 `AveResponseTime(ms)` double
 );
@@ -159,19 +211,20 @@ CREATE TABLE IF NOT EXISTS `AverageResponseTime` (
 --
 -- Stand-in structure for view `CheckForUpdateLogView`
 --
+DROP VIEW IF EXISTS `CheckForUpdateLogView`;
 CREATE TABLE IF NOT EXISTS `CheckForUpdateLogView` (
 `id` int(11)
 ,`date` timestamp
 ,`cost` int(11)
-,`ip` varchar(255)
-,`path` varchar(255)
-,`deviceId` varchar(255)
-,`sessionId` varchar(255)
-,`lang` varchar(255)
-,`platformOS` varchar(255)
-,`deviceYearClass` varchar(255)
+,`ip` varchar(32)
+,`path` varchar(64)
+,`deviceId` varchar(64)
+,`sessionId` varchar(64)
+,`lang` varchar(8)
+,`platformOS` varchar(8)
+,`deviceYearClass` varchar(5)
 ,`text` text
-,`version` varchar(255)
+,`version` varchar(32)
 );
 -- --------------------------------------------------------
 
@@ -179,10 +232,11 @@ CREATE TABLE IF NOT EXISTS `CheckForUpdateLogView` (
 -- Table structure for table `class`
 --
 
+DROP TABLE IF EXISTS `class`;
 CREATE TABLE IF NOT EXISTS `class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `nextClassDate` date NOT NULL,
+  `lessons` text COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
@@ -192,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `class` (
 -- Table structure for table `clientInfo`
 --
 
+DROP TABLE IF EXISTS `clientInfo`;
 CREATE TABLE IF NOT EXISTS `clientInfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `lastSeen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -205,8 +260,53 @@ CREATE TABLE IF NOT EXISTS `clientInfo` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `deviceId` (`deviceId`),
   KEY `platformOS` (`platformOS`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=93116446 ;
+  KEY `ip` (`ip`),
+  KEY `version` (`version`),
+  KEY `country` (`country`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=155546962 ;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `DiscussionRooms`
+--
+DROP VIEW IF EXISTS `DiscussionRooms`;
+CREATE TABLE IF NOT EXISTS `DiscussionRooms` (
+`room` varchar(64)
+,`createdAt` bigint(11)
+);
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `Discussions`
+--
+DROP VIEW IF EXISTS `Discussions`;
+CREATE TABLE IF NOT EXISTS `Discussions` (
+`id` int(11)
+,`room` varchar(64)
+,`createdAt` bigint(11)
+,`user` varchar(50)
+,`ip` varchar(128)
+,`message` varchar(8192)
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `downloads`
+--
+
+DROP TABLE IF EXISTS `downloads`;
+CREATE TABLE IF NOT EXISTS `downloads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cellphone` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token` (`token`),
+  UNIQUE KEY `file` (`file`,`cellphone`),
+  KEY `createdAt` (`createdAt`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=49 ;
 
 -- --------------------------------------------------------
 
@@ -214,6 +314,7 @@ CREATE TABLE IF NOT EXISTS `clientInfo` (
 -- Table structure for table `feedback`
 --
 
+DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE IF NOT EXISTS `feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -236,6 +337,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
 --
 -- Stand-in structure for view `FeedbackView`
 --
+DROP VIEW IF EXISTS `FeedbackView`;
 CREATE TABLE IF NOT EXISTS `FeedbackView` (
 `id` int(11)
 ,`date` timestamp
@@ -251,8 +353,24 @@ CREATE TABLE IF NOT EXISTS `FeedbackView` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `class` int(11) NOT NULL DEFAULT '2',
+  `groupId` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=17 ;
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `LastSeenDeviceCountView`
 --
+DROP VIEW IF EXISTS `LastSeenDeviceCountView`;
 CREATE TABLE IF NOT EXISTS `LastSeenDeviceCountView` (
 `day` date
 ,`count` bigint(21)
@@ -262,6 +380,7 @@ CREATE TABLE IF NOT EXISTS `LastSeenDeviceCountView` (
 --
 -- Stand-in structure for view `LatestAudio`
 --
+DROP VIEW IF EXISTS `LatestAudio`;
 CREATE TABLE IF NOT EXISTS `LatestAudio` (
 `id` bigint(36) unsigned
 ,`lesson` varchar(32)
@@ -274,30 +393,44 @@ CREATE TABLE IF NOT EXISTS `LatestAudio` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `lessons`
+--
+
+DROP TABLE IF EXISTS `lessons`;
+CREATE TABLE IF NOT EXISTS `lessons` (
+  `year` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `name_chs` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_cht` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_eng` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_spa` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `log`
 --
 
+DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cost` int(11) NOT NULL,
-  `ip` varchar(255) COLLATE utf8_bin NOT NULL,
-  `path` varchar(255) COLLATE utf8_bin NOT NULL,
-  `deviceId` varchar(255) COLLATE utf8_bin NOT NULL,
-  `sessionId` varchar(255) COLLATE utf8_bin NOT NULL,
-  `lang` varchar(255) COLLATE utf8_bin NOT NULL,
-  `platformOS` varchar(255) COLLATE utf8_bin NOT NULL,
-  `deviceYearClass` varchar(255) COLLATE utf8_bin NOT NULL,
+  `ip` varchar(32) COLLATE utf8_bin NOT NULL,
+  `path` varchar(64) COLLATE utf8_bin NOT NULL,
+  `deviceId` varchar(64) COLLATE utf8_bin NOT NULL,
+  `sessionId` varchar(64) COLLATE utf8_bin NOT NULL,
+  `lang` varchar(8) COLLATE utf8_bin NOT NULL,
+  `platformOS` varchar(8) COLLATE utf8_bin NOT NULL,
+  `deviceYearClass` varchar(5) COLLATE utf8_bin NOT NULL,
   `text` text COLLATE utf8_bin NOT NULL,
-  `version` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `version` varchar(32) COLLATE utf8_bin DEFAULT NULL,
   `bibleVersion` varchar(32) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `deviceId` (`deviceId`),
-  KEY `lang` (`lang`),
-  KEY `version` (`version`),
-  KEY `date` (`date`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1167664 ;
+  KEY `date` (`date`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2027018 ;
 
 --
 -- Triggers `log`
@@ -305,7 +438,12 @@ CREATE TABLE IF NOT EXISTS `log` (
 DROP TRIGGER IF EXISTS `UpdateClientInfo`;
 DELIMITER //
 CREATE TRIGGER `UpdateClientInfo` AFTER INSERT ON `log`
- FOR EACH ROW REPLACE INTO clientInfo(ip, deviceId, platformOS, lang, version, bibleVersion) values (new.ip, new.deviceId, new.platformOS, new.lang, new.version, new.bibleVersion)
+ FOR EACH ROW BEGIN
+
+REPLACE INTO clientInfo(ip, deviceId, platformOS, lang, version, bibleVersion) values (new.ip, new.deviceId, new.platformOS, new.lang, new.version, new.bibleVersion);
+INSERT IGNORE INTO newClientInfo(deviceId, platformOS, ip) values (new.deviceId, new.platformOS, new.ip);
+
+END
 //
 DELIMITER ;
 
@@ -315,6 +453,7 @@ DELIMITER ;
 -- Table structure for table `messages`
 --
 
+DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `room` varchar(64) COLLATE utf8mb4_bin NOT NULL,
@@ -325,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `createdAt` (`createdAt`),
   KEY `room` (`room`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=695 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1300 ;
 
 -- --------------------------------------------------------
 
@@ -333,19 +472,49 @@ CREATE TABLE IF NOT EXISTS `messages` (
 -- Table structure for table `monthlyActiveUsers`
 --
 
+DROP TABLE IF EXISTS `monthlyActiveUsers`;
 CREATE TABLE IF NOT EXISTS `monthlyActiveUsers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `count` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `date` (`date`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=381 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3329 ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `newClientInfo`
+--
+
+DROP TABLE IF EXISTS `newClientInfo`;
+CREATE TABLE IF NOT EXISTS `newClientInfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstSeen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deviceId` varchar(64) COLLATE utf8_bin NOT NULL,
+  `platformOS` varchar(8) COLLATE utf8_bin NOT NULL,
+  `ip` varchar(32) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `deviceId` (`deviceId`),
+  KEY `firstSeen` (`firstSeen`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=20904 ;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `NewDevicePerDay`
+--
+DROP VIEW IF EXISTS `NewDevicePerDay`;
+CREATE TABLE IF NOT EXISTS `NewDevicePerDay` (
+`date` date
+,`count` bigint(21)
+);
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `PlatformOSView`
 --
+DROP VIEW IF EXISTS `PlatformOSView`;
 CREATE TABLE IF NOT EXISTS `PlatformOSView` (
 `platformOS` varchar(255)
 ,`count` bigint(21)
@@ -356,6 +525,7 @@ CREATE TABLE IF NOT EXISTS `PlatformOSView` (
 -- Table structure for table `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -369,6 +539,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 -- Table structure for table `syslogs`
 --
 
+DROP TABLE IF EXISTS `syslogs`;
 CREATE TABLE IF NOT EXISTS `syslogs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -381,6 +552,7 @@ CREATE TABLE IF NOT EXISTS `syslogs` (
 --
 -- Stand-in structure for view `TotalUniqueDeviceCount2`
 --
+DROP VIEW IF EXISTS `TotalUniqueDeviceCount2`;
 CREATE TABLE IF NOT EXISTS `TotalUniqueDeviceCount2` (
 `DeviceCount` bigint(21)
 );
@@ -390,6 +562,7 @@ CREATE TABLE IF NOT EXISTS `TotalUniqueDeviceCount2` (
 -- Table structure for table `UniqueDeviceCountPerDay`
 --
 
+DROP TABLE IF EXISTS `UniqueDeviceCountPerDay`;
 CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay` (
   `Date` date DEFAULT NULL,
   `DeviceCount` int(11) DEFAULT NULL,
@@ -402,6 +575,7 @@ CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay` (
 --
 -- Stand-in structure for view `UniqueDeviceCountPerDay2`
 --
+DROP VIEW IF EXISTS `UniqueDeviceCountPerDay2`;
 CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay2` (
 `Date` date
 ,`DeviceCount` bigint(21)
@@ -411,8 +585,9 @@ CREATE TABLE IF NOT EXISTS `UniqueDeviceCountPerDay2` (
 --
 -- Stand-in structure for view `UniqueIPAddress`
 --
+DROP VIEW IF EXISTS `UniqueIPAddress`;
 CREATE TABLE IF NOT EXISTS `UniqueIPAddress` (
-`ip` varchar(255)
+`ip` varchar(32)
 );
 -- --------------------------------------------------------
 
@@ -420,6 +595,7 @@ CREATE TABLE IF NOT EXISTS `UniqueIPAddress` (
 -- Table structure for table `userGroups`
 --
 
+DROP TABLE IF EXISTS `userGroups`;
 CREATE TABLE IF NOT EXISTS `userGroups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `class` int(11) NOT NULL DEFAULT '1',
@@ -427,8 +603,10 @@ CREATE TABLE IF NOT EXISTS `userGroups` (
   `user` int(11) NOT NULL,
   `fromDate` date NOT NULL,
   `endDate` date NOT NULL,
+  `fromLesson` int(11) NOT NULL,
+  `endLesson` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=26 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=30 ;
 
 -- --------------------------------------------------------
 
@@ -436,6 +614,7 @@ CREATE TABLE IF NOT EXISTS `userGroups` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `registerDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -447,17 +626,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `cellphone` char(20) COLLATE utf8_bin DEFAULT NULL,
   `email` char(255) COLLATE utf8_bin DEFAULT NULL,
   `audio` int(11) NOT NULL DEFAULT '1',
+  `startLesson` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `class` (`class`),
   KEY `group` (`group`),
   KEY `role` (`role`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=567 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=617 ;
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `VersionView`
 --
+DROP VIEW IF EXISTS `VersionView`;
 CREATE TABLE IF NOT EXISTS `VersionView` (
 `version` varchar(255)
 ,`count` bigint(21)
@@ -467,6 +648,7 @@ CREATE TABLE IF NOT EXISTS `VersionView` (
 --
 -- Stand-in structure for view `VersionViewAndroid`
 --
+DROP VIEW IF EXISTS `VersionViewAndroid`;
 CREATE TABLE IF NOT EXISTS `VersionViewAndroid` (
 `version` varchar(255)
 ,`count` bigint(21)
@@ -476,6 +658,7 @@ CREATE TABLE IF NOT EXISTS `VersionViewAndroid` (
 --
 -- Stand-in structure for view `VersionViewIOS`
 --
+DROP VIEW IF EXISTS `VersionViewIOS`;
 CREATE TABLE IF NOT EXISTS `VersionViewIOS` (
 `version` varchar(255)
 ,`count` bigint(21)
@@ -497,6 +680,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `CheckForUpdateLogView`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `CheckForUpdateLogView` AS select `log`.`id` AS `id`,`log`.`date` AS `date`,`log`.`cost` AS `cost`,`log`.`ip` AS `ip`,`log`.`path` AS `path`,`log`.`deviceId` AS `deviceId`,`log`.`sessionId` AS `sessionId`,`log`.`lang` AS `lang`,`log`.`platformOS` AS `platformOS`,`log`.`deviceYearClass` AS `deviceYearClass`,`log`.`text` AS `text`,`log`.`version` AS `version` from `log` where (`log`.`text` like '%CheckForUpdate%') order by `log`.`date` desc;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `DiscussionRooms`
+--
+DROP TABLE IF EXISTS `DiscussionRooms`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `DiscussionRooms` AS select `messages`.`room` AS `room`,`messages`.`createdAt` AS `createdAt` from `messages` where ((`messages`.`room` like '%20%') and (length(`messages`.`room`) < 20)) order by `messages`.`createdAt` desc;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `Discussions`
+--
+DROP TABLE IF EXISTS `Discussions`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Discussions` AS select `messages`.`id` AS `id`,`messages`.`room` AS `room`,`messages`.`createdAt` AS `createdAt`,`messages`.`user` AS `user`,`messages`.`ip` AS `ip`,`messages`.`message` AS `message` from `messages` where ((`messages`.`room` like '%20%') and (length(`messages`.`room`) < 20)) order by `messages`.`createdAt` desc;
 
 -- --------------------------------------------------------
 
@@ -524,6 +725,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `LatestAudio`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LatestAudio` AS select ((cast(substring_index(`audios`.`lesson`,'_',1) as unsigned) * 100) + cast(substring_index(`audios`.`lesson`,'_',-(1)) as unsigned)) AS `id`,`audios`.`lesson` AS `lesson`,`audios`.`message` AS `message`,`audios`.`notes` AS `notes`,`audios`.`seminar` AS `seminar`,`audios`.`notes_message` AS `notes_message`,`audios`.`seminar_message` AS `seminar_message` from `audios` order by ((cast(substring_index(`audios`.`lesson`,'_',1) as unsigned) * 100) + cast(substring_index(`audios`.`lesson`,'_',-(1)) as unsigned)) desc limit 1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `NewDevicePerDay`
+--
+DROP TABLE IF EXISTS `NewDevicePerDay`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `NewDevicePerDay` AS select cast(`newClientInfo`.`firstSeen` as date) AS `date`,count(0) AS `count` from `newClientInfo` where (`newClientInfo`.`firstSeen` > '2019/2/1') group by cast(`newClientInfo`.`firstSeen` as date);
 
 -- --------------------------------------------------------
 
@@ -592,6 +802,7 @@ DELIMITER $$
 --
 -- Events
 --
+DROP EVENT `AutoUpdatePlatformOSView`$$
 CREATE DEFINER=`root`@`localhost` EVENT `AutoUpdatePlatformOSView` ON SCHEDULE EVERY 1 HOUR STARTS '2018-01-04 00:00:00' ON COMPLETION PRESERVE DISABLE DO BEGIN
 
 INSERT syslogs(log) values('AutoUpdatePlatformOSView starts');
@@ -603,6 +814,7 @@ INSERT syslogs(log) values('AutoUpdatePlatformOSView finishes');
 
 END$$
 
+DROP EVENT `AutoUpdateTotalUniqueDeviceCount`$$
 CREATE DEFINER=`root`@`localhost` EVENT `AutoUpdateTotalUniqueDeviceCount` ON SCHEDULE EVERY 1 HOUR STARTS '2018-01-04 00:00:10' ON COMPLETION PRESERVE DISABLE DO BEGIN
 
 INSERT syslogs(log) values('AutoUpdateTotalUniqueDeviceCount starts');
@@ -614,15 +826,24 @@ INSERT syslogs(log) values('AutoUpdateTotalUniqueDeviceCount finishes');
 
 END$$
 
+DROP EVENT `AutoUpdateUniqueDeviceCountPerDay`$$
 CREATE DEFINER=`root`@`localhost` EVENT `AutoUpdateUniqueDeviceCountPerDay` ON SCHEDULE EVERY 5 MINUTE STARTS '2018-01-03 00:00:20' ON COMPLETION PRESERVE ENABLE DO BEGIN
 
 REPLACE INTO UniqueDeviceCountPerDay SELECT * FROM UniqueDeviceCountPerDay2;
 
 END$$
 
+DROP EVENT `AutoUpdateMAU`$$
 CREATE DEFINER=`root`@`localhost` EVENT `AutoUpdateMAU` ON SCHEDULE EVERY 1 HOUR STARTS '2018-09-25 15:39:53' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
 
 REPLACE INTO monthlyActiveUsers(date, count) SELECT CURDATE(), count(distinct deviceId) FROM `log` WHERE date BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE() - INTERVAL 0 DAY;
+
+END$$
+
+DROP EVENT `RemoveMoreThanOneHourOldDownloadTokens`$$
+CREATE DEFINER=`root`@`localhost` EVENT `RemoveMoreThanOneHourOldDownloadTokens` ON SCHEDULE EVERY 5 MINUTE STARTS '2019-02-17 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+
+DELETE FROM `downloads` WHERE createdAt < NOW() - INTERVAL 1 HOUR;
 
 END$$
 
