@@ -142,8 +142,6 @@ function getIp(req) {
   if (!ip) {
     ip = req.ip.replace('::ffff:', '');
   }
-  console.log(req.headers['x-forwarded-for'] + ' ' + req.ip.replace('::ffff:', '') + ' ' + ip);
-
   return ip;
 }
 
@@ -296,119 +294,6 @@ app.get('/lessons/*', function (req, res) {
     }
   });
 })
-
-// Get attendance '/cellphone/{group}/{date}'
-app.get('/attendanceV2/*', async function (req, res) {
-  const client = getClientInfo(req);
-  let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length < 1 || data.length > 3) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const cellphone = data[0];
-  if (!cellphone) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  // Optional group and date
-  let group = data.length >= 1 ? parseInt(data[1]) : null;
-  let date = data.length >= 2 ? data[2] : null;
-  try {
-    // Find out the leader's information
-    var result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
-    if (result.length === 0) {
-      sendErrorObject(res, 401, { Error: "No such user" });
-      logger.error("No such user");
-      return;
-    }
-    const user = result[0];
-
-    let groups = [];
-    if (!group) {
-      // Find out groups information
-      var result = await mysqlQuery('SELECT `group` FROM attendanceLeaders WHERE leader=? AND class=?', [user.id, user.class]);
-      if (result.length === 0) {
-        sendErrorObject(res, 401, { Error: "No permission" });
-        logger.error("No permission");
-        return;
-      }
-      groups = result.map(item => item.group);
-    } else {
-      groups = [group];
-    }
-
-    // Get group names
-    let groupNames = [];
-    result = await mysqlQuery('SELECT groupId, name FROM groups WHERE class=?', [user.class]);
-    if (result.length > 0) {
-      result.map(item => groupNames[item.groupId] = item.name);
-    }
-
-    let response = [];
-
-    for (let i in groups) {
-      let currentGroup = { class: user.class, group: groups[i], date: date ? date : new Date().toLocaleDateString() };
-
-      if (groupNames[currentGroup.group]) {
-        currentGroup.name = groupNames[currentGroup.group];
-      }
-
-      // Get attendees
-      if (currentGroup.group === 1000) {
-        // Co-worker group includes all GL (which is not in group#0)
-        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND ((`group`=0 AND role!=255) OR (`group`!=0 AND role=6)) ORDER BY role, name ASC', [user.class]);
-      } else if (currentGroup.group === 0) {
-        // Co-worker group excludes all GL
-        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=0 AND role!=255 AND role!=6 ORDER BY role, name ASC', [user.class]);
-      } else {
-        result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, cellphone FROM users WHERE class=? AND `group`=? ORDER BY role, name ASC', [user.class, currentGroup.group]);
-      }
-
-      let attendees = result.map(item => { return { id: item.id, name: item.name, cellphone: item.cellphone }; });
-      currentGroup.attendees = attendees;
-
-      if (!date) {
-        //Find the most recent one
-        result = await mysqlQuery('SELECT date FROM attendance WHERE class=? AND `group`=? ORDER BY date DESC LIMIT 1', [user.class, currentGroup.group]);
-        if (result.length > 0) {
-          // Set the attendance date
-          currentGroup.date = getYYYYMMDD(result[0].date);
-        }
-      }
-
-      // Get users from all groups
-      result = await mysqlQuery('SELECT users FROM `attendance` WHERE `group`=? AND class=? AND date=? ORDER BY submitDate DESC LIMIT 1', [currentGroup.group, currentGroup.class, currentGroup.date]);
-
-      let checkedInUsers = [];
-      if (result.length > 0) {
-        checkedInUsers = JSON.parse(result[0].users);
-
-        for (let i in attendees) {
-          if (checkedInUsers.includes(attendees[i].id)) {
-            attendees[i].checked = true;
-          }
-        }
-      }
-
-      currentGroup.attendees = attendees;
-
-      response.push(currentGroup);
-    }
-
-    sendResultObject(res, response);
-    logger.succeed();
-
-  } catch (error) {
-    console.log(error);
-    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-    logger.error(error);
-  }
-});
 
 // Get attendance summary '/cellphone/{lesson}'
 app.get('/attendanceSummary/*', async function (req, res) {
@@ -964,8 +849,8 @@ app.get('/user/*', async function (req, res) {
 
     let discussions = {};
     const checkTime = new Date().getTime();
-    result = await mysqlQuery('SELECT room, COUNT(*) AS count FROM DiscussionRooms WHERE createdAt>? AND createdAt<=? GROUP BY room', [lastCheckTime, checkTime]);
-    result.map(item => discussions[item.room] = item.count);
+    result = await mysqlQuery('SELECT room, MAX(createdAt) as createdAt FROM DiscussionRooms WHERE createdAt>? AND createdAt<=? GROUP BY room', [lastCheckTime, checkTime]);
+    result.map(item => discussions[item.room] = item.createdAt);
 
     const data = {
       audio: user.audio,
@@ -986,43 +871,6 @@ app.get('/user/*', async function (req, res) {
   }
 })
 
-// Post attendance
-app.post('/attendanceV2', jsonParser, async function (req, res) {
-  const client = getClientInfo(req);
-  let logger = new Logger(req, client);
-  if (!req.body || !req.body.date || !req.body.users || !client.cellphone || !req.body.class || req.body.group == null) {
-    sendErrorObject(res, 401, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  try {
-    // Verify user has the permission
-    let result = await mysqlQuery('SELECT users.id as id FROM attendanceLeaders INNER JOIN users ON users.id=attendanceLeaders.leader WHERE users.class=? AND attendanceLeaders.`group`=? AND users.cellphone=?',
-      [req.body.class, req.body.group, client.cellphone]);
-    if (result.length === 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user or no permission" });
-      logger.error();
-    }
-
-    // TODO: Verify users
-    const data = {
-      date: req.body.date,
-      leader: result[0].id,
-      group: req.body.group,
-      users: JSON.stringify(req.body.users),
-    };
-
-    result = await mysqlQuery('INSERT INTO attendance SET ?', data);
-
-    res.status(201).send();
-    logger.succeed();
-  } catch (error) {
-    console.log(error);
-    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
-    logger.error(error);
-  }
-})
 
 // Post feedback
 app.post('/feedback', jsonParser, function (req, res) {
