@@ -977,6 +977,14 @@ app.post('/poke', jsonParser, function (req, res) {
   logger.done(data);
 })
 
+// Report reportError
+app.get('/reportError/*', jsonParser, function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  res.status(200).send();
+  logger.done(req.params[0]);
+})
+
 // Get messages for chat/discussion
 app.get('/messages/*', function (req, res) {
   const client = getClientInfo(req);
@@ -1005,15 +1013,19 @@ app.get('/messages/*', function (req, res) {
 
 // Set up socket.io for chat server
 io.on('connection', function (socket) {
-  console.log(`user connected [${socket.handshake.address}]`);
+  let ip = socket.handshake.headers['x-forwarded-for'];
+  if (!ip) {
+    ip = socket.handshake.address.replace('::ffff:', '');
+  }
+
+  console.log(`user connected [${ip}]`);
 
   socket.on('disconnect', function () {
-    console.log(`user disconnected [${socket.handshake.address}]`);
+    console.log(`user disconnected [${ip}]`);
   });
 
   // listen on new message and broadcast it
   socket.on('newMessage', function (data) {
-    const ip = socket.handshake.address.replace('::ffff:', '');
     const createdAt = new Date().getTime();
     console.log('newMessage from [' + ip + ']: ' + JSON.stringify(data));
 
