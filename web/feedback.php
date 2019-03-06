@@ -35,6 +35,7 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
     $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
     echo "<p>$room";
+    $first = true;
     while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
         $date = date("Y-m-d H:i:s", $line2['createdAt'] / 1000);
         $userData = explode(" ", $line2['user']);
@@ -47,12 +48,21 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
         }
         $message = htmlspecialchars($line2['message']);
 
-        echo "<form method='post'><li>$date [$user] $address: $message  ";
+        // Not replied message
+        echo "$first";
+        if ($first && strcasecmp($user, 'System') != 0) {
+            echo "<form method='post'><li><b><font color='red'>$date [$user] $address: $message</font></b>";
+        } else {
+            echo "<form method='post'><li>$date [$user] $address: $message";
+        }
+
         if (strcasecmp($user, 'System') == 0) {
             $id = $line2['id'];
             echo "<input type='hidden' name='delete' value='$id'><input type='submit' value='删除'>";
         }
         echo "</form>";
+
+        $first = false;
     }
     mysql_free_result($result2);
     echo "<form method='post'><input type='hidden' name='room' value='$room'>";
