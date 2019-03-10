@@ -79,6 +79,10 @@ class Logger {
   }
 }
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 function isNullOrUndefined(value) {
   return value === null || value === undefined;
 }
@@ -871,6 +875,52 @@ app.get('/user/*', async function (req, res) {
   }
 })
 
+// Reset password by sending a token
+app.get('/resetPassword/:email', async function (req, res) {
+  const client = getClientInfo(req);
+  let logger = new Logger(req, client);
+  const email = req.params.email;
+
+  if (!email || email.length === 0) {
+    sendErrorObject(res, 400, { Error: "Invalid input" });
+    logger.error("Invalid input");
+    return;
+  }
+
+  let token = '';
+  for (let i = 0; i < 6; i++) {
+    token += getRandomInt(10).toString();
+  }
+
+  try {
+    const result = await mysqlQuery('UPDATE registerdUsers SET resetToken=?, resetTokenSentTime=NOW() WHERE email=?', [token, email]);
+    if (result.affectedRows !== 1) {
+      sendErrorObject(res, 400, { Error: "Invalid user" });
+      logger.succeed();
+      return;
+    }
+
+    const transporter = nodemailer.createTransport({ host: config.mail.host, port: 465, secure: true, auth: { user: config.mail.user, pass: config.mail.pass } });
+    const mailOptions = {
+      from: config.mail.sender,
+      to: email,
+      subject: `CBSF password reset`,
+      text: `You CBSF password reset token is ${token}, please continue the steps in CBSF app.\n\nThis is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app.`,
+      html: `You CBSF password reset token is <b><font color='red'>${token}</font></b>, please continue the steps in CBSF app.<br><br>This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app.`
+    };
+    transporter.sendMail(mailOptions).then(info => {
+      console.log("Message sent: %s", info.messageId);
+    });
+
+    res.status(201).send();
+    logger.succeed();
+
+  } catch (error) {
+    console.log(error);
+    sendErrorObject(res, 400, { Error: JSON.stringify(error) });
+    logger.error(error);
+  }
+})
 
 // Post feedback
 app.post('/feedback', jsonParser, function (req, res) {
