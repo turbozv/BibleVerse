@@ -19,8 +19,8 @@ $new_password_err = $confirm_password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Validate new password
-    if(empty(trim($_POST["new_password"]))){
-        $new_password_err = "Please enter the new password.";     
+    if(trim($_POST["new_password"]) == false){
+        $new_password_err = "Please enter the new password.";
     } elseif(strlen(trim($_POST["new_password"])) < 6){
         $new_password_err = "Password must have atleast 6 characters.";
     } else{
@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
+    if(trim($_POST["confirm_password"]) == false){
         $confirm_password_err = "Please confirm the password.";
     } else{
         $confirm_password = trim($_POST["confirm_password"]);

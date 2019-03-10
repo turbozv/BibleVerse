@@ -9,7 +9,7 @@ $email_err = $password_err = $confirm_password_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate email
-    if (empty(trim($_POST["email"])) || !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+    if (trim($_POST["email"]) == false || !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
         $email_err = "Please enter email.";
     } else {
         // Prepare a select statement
@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate password
-    if(empty(trim($_POST["password"]))){
+    if(trim($_POST["password"]) == false){
         $password_err = "Please enter a password.";
     } elseif(strlen(trim($_POST["password"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
+    if(trim($_POST["confirm_password"]) == false){
         $confirm_password_err = "Please confirm password.";
     } else{
         $confirm_password = trim($_POST["confirm_password"]);

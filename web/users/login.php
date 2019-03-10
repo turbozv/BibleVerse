@@ -19,14 +19,14 @@ $email_err = $password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // Check if email is empty
-    if(empty(trim($_POST["email"]))){
+    if(trim($_POST["email"]) == false){
         $email_err = "Please enter email.";
     } else{
         $email = trim($_POST["email"]);
     }
     
     // Check if password is empty
-    if(empty(trim($_POST["password"]))){
+    if(trim($_POST["password"]) == false){
         $password_err = "Please enter your password.";
     } else{
         $password = trim($_POST["password"]);
