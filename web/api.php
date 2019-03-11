@@ -27,7 +27,7 @@ function endRequest($code)
     exit();
 }
 
-function startsWith ($string, $startString)
+function startsWith($string, $startString)
 {
     $len = strlen($startString);
     return (substr($string, 0, $len) === $startString);
@@ -43,7 +43,7 @@ function getJsonBody()
     //Make sure that the content type of the POST request has been set to application/json
     $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
     if (!startsWith($contentType, 'application/json')) {
-        die('Content type must be: application/json, not: '.$contentType);
+        die('Content type must be: application/json, not: ' . $contentType);
     }
 
     //Receive the RAW post data.
@@ -60,6 +60,11 @@ function getJsonBody()
     return $decoded;
 }
 
+function getAccessToken()
+{
+    return mysql_real_escape_string(bin2hex(openssl_random_pseudo_bytes(32)));
+}
+
 $cmd = $_GET['c'];
 
 if ($cmd == "loginUser") {
@@ -68,15 +73,30 @@ if ($cmd == "loginUser") {
     array_key_exists('pass', $body) or endRequest(400);
 
     $email = mysql_real_escape_string($body["email"]);
-    strlen($email) >=6 or endRequest(400);
+    strlen($email) >= 6 or endRequest(400);
     $pass = mysql_real_escape_string($body["pass"]);
-    strlen($pass) >=6 or endRequest(400);
-    $sql = "UPDATE registerdusers SET lastLogin=NOW() WHERE email='$email' AND password=PASSWORD('$pass')";
+    strlen($pass) >= 6 or endRequest(400);
+
+    $sql = "UPDATE registerdusers SET resetToken='', resetTokenTime=NULL, lastLogin=NOW() WHERE email='$email' AND password=PASSWORD('$pass')";
     mysql_query($sql) or endRequest(404);
+    $result = array();
     if (mysql_affected_rows() != 1) {
-        endRequest(404);
+        // It's possible that 'pass' is token for resetting password case
+        $accessToken = getAccessToken();
+        $sql = "UPDATE registerdusers SET accessToken='$accessToken', resetToken='', resetTokenTime=NULL, lastLogin=NOW() WHERE email='$email' AND resetToken='$pass' AND resetTokenTime >= NOW() - INTERVAL 1 HOUR";
+        mysql_query($sql) or endRequest(404);
+        mysql_affected_rows() == 1 or endRequest(404);
+        $result['ResetPassword'] = true;
+        $result['accessToken'] = $accessToken;
+    } else {
+        $sql = "SELECT accessToken FROM registerdusers WHERE email='$email'";
+        $data = mysql_query($sql) or endRequest(404);
+        $row = mysql_fetch_array($data);
+        $result['accessToken'] = $row['accessToken'];
+        mysql_free_result($data);
     }
 
+    echo json_encode($result);
     endRequest(200);
 }
 
@@ -86,38 +106,36 @@ if ($cmd == "createUser") {
     array_key_exists('pass', $body) or endRequest(400);
 
     $email = mysql_real_escape_string($body["email"]);
-    strlen($email) >=6 or endRequest(400);
+    strlen($email) >= 6 or endRequest(400);
     $pass = mysql_real_escape_string($body["pass"]);
-    strlen($pass) >=6 or endRequest(400);
-    $sql = "INSERT INTO registerdusers(email, password) VALUES('$email', PASSWORD('$pass'))";
+    strlen($pass) >= 6 or endRequest(400);
+
+    $accessToken = getAccessToken();
+    $result = array('accessToken' => $accessToken);
+    $sql = "INSERT INTO registerdusers(email, password, accessToken) VALUES('$email', PASSWORD('$pass'), '$accessToken')";
     mysql_query($sql) or endRequest(409);
     if (mysql_affected_rows() != 1) {
         endRequest(404);
     }
 
+    echo json_encode($result);
     endRequest(201);
 }
 
 if ($cmd == "changePassword") {
     $body = getJsonBody();
-    array_key_exists('email', $body) or endRequest(400);
+    array_key_exists('accessToken', $body) or endRequest(400);
     array_key_exists('pass', $body) or endRequest(400);
-    array_key_exists('newPass', $body) or endRequest(400);
 
-    $email = mysql_real_escape_string($body["email"]);
-    strlen($email) >=6 or endRequest(400);
+    $accessToken = mysql_real_escape_string($body["accessToken"]);
+    strlen($accessToken) >= 32 or endRequest(400);
     $pass = mysql_real_escape_string($body["pass"]);
-    strlen($pass) >=6 or endRequest(400);
-    $newPass = mysql_real_escape_string($body["newPass"]);
-    strlen($newPass) >=6 or endRequest(400);
+    strlen($pass) >= 6 or endRequest(400);
 
-    $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass') WHERE email='$email' AND password=PASSWORD('$pass')";
+    $sql = "UPDATE registerdusers SET password=PASSWORD('$pass') WHERE accessToken='$accessToken'";
     mysql_query($sql) or endRequest(404);
     if (mysql_affected_rows() != 1) {
-        // It's possible that 'pass' is token for resetting password case
-        $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass'), resetToken='', resetTokenSentTime=NULL WHERE email='$email' AND resetToken='$pass' AND resetTokenTime >= NOW() - INTERVAL 1 HOUR";
-        mysql_query($sql) or endRequest(404);
-        mysql_affected_rows() == 1 or endRequest(404);
+        endRequest(404);
     }
 
     endRequest(200);
