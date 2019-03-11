@@ -888,12 +888,12 @@ app.get('/resetPassword/:email', async function (req, res) {
   }
 
   let token = '';
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 8; i++) {
     token += getRandomInt(10).toString();
   }
 
   try {
-    const result = await mysqlQuery('UPDATE registerdUsers SET resetToken=?, resetTokenSentTime=NOW() WHERE email=?', [token, email]);
+    const result = await mysqlQuery('UPDATE registerdusers SET resetToken=?, resetTokenTime=NOW() WHERE email=?', [token, email]);
     if (result.affectedRows !== 1) {
       sendErrorObject(res, 400, { Error: "Invalid user" });
       logger.succeed();
@@ -905,8 +905,8 @@ app.get('/resetPassword/:email', async function (req, res) {
       from: config.mail.sender,
       to: email,
       subject: `CBSF password reset`,
-      text: `You CBSF password reset token is ${token}, please continue the steps in CBSF app.\n\nThis is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app.`,
-      html: `You CBSF password reset token is <b><font color='red'>${token}</font></b>, please continue the steps in CBSF app.<br><br>This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app.`
+      text: `Your temporary CBSF password is ${token}, it's valid for 1 hour, please login in CBSF app and update your password. (This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app)`,
+      html: `Your temporary CBSF password is <b><font color='red'>${token}</font></b>,, it's valid for 1 hour, please login in CBSF app and change your password. (This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app)`
     };
     transporter.sendMail(mailOptions).then(info => {
       console.log("Message sent: %s", info.messageId);

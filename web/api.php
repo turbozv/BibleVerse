@@ -27,17 +27,23 @@ function endRequest($code)
     exit();
 }
 
+function startsWith ($string, $startString)
+{
+    $len = strlen($startString);
+    return (substr($string, 0, $len) === $startString);
+}
+
 function getJsonBody()
 {
     //Make sure that it is a POST request.
     if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0) {
-        throw new Exception('Request method must be POST!');
+        die('Request method must be POST!');
     }
 
     //Make sure that the content type of the POST request has been set to application/json
     $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-    if (strcasecmp($contentType, 'application/json') != 0) {
-        throw new Exception('Content type must be: application/json');
+    if (!startsWith($contentType, 'application/json')) {
+        die('Content type must be: application/json, not: '.$contentType);
     }
 
     //Receive the RAW post data.
@@ -48,7 +54,7 @@ function getJsonBody()
 
     //If json_decode failed, the JSON is invalid.
     if (!is_array($decoded)) {
-        throw new Exception('Received content contained invalid JSON!');
+        die('Received content contained invalid JSON!');
     }
 
     return $decoded;
@@ -108,7 +114,7 @@ if ($cmd == "resetPassword") {
     $newPass = mysql_real_escape_string($body["newPass"]);
     strlen($newPass) >=6 or endRequest(400);
 
-    $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass') WHERE email='$email' AND resetToken='$token'";
+    $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass'), resetToken='', resetTokenSentTime = NULL WHERE email='$email' AND resetToken='$token'";
     mysql_query($sql) or endRequest(404);
     if (mysql_affected_rows() != 1) {
         endRequest(404);
