@@ -16,6 +16,10 @@ function endRequest($code)
             break;
         case 400:
             header("HTTP/1.1 400 Bad Request");
+            break;
+        case 401:
+            header("HTTP/1.1 401 Unauthorized");
+            break;
         case 404:
             header("HTTP/1.1 404 Not Found");
             break;
@@ -145,3 +149,50 @@ if ($cmd == "changePassword") {
     echo json_encode($result);
     endRequest(201);
 }
+
+if ($cmd == "uploadAnswers") {
+    $body = getJsonBody();
+    array_key_exists('accessToken', $body) or endRequest(400);
+    array_key_exists('answers', $body) or endRequest(400);
+
+    $accessToken = mysql_real_escape_string($body["accessToken"]);
+    strlen($accessToken) >= 32 or endRequest(400);
+    $answers = mysql_real_escape_string(json_encode($body["answers"]));
+
+    $sql = "SELECT email FROM registerdusers WHERE accessToken='$accessToken'";
+    $data = mysql_query($sql) or endRequest(404);
+    mysql_num_rows($data) == 1 or endRequest(404);
+    $row = mysql_fetch_array($data);
+    $email = $row['email'];
+    mysql_free_result($data);
+
+    $sql = "REPLACE INTO answers(date, email, answer) VALUES(NOW(), '$email', '$answers')";
+    echo $sql;
+    mysql_query($sql) or endRequest(404);
+    if (mysql_affected_rows() != 1) {
+        endRequest(404);
+    }
+
+    endRequest(201);
+}
+
+if ($cmd == "downloadAnswers") {
+    $body = getJsonBody();
+    array_key_exists('accessToken', $body) or endRequest(400);
+
+    $accessToken = mysql_real_escape_string($body["accessToken"]);
+    strlen($accessToken) >= 32 or endRequest(400);
+
+    $sql = "SELECT answers.answer AS answers FROM answers INNER JOIN registerdusers ON registerdusers.email=answers.email WHERE registerdusers.accessToken='$accessToken'";
+    $data = mysql_query($sql) or endRequest(404);
+    mysql_num_rows($data) == 1 or endRequest(404);
+    $row = mysql_fetch_array($data);
+    $answers = $row['answers'];
+    mysql_free_result($data);
+
+    $result = array('answers' => $answers);
+    echo json_encode($result);
+    endRequest(200);
+}
+
+endRequest(401);
