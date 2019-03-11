@@ -67,6 +67,8 @@ function getAccessToken()
 
 $cmd = $_GET['c'];
 
+header('Content-Type: application/json');
+
 if ($cmd == "loginUser") {
     $body = getJsonBody();
     array_key_exists('email', $body) or endRequest(400);
@@ -132,11 +134,14 @@ if ($cmd == "changePassword") {
     $pass = mysql_real_escape_string($body["pass"]);
     strlen($pass) >= 6 or endRequest(400);
 
-    $sql = "UPDATE registerdusers SET password=PASSWORD('$pass') WHERE accessToken='$accessToken'";
+    $newAccessToken = getAccessToken();
+    $result = array('accessToken' => $newAccessToken);
+    $sql = "UPDATE registerdusers SET password=PASSWORD('$pass'), accessToken='$newAccessToken', resetToken='', resetTokenTime=NULL, lastLogin=NOW() WHERE accessToken='$accessToken'";
     mysql_query($sql) or endRequest(404);
     if (mysql_affected_rows() != 1) {
         endRequest(404);
     }
 
-    endRequest(200);
+    echo json_encode($result);
+    endRequest(201);
 }
