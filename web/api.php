@@ -61,6 +61,25 @@ function getJsonBody()
 }
 
 $cmd = $_GET['c'];
+
+if ($cmd == "loginUser") {
+    $body = getJsonBody();
+    array_key_exists('email', $body) or endRequest(400);
+    array_key_exists('pass', $body) or endRequest(400);
+
+    $email = mysql_real_escape_string($body["email"]);
+    strlen($email) >=6 or endRequest(400);
+    $pass = mysql_real_escape_string($body["pass"]);
+    strlen($pass) >=6 or endRequest(400);
+    $sql = "UPDATE registerdusers SET lastLogin=NOW() WHERE email='$email' AND password=PASSWORD('$pass')";
+    mysql_query($sql) or endRequest(404);
+    if (mysql_affected_rows() != 1) {
+        endRequest(404);
+    }
+
+    endRequest(200);
+}
+
 if ($cmd == "createUser") {
     $body = getJsonBody();
     array_key_exists('email', $body) or endRequest(400);
@@ -95,29 +114,10 @@ if ($cmd == "changePassword") {
     $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass') WHERE email='$email' AND password=PASSWORD('$pass')";
     mysql_query($sql) or endRequest(404);
     if (mysql_affected_rows() != 1) {
-        endRequest(404);
-    }
-
-    endRequest(200);
-}
-
-if ($cmd == "resetPassword") {
-    $body = getJsonBody();
-    array_key_exists('email', $body) or endRequest(400);
-    array_key_exists('token', $body) or endRequest(400);
-    array_key_exists('newPass', $body) or endRequest(400);
-
-    $email = mysql_real_escape_string($body["email"]);
-    strlen($email) >=6 or endRequest(400);
-    $token = mysql_real_escape_string($body["token"]);
-    strlen($token) == 6 or endRequest(400);
-    $newPass = mysql_real_escape_string($body["newPass"]);
-    strlen($newPass) >=6 or endRequest(400);
-
-    $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass'), resetToken='', resetTokenSentTime = NULL WHERE email='$email' AND resetToken='$token'";
-    mysql_query($sql) or endRequest(404);
-    if (mysql_affected_rows() != 1) {
-        endRequest(404);
+        // It's possible that 'pass' is token for resetting password case
+        $sql = "UPDATE registerdusers SET password=PASSWORD('$newPass'), resetToken='', resetTokenSentTime=NULL WHERE email='$email' AND resetToken='$pass' AND resetTokenTime >= NOW() - INTERVAL 1 HOUR";
+        mysql_query($sql) or endRequest(404);
+        mysql_affected_rows() == 1 or endRequest(404);
     }
 
     endRequest(200);
