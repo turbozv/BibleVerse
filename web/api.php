@@ -214,7 +214,7 @@ if ($cmd == "getAnswers") {
     if (mysql_num_rows($data) != 0) {
         $row = mysql_fetch_array($data);
         $answer = json_decode($row['answer']);
-        $answerCount = sizeof($answer);
+        $answerCount = count((array)$answer);
     }
     mysql_free_result($data);
 
