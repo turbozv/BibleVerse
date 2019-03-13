@@ -434,7 +434,8 @@ app.get('/attendance/*', async function (req, res) {
   const cellphone = data[0];
   const group = parseInt(data[1]);
   const lesson = parseInt(data[2]);
-  if (!cellphone || lesson <= 0 || lesson >= 30) {
+  // Lesson range is 0 to 29
+  if (!cellphone || lesson < 0 || lesson > 29) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;

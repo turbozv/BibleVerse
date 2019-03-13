@@ -185,9 +185,12 @@ if ($cmd == "downloadAnswers") {
 
     $sql = "SELECT answers.answer AS answers FROM answers INNER JOIN registerdusers ON registerdusers.email=answers.email WHERE registerdusers.accessToken='$accessToken'";
     $data = mysql_query($sql) or endRequest(404);
-    mysql_num_rows($data) == 1 or endRequest(404);
-    $row = mysql_fetch_array($data);
-    $answers = $row['answers'];
+    if (mysql_num_rows($data) == 0) {
+        $answers = '{}';
+    } else {
+        $row = mysql_fetch_array($data);
+        $answers = $row['answers'];
+    }
     mysql_free_result($data);
 
     $result = array('answers' => $answers);
