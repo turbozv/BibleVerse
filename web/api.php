@@ -69,6 +69,22 @@ function getAccessToken()
     return mysql_real_escape_string(bin2hex(openssl_random_pseudo_bytes(32)));
 }
 
+function verifyAndGetUserRow($body)
+{
+    array_key_exists('accessToken', $body) or endRequest(400);
+
+    $accessToken = mysql_real_escape_string($body["accessToken"]);
+    $sql = "SELECT * FROM registerdusers WHERE accessToken='$accessToken'";
+    $data = mysql_query($sql) or endRequest(404);
+
+    // 401 triggers client to re-login
+    mysql_num_rows($data) == 1 or endRequest(401);
+    $row = mysql_fetch_array($data);
+    mysql_free_result($data);
+
+    return $row;
+}
+
 $cmd = $_GET['c'];
 
 header('Content-Type: application/json');
@@ -130,17 +146,16 @@ if ($cmd == "createUser") {
 
 if ($cmd == "changePassword") {
     $body = getJsonBody();
-    array_key_exists('accessToken', $body) or endRequest(400);
-    array_key_exists('pass', $body) or endRequest(400);
+    $user = verifyAndGetUserRow($body);
+    $userId = $user['id'];
 
-    $accessToken = mysql_real_escape_string($body["accessToken"]);
-    strlen($accessToken) >= 32 or endRequest(400);
+    array_key_exists('pass', $body) or endRequest(400);
     $pass = mysql_real_escape_string($body["pass"]);
     strlen($pass) >= 6 or endRequest(400);
 
     $newAccessToken = getAccessToken();
     $result = array('accessToken' => $newAccessToken);
-    $sql = "UPDATE registerdusers SET password=PASSWORD('$pass'), accessToken='$newAccessToken', resetToken='', resetTokenTime=NULL, lastLogin=NOW() WHERE accessToken='$accessToken'";
+    $sql = "UPDATE registerdusers SET password=PASSWORD('$pass'), accessToken='$newAccessToken', resetToken='', resetTokenTime=NULL, lastLogin=NOW() WHERE id='$userId'";
     mysql_query($sql) or endRequest(404);
     if (mysql_affected_rows() != 1) {
         endRequest(404);
@@ -152,24 +167,16 @@ if ($cmd == "changePassword") {
 
 if ($cmd == "uploadAnswers") {
     $body = getJsonBody();
-    array_key_exists('accessToken', $body) or endRequest(400);
-    array_key_exists('answers', $body) or endRequest(400);
+    $user = verifyAndGetUserRow($body);
+    $email = $user['email'];
 
-    $accessToken = mysql_real_escape_string($body["accessToken"]);
-    strlen($accessToken) >= 32 or endRequest(400);
+    array_key_exists('answers', $body) or endRequest(400);
     $answers = mysql_real_escape_string(json_encode($body["answers"]));
 
-    $sql = "SELECT email FROM registerdusers WHERE accessToken='$accessToken'";
-    $data = mysql_query($sql) or endRequest(404);
-    mysql_num_rows($data) == 1 or endRequest(404);
-    $row = mysql_fetch_array($data);
-    $email = $row['email'];
-    mysql_free_result($data);
-
     $sql = "REPLACE INTO answers(date, email, answer) VALUES(NOW(), '$email', '$answers')";
-    echo $sql;
     mysql_query($sql) or endRequest(404);
-    if (mysql_affected_rows() != 1) {
+    // Replace may affect 2 rows
+    if (mysql_affected_rows() == 0) {
         endRequest(404);
     }
 
@@ -178,23 +185,70 @@ if ($cmd == "uploadAnswers") {
 
 if ($cmd == "downloadAnswers") {
     $body = getJsonBody();
-    array_key_exists('accessToken', $body) or endRequest(400);
+    $user = verifyAndGetUserRow($body);
+    $email = $user['email'];
 
-    $accessToken = mysql_real_escape_string($body["accessToken"]);
-    strlen($accessToken) >= 32 or endRequest(400);
-
-    $sql = "SELECT answers.answer AS answers FROM answers INNER JOIN registerdusers ON registerdusers.email=answers.email WHERE registerdusers.accessToken='$accessToken'";
+    $sql = "SELECT answer FROM answers WHERE email='$email'";
     $data = mysql_query($sql) or endRequest(404);
     if (mysql_num_rows($data) == 0) {
         $answers = '{}';
     } else {
         $row = mysql_fetch_array($data);
-        $answers = $row['answers'];
+        $answers = $row['answer'];
     }
     mysql_free_result($data);
 
-    $result = array('answers' => $answers);
+    $result = array('answer' => $answers);
     echo json_encode($result);
+    endRequest(200);
+}
+
+if ($cmd == "getAnswers") {
+    $body = getJsonBody();
+    $user = verifyAndGetUserRow($body);
+    $email = $user['email'];
+
+    $sql = "SELECT date, answer FROM answers WHERE email='$email'";
+    $data = mysql_query($sql) or endRequest(404);
+    $answerCount = 0;
+    if (mysql_num_rows($data) != 0) {
+        $row = mysql_fetch_array($data);
+        $answer = json_decode($row['answer']);
+        $answerCount = sizeof($answer);
+    }
+    mysql_free_result($data);
+
+    $result = array('answerCount' => $answerCount);
+    echo json_encode($result);
+    endRequest(200);
+}
+
+if ($cmd == "getUserProfile") {
+    $body = getJsonBody();
+    $user = verifyAndGetUserRow($body);
+
+    $result = array('email' => $user['email'], 'cellphone' => $user['cellphone'], 'nickname' => $user['nickname']);
+    echo json_encode($result);
+    endRequest(200);
+}
+
+if ($cmd == "updateUserProfile") {
+    $body = getJsonBody();
+    $user = verifyAndGetUserRow($body);
+    $userId = $user['id'];
+
+    array_key_exists('cellphone', $body) or endRequest(400);
+    $cellphone = mysql_real_escape_string($body["cellphone"]);
+
+    array_key_exists('nickname', $body) or endRequest(400);
+    $nickname = mysql_real_escape_string($body["nickname"]);
+
+    $sql = "UPDATE registerdusers SET cellphone='$cellphone', nickname='$nickname' WHERE id='$userId'";
+    mysql_query($sql) or endRequest(404);
+    if (mysql_affected_rows() != 1) {
+        endRequest(404);
+    }
+
     endRequest(200);
 }
 
