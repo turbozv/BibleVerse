@@ -907,7 +907,7 @@ app.get('/resetPassword/:email', async function (req, res) {
       to: email,
       subject: `CBSF password reset`,
       text: `Your temporary CBSF password is ${token}, it's valid for 1 hour, please login in CBSF app and update your password. (This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app)`,
-      html: `Your temporary CBSF password is <b><font color='red'>${token}</font></b>,, it's valid for 1 hour, please login in CBSF app and change your password. (This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app)`
+      html: `Your temporary CBSF password is <b><font color='red'>${token}</font></b>, it's valid for 1 hour, please login in CBSF app and change your password. (This is an automatically generated email – please do not reply to it. If you have any questions, please send feedback in CBSF app)`
     };
     transporter.sendMail(mailOptions).then(info => {
       console.log("Message sent: %s", info.messageId);
