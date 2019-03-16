@@ -171,6 +171,16 @@
           "id": "2018_26_15",
           "questionText": "15. What was your biggest lesson learned from your personal study this week?",
           "quotes": []
+        },
+        {
+          "id": "2018_26_16",
+          "questionText": "Homiletics for group and administrative leaders: 1 Kings 5-6.",
+          "quotes": [
+            {
+              "book": "1 Kings",
+              "verse": "5-6"
+            }
+          ]
         }
       ]
     }
