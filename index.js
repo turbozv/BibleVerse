@@ -826,31 +826,29 @@ app.get('/audioInfo/*', async function (req, res) {
 })
 
 // Get user information
-app.get('/user/*', async function (req, res) {
+app.get('/user/:cellphone/:lastCheckTime?', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (data.length < 1 || data.length > 2) {
+  const cellphone = req.params.cellphone.trim();
+  if (cellphone.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
-  const cellphone = data[0];
-  const lastCheckTime = data.length > 1 ? parseInt(data[1]) : 0;
+  const lastCheckTime = req.params.lastCheckTime ? parseInt(req.params.lastCheckTime) : 0;
 
   try {
-    // Get users from all groups
-    let result = await mysqlQuery('SELECT lesson FROM audios');
-    let audios = [];
-    result.map(item => audios.push(item.lesson));
-
-    result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
+    let result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
     if (result.length === 0) {
       sendErrorObject(res, 400, { Error: "Invalid user" });
       logger.succeed();
       return;
     }
     const user = result[0];
+
+    result = await mysqlQuery('SELECT lesson FROM audios');
+    let audios = [];
+    result.map(item => audios.push(item.lesson));
 
     let discussions = {};
     const checkTime = new Date().getTime();
@@ -963,11 +961,11 @@ app.post('/poke', jsonParser, function (req, res) {
 })
 
 // Report reportError
-app.get('/reportError/*', jsonParser, function (req, res) {
+app.get('/reportError/:deviceId', jsonParser, function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   res.status(200).send();
-  logger.done(req.params[0]);
+  logger.done(req.params.deviceId);
 })
 
 // Get messages for chat/discussion
