@@ -603,12 +603,12 @@ app.get('/leaders/*', async function (req, res) {
 });
 
 // Transfer leader
-app.post('/transferLeader/*', jsonParser, async function (req, res) {
+app.post('/transferLeader/:cellphone', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length !== 1 || isNullOrUndefined(data[0]) || isNullOrUndefined(req.body) ||
-    isNullOrUndefined(req.body.lesson) || req.body.lesson <= 0 || req.body.lesson >= 30 ||
+  const cellphone = req.params.cellphone;
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || isNullOrUndefined(req.body) ||
+    isNullOrUndefined(req.body.lesson) || req.body.lesson < 0 || req.body.lesson >= 30 ||
     isNullOrUndefined(req.body.group) || isNullOrUndefined(req.body.leader)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
