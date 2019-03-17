@@ -841,10 +841,17 @@ app.get('/user/:cellphone/:lastCheckTime?', async function (req, res) {
     const lessonsData = fs.readFileSync('LessonData.json', { encoding: 'utf-8' });
     const lessons = JSON.parse(lessonsData);
 
+    const appManifestData = fs.readFileSync('cbsf.manifest.json', { encoding: 'utf-8' });
+    const appManifest = JSON.parse(appManifestData);
+
     let result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
     if (result.length === 0) {
       const nonRegisteredUserData = {
-        lessons: lessons
+        lessons: lessons,
+        app: {
+          sdkVersion: appManifest.sdkVersion,
+          publishedTime: appManifest.publishedTime
+        }
       };
       sendResultObject(res, nonRegisteredUserData);
       logger.succeed();
@@ -869,7 +876,11 @@ app.get('/user/:cellphone/:lastCheckTime?', async function (req, res) {
       checkTime: checkTime,
       discussions: discussions,
       audios: audios,
-      lessons: lessons
+      lessons: lessons,
+      app: {
+        sdkVersion: appManifest.sdkVersion,
+        publishedTime: appManifest.publishedTime
+      }
     };
     sendResultObject(res, data);
     logger.succeed();
