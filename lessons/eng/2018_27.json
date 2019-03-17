@@ -192,6 +192,16 @@
           "id": "2018_27_15",
           "questionText": "15. What did you learn about God? What did you learn about yourself?",
           "quotes": []
+        },
+        {
+          "id": "2018_27_16",
+          "questionText": "Homiletics for group and administrative leaders: 1 Kings 7-8.",
+          "quotes": [
+            {
+              "book": "1 Kings",
+              "verse": "7-8"
+            }
+          ]
         }
       ]
     }

@@ -84,8 +84,8 @@ for (i in Languages) {
   addToCache('BOOK/?lang=' + lang, home);
   parseHome(home, lang);
 
-  fs.write(`data\\${lang}.json`, JSON.stringify(globalCache));
+  fs.write(`data/${lang}.json`, JSON.stringify(globalCache));
 }
 
-fs.write(`data\\books.json`, JSON.stringify(books));
+fs.write(`data/books.json`, JSON.stringify(books));
 console.log('Done!');
