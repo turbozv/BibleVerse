@@ -172,6 +172,10 @@ function getClientInfo(req) {
 }
 
 function getVerseRange(verse) {
+  if (isNullOrUndefined(verse)) {
+    return null;
+  }
+
   const bookPos = verse.indexOf('/');
   const book = verse.substring(0, bookPos);
   verse = verse.substring(bookPos + 1);
@@ -227,10 +231,10 @@ function sendErrorObject(res, status, obj) {
 }
 
 // Get Bible verse
-app.get('/verse/*', function (req, res) {
+app.get('/verse/:query', function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const query = req.params[0];
+  const query = req.params.query;
   verseRange = getVerseRange(query);
   if (verseRange === null) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
@@ -300,25 +304,13 @@ app.get('/lessons/:lessonId', function (req, res) {
 })
 
 // Get attendance summary '/cellphone/{lesson}'
-app.get('/attendanceSummary/*', async function (req, res) {
+app.get('/attendanceSummary/:cellphone/:lesson?', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length < 1 || data.length > 3) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const cellphone = data[0];
-  if (!cellphone) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const lesson = data.length > 1 ? data[1] : null;
-  if (lesson !== null && (lesson <= 0 || lesson >= 30)) {
+  const cellphone = req.params.cellphone;
+  const lesson = req.params.lesson;
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 ||
+    (lesson && parseInt(lesson) < 0 || parseInt(lesson) >= 30)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -421,21 +413,13 @@ app.get('/attendanceSummary/*', async function (req, res) {
 });
 
 // Get attendance details '/cellphone/group/lesson'
-app.get('/attendance/*', async function (req, res) {
+app.get('/attendance/:cellphone/:group/:lesson', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length !== 3) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const cellphone = data[0];
-  const group = parseInt(data[1]);
-  const lesson = parseInt(data[2]);
-  // Lesson range is 0 to 29
-  if (!cellphone || lesson < 0 || lesson > 29) {
+  const cellphone = req.params.cellphone;
+  const group = parseInt(req.params.group);
+  const lesson = parseInt(req.params.lesson);
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || lesson < 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -502,11 +486,11 @@ app.get('/attendance/*', async function (req, res) {
 });
 
 // Post attendance
-app.post('/attendance/*', jsonParser, async function (req, res) {
+app.post('/attendance/:cellphone', jsonParser, async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length !== 1 || isNullOrUndefined(data[0]) || isNullOrUndefined(req.body) ||
+  const cellphone = req.params.cellphone;
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || isNullOrUndefined(req.body) ||
     isNullOrUndefined(req.body.lesson) || isNullOrUndefined(req.body.users) ||
     isNullOrUndefined(client.cellphone) || isNullOrUndefined(req.body.group)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
@@ -514,7 +498,6 @@ app.post('/attendance/*', jsonParser, async function (req, res) {
     return;
   }
 
-  const cellphone = data[0];
   try {
     // Find out the leader's information
     var result = await mysqlQuery('SELECT id, CONCAT(cname, " ", name) as name, class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
@@ -553,20 +536,13 @@ app.post('/attendance/*', jsonParser, async function (req, res) {
 })
 
 // Get leaders info '/cellphone/group/lesson'
-app.get('/leaders/*', async function (req, res) {
+app.get('/leaders/:cellphone/:group/:lesson', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (!data || data.length !== 3) {
-    sendErrorObject(res, 400, { Error: "Invalid input" });
-    logger.error("Invalid input");
-    return;
-  }
-
-  const cellphone = data[0];
-  const group = parseInt(data[1]);
-  const lesson = parseInt(data[2]);
-  if (!cellphone || lesson <= 0 || lesson >= 30) {
+  const cellphone = req.params.cellphone;
+  const group = parseInt(req.params.group);
+  const lesson = parseInt(req.params.lesson);
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || lesson < 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -647,11 +623,11 @@ app.post('/transferLeader/:cellphone', jsonParser, async function (req, res) {
 })
 
 // Get teaching audio
-app.get('/audio/*', function (req, res) {
+app.get('/audio/:cellphone', function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const cellphone = req.params[0];
-  if (!cellphone) {
+  const cellphone = req.params.cellphone;
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -697,11 +673,11 @@ app.get('/audio/*', function (req, res) {
 })
 
 // get download file
-app.get('/download/*', async function (req, res) {
+app.get('/download/:token', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const token = req.params[0];
-  if (!token) {
+  const token = req.params.token;
+  if (isNullOrUndefined(token) || token.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -726,19 +702,19 @@ app.get('/download/*', async function (req, res) {
 });
 
 // generate download token
-app.get('/downloadToken/*', async function (req, res) {
+app.get('/downloadToken/:cellphone/:lesson/:item', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const data = req.params[0].split('/');
-  if (data.length !== 3 || !data[0] || !data[1] || !data[2]) {
+  const cellphone = req.params.cellphone;
+  const lesson = req.params.lesson;
+  const item = req.params.item;
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 ||
+    isNullOrUndefined(lesson) || lesson.length === 0 ||
+    isNullOrUndefined(item) || item.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
   }
-
-  const cellphone = data[0];
-  const lesson = data[1];
-  const item = data[2];
 
   try {
     let result = await mysqlQuery('SELECT audio FROM users WHERE cellphone=? LIMIT 1', [cellphone]);
@@ -790,7 +766,7 @@ app.get('/downloadToken/*', async function (req, res) {
 });
 
 // Get teaching audio info
-app.get('/audioInfo/*', async function (req, res) {
+app.get('/audioInfo/:lesson?', async function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
   const cellphone = client.cellphone;
@@ -800,7 +776,7 @@ app.get('/audioInfo/*', async function (req, res) {
     return;
   }
 
-  const lesson = req.params[0];
+  const lesson = req.params.lesson;
   if (lesson && /[^a-zA-Z0-9\_]/.test(lesson)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -986,11 +962,11 @@ app.get('/reportError/:deviceId', jsonParser, function (req, res) {
 })
 
 // Get messages for chat/discussion
-app.get('/messages/*', function (req, res) {
+app.get('/messages/:room', function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const room = req.params[0];
-  if (!room) {
+  const room = req.params.room;
+  if (isNullOrUndefined(room) || room.length === 0) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
