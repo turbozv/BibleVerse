@@ -278,10 +278,10 @@ app.get('/lessons', function (req, res) {
 })
 
 // Get each lesson
-app.get('/lessons/*', function (req, res) {
+app.get('/lessons/:lessonId', function (req, res) {
   const client = getClientInfo(req);
   let logger = new Logger(req, client);
-  const id = req.params[0];
+  const id = req.params.lessonId;
   if (/[^a-zA-Z0-9\_\-]/.test(id)) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
@@ -838,9 +838,15 @@ app.get('/user/:cellphone/:lastCheckTime?', async function (req, res) {
   const lastCheckTime = req.params.lastCheckTime ? parseInt(req.params.lastCheckTime) : 0;
 
   try {
+    const lessonsData = fs.readFileSync('LessonData.json', { encoding: 'utf-8' });
+    const lessons = JSON.parse(lessonsData);
+
     let result = await mysqlQuery('SELECT id, name, audio, class, role FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1', [cellphone]);
     if (result.length === 0) {
-      sendErrorObject(res, 400, { Error: "Invalid user" });
+      const nonRegisteredUserData = {
+        lessons: lessons
+      };
+      sendResultObject(res, nonRegisteredUserData);
       logger.succeed();
       return;
     }
@@ -862,7 +868,8 @@ app.get('/user/:cellphone/:lastCheckTime?', async function (req, res) {
       chat: 1,
       checkTime: checkTime,
       discussions: discussions,
-      audios: audios
+      audios: audios,
+      lessons: lessons
     };
     sendResultObject(res, data);
     logger.succeed();
