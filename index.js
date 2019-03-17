@@ -615,7 +615,6 @@ app.post('/transferLeader/:cellphone', jsonParser, async function (req, res) {
     return;
   }
 
-  const cellphone = data[0];
   try {
     // Verify leader and get the transfering leader
     var result = await mysqlQuery('SELECT id, cellphone FROM users WHERE class=(SELECT class FROM users WHERE cellphone=? ORDER BY class DESC, role ASC, registerDate DESC LIMIT 1) AND role!=255 AND id=?', [cellphone, req.body.leader]);
