@@ -19,30 +19,21 @@ if (isset($_POST['message']) && isset($_POST['room'])) {
 
 echo "<p>";
 
-$deviceIds = array();
-
 // GeoIP
 require 'vendor/autoload.php';
 $gi = geoip_open("GeoIP.dat", GEOIP_STANDARD);
-$result = getQuery('SELECT * FROM `messages` WHERE length(room) = 36 AND user != "System" ORDER BY createdAt DESC');
-while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    $room = $line['room'];
-    if (array_key_exists($room, $deviceIds)) {
-        continue;
-    }
 
-    $deviceIds[$room] = 1;
-
-    $result2 = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
-    echo "<p>$room";
+function showComment($room) {
+    global $gi;
+    $result = getQuery("SELECT * FROM `messages` WHERE room='$room' ORDER BY createdAt DESC");
     $first = true;
-    while ($line2 = mysql_fetch_array($result2, MYSQL_ASSOC)) {
+    while ($line2 = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $date = date("Y-m-d H:i:s", $line2['createdAt'] / 1000);
         $userData = explode(" ", $line2['user']);
         $user = $userData[0];
         $ip = $line2['ip'];
         if ($ip) {
-            $address = '['.geoip_country_name_by_addr($gi, $ip).']';
+            $address = '[' . geoip_country_name_by_addr($gi, $ip) . ']';
         } else {
             $address = '';
         }
@@ -64,13 +55,51 @@ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
         $first = false;
     }
-    mysql_free_result($result2);
+
+    mysql_free_result($result);
     echo "<form method='post'><input type='hidden' name='room' value='$room'>";
     echo "<br><textarea name='message' cols='80' rows='5'></textarea><br>";
     echo "<input type='submit' value='回复 [$room]'>";
     echo '</form>';
 }
+
+$deviceIds = array();
+
+$result = getQuery('SELECT * FROM `messages` WHERE length(room) = 36 AND user != "System" ORDER BY createdAt DESC');
+$roomList = array();
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    $room = $line['room'];
+    array_push($roomList, $room);
+}
 mysql_free_result($result);
+
+$id = 1;
+foreach ($roomList as $room) {
+    if (array_key_exists($room, $deviceIds)) {
+        continue;
+    }
+
+    $firstRow = getRowArray("SELECT user FROM `messages` WHERE room='$room' ORDER BY createdAt DESC LIMIT 1");
+    if (strcasecmp($firstRow['user'], 'System') == 0) {
+        continue;
+    }
+
+    $deviceIds[$room] = 1;
+    echo "<p>#$id - $room";
+    showComment($room);
+    $id++;
+}
+
+echo "<hr>";
+
+foreach ($roomList as $room) {
+    if (array_key_exists($room, $deviceIds)) {
+        continue;
+    }
+    echo "<p>#$id - $room";
+    showComment($room);
+    $id++;
+}
 
 geoip_close($gi);
 
