@@ -542,7 +542,7 @@ app.get('/leaders/:cellphone/:group/:lesson', async function (req, res) {
   const cellphone = req.params.cellphone;
   const group = parseInt(req.params.group);
   const lesson = parseInt(req.params.lesson);
-  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || lesson < 0 || lesson >= 30) {
+  if (isNullOrUndefined(cellphone) || cellphone.length === 0 || lesson <= 0 || lesson >= 30) {
     sendErrorObject(res, 400, { Error: "Invalid input" });
     logger.error("Invalid input");
     return;
@@ -584,7 +584,7 @@ app.post('/transferLeader/:cellphone', jsonParser, async function (req, res) {
   let logger = new Logger(req, client);
   const cellphone = req.params.cellphone;
   if (isNullOrUndefined(cellphone) || cellphone.length === 0 || isNullOrUndefined(req.body) ||
-    isNullOrUndefined(req.body.lesson) || req.body.lesson < 0 || req.body.lesson >= 30 ||
+    isNullOrUndefined(req.body.lesson) || req.body.lesson <= 0 || req.body.lesson >= 30 ||
     isNullOrUndefined(req.body.group) || isNullOrUndefined(req.body.leader)) {
     sendErrorObject(res, 401, { Error: "Invalid input" });
     logger.error("Invalid input");
