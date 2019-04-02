@@ -15,6 +15,7 @@ $class = $row[1];
 echo "<h3>出席表 Class: $className</h3>";
 
 $adultData = array();
+$sgData = array();
 $leaderMeetingData = array();
 $spData = array();
 $sp1Data = array();
@@ -55,6 +56,22 @@ for ($lesson = 0; $lesson < 30; $lesson++) {
     }
     $adultData[$lesson] = $adultTotalUsers;
 
+    $sgTotalUsers = array();
+    foreach ($sgGroups as $key => $group) {
+        $row = getRow("select users from attend where class=$class and lesson=$lesson and `group`=$group");
+        $usersStr = substr($row[0], 1, strlen($row[0])-2);
+        if (strlen($usersStr) == 0) {
+            continue;
+        }
+        $users = explode(',', $usersStr);
+        foreach ($users as $key => $user) {
+            if (!in_array($user, $sgTotalUsers)) {
+                array_push($sgTotalUsers, $user);
+            }
+        }
+    }
+    $sgData[$lesson] = $sgTotalUsers;
+
     $sp1Data[$lesson] = array();
     $sp3Data[$lesson] = array();
     $sp6Data[$lesson] = array();
@@ -93,9 +110,12 @@ for ($lesson = 0; $lesson < 30; $lesson++) {
     echo "<td width='30' align='center'>#$lesson";
 }
 
-echo "<tr><td>成人小组";
+echo "<tr><td>成人小组+卫星小组<br>成人小组<br>卫星小组";
 for ($lesson = 0; $lesson < 30; $lesson++) {
-    echo "<td align='center'>".count($adultData[$lesson]);
+    $adultCount = count($adultData[$lesson]);
+    $spCount = count($spData[$lesson]);
+    $totalCount = $adultCount + $spCount;
+    echo "<td align='center'>$totalCount<br>$adultCount<br>$spCount";
 }
 
 foreach ($spGroups as $key => $group) {
@@ -118,6 +138,7 @@ foreach ($spGroups as $key => $group) {
         echo "<td align='center'>".count($data);
     }
 }
+
 echo "</table>";
 
 $adultTotalCount = array();
