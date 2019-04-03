@@ -126,15 +126,18 @@ if ($cmd == "createUser") {
     $body = getJsonBody();
     array_key_exists('email', $body) or endRequest(400);
     array_key_exists('pass', $body) or endRequest(400);
+    array_key_exists('cellphone', $body) or endRequest(400);
 
     $email = mysql_real_escape_string($body["email"]);
     strlen($email) >= 6 or endRequest(400);
     $pass = mysql_real_escape_string($body["pass"]);
     strlen($pass) >= 6 or endRequest(400);
+    $cellphone = mysql_real_escape_string($body["cellphone"]);
+    strlen($cellphone) >= 10 or endRequest(400);
 
     $accessToken = getAccessToken();
     $result = array('accessToken' => $accessToken);
-    $sql = "INSERT INTO registerdusers(email, password, accessToken) VALUES('$email', PASSWORD('$pass'), '$accessToken')";
+    $sql = "INSERT INTO registerdusers(email, password, accessToken, cellphone) VALUES('$email', PASSWORD('$pass'), '$accessToken', '$cellphone')";
     mysql_query($sql) or endRequest(409);
     if (mysql_affected_rows() != 1) {
         endRequest(404);
