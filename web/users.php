@@ -86,12 +86,14 @@ $user = getUser($userId);
     <select name='group'>
     <?php
         $groups = getGroups();
+        $class = mysql_real_escape_string($_SESSION['classId']);
         foreach ($groups as $key => $value) {
             $param = '';
             if ($user['group'] == $key) {
                 $param = " selected='selected'";
             }
-            echo "<option value='$key'$param>$value</option>";
+            $groupDisplayName = getGroupDisplayName($class, $value);
+            echo "<option value='$key'$param>$groupDisplayName</option>";
         } ?>
       </select>
     </select>
