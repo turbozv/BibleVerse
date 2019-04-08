@@ -134,7 +134,8 @@ $user = getUser($userId);
     <?php
         reset($groups);
         foreach ($groups as $key => $value) {
-            echo "<option value='$key'>$value</option>";
+            $groupDisplayName = getGroupDisplayName($class, $value);
+            echo "<option value='$key'>$groupDisplayName</option>";
         } ?>
       </select>
     </select>
