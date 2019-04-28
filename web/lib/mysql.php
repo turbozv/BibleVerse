@@ -90,12 +90,18 @@ function getUsers()
     $users = array();
     $result = getQuery("SELECT users.id, roles.name as role, users.name, users.cname FROM roles INNER JOIN users ON users.role=roles.id AND class=$class");
     while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        $name = $line['cname'].' '. $line['name'];
+        $name = $line['name'];
+        $cname = $line['cname'];
+        if (strlen($name) == 0) {
+            $name = $cname;
+        } else if (strlen($cname) > 0) {
+            $name .= ' '.$cname;
+        }
         $roleName = $line['role'];
         if (strlen($roleName) > 0) {
-            $users[$line['id']] = "$name ($roleName)";
+            $users[$line['id']] = trim("$name ($roleName)");
         } else {
-            $users[$line['id']] = $name;
+            $users[$line['id']] = trim($name);
         }
         //echo $line['id'].'>>'.$users[$line['id']]."<br>";
     }
