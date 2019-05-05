@@ -113,9 +113,9 @@ for ($lesson = 0; $lesson < 30; $lesson++) {
 echo "<tr><td>成人小组+卫星小组<br>成人小组<br>卫星小组";
 for ($lesson = 0; $lesson < 30; $lesson++) {
     $adultCount = count($adultData[$lesson]);
-    $spCount = count($spData[$lesson]);
-    $totalCount = $adultCount + $spCount;
-    echo "<td align='center'>$totalCount<br>$adultCount<br>$spCount";
+    $sgCount = count($sgData[$lesson]);
+    $totalCount = $adultCount + $sgCount;
+    echo "<td align='center'>$totalCount<br>$adultCount<br>$sgCount";
 }
 
 foreach ($spGroups as $key => $group) {
