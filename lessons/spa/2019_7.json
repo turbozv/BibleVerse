@@ -1,0 +1,151 @@
+{
+    "id": "2019_7",
+    "name": "",
+    "memoryVerse": "\"Los que se habían dispersado predicaban la palabra por dondequiera que iban\". – Hechos 8:4",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_7_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: Lea Hechos 9:31-43.\nPedro realizó milagros durante un período de paz para la Iglesia.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "9:31-43"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_7_3",
+                    "questionText": "3. ¿Qué experimentó la Iglesia?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_4",
+                    "questionText": "4. ¿Qué aprende acerca de Dios de los milagros en este pasaje? ¿Cómo le anima o inspira eso?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_5",
+                    "questionText": "5. ¿A quién y cómo puede servir cuando comparte el evangelio con otros?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: Lea Hechos 10.\nDios derramó el Espíritu Santo sobre los gentiles.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "10:1-47"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_7_6",
+                    "questionText": "6. Describa a Cornelio. ¿Qué faltaba en su vida?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_7a",
+                    "questionText": "7. a. ¿Qué le ordenó Dios a Pedro que hiciera? ¿Qué objeciones tuvo Pedro?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_7b",
+                    "questionText": "7. b. ¿Cómo confirmó Dios sus mandamientos a Pedro?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_8",
+                    "questionText": "8. ¿Qué gran evento cambió la separación que había entre judíos y gentiles? (Vea 10:34-43.) ¿Qué barreras hay en su mundo que el evangelio podría eliminar?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 11:1-18.\nPedro defendió sus acciones ante sus críticos.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "11:1-18"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_7_9",
+                    "questionText": "9. ¿Por qué criticaron a Pedro los creyentes judíos que se mencionan en Hechos 11:2?",
+                    "quotes": [
+                        {
+                            "book": "Hechos",
+                            "verse": "11:2"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_7_10",
+                    "questionText": "10. ¿Cómo demostró Pedro la fe en Dios y la fidelidad a la verdad en su informe?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_11",
+                    "questionText": "11. ¿Qué ha aprendido acerca de Dios y cómo seguirlo? ¿Cómo le anima esto en su situación actual?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hechos 11:19-30.\nBernabé y Saulo ministraron a los creyentes en Antioquía.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "11:19-30"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_7_12",
+                    "questionText": "12. Describa la iglesia de Antioquía y sus actividades?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_7_13",
+                    "questionText": "13. ¿Qué le está llamando Dios a hacer para servir a los demás? ¿Qué pasos debe tomar que le gustaría que su grupo le ayude orando por usted?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 9:31 11:31.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "9:31"
+                },
+                {
+                    "book": "Hechos",
+                    "verse": "11:31"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_7_14",
+                    "questionText": "14. ¿Qué aprendió sobre Dios y qué aprendió sobre usted mismo? (No hay homilética para líderes de grupo o administrativos) .",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

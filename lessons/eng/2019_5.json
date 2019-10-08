@@ -1,0 +1,179 @@
+{
+    "id": "2019_5",
+    "name": "",
+    "memoryVerse": "\"Day after day, in the temple courts and from house to house, they never stopped teaching and proclaiming the good news that Jesus is the Messiah.\" – Acts 5:42",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2019_5_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Acts 6:8-15.\nStephen gave witness to God and was seized for his testimony.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "6:8-15"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_5_3",
+                    "questionText": "3. Describe Stephen and his ministry.",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_4",
+                    "questionText": "4. How did Stephen's opponents twist his teaching for their sinful purposes? (See John 2:19-25.)",
+                    "quotes": [
+                        {
+                            "book": "John",
+                            "verse": "2:19-25"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_5_5",
+                    "questionText": "5. What do you learn about the nature and source of opposition? How can believers ensure we are not part of the angry religious crowd?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Acts 7:1-53.\nStephen recounted God's faithfulness and the people's rebellion throughout Israel's history.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "7:1-53"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_5_6",
+                    "questionText": "6. Give the main thought of each of the following sections of Stephen's speech. Acts 7:1-38 Acts 7:39-50 Acts 7:51-53",
+                    "quotes": [
+                        {
+                            "book": "Acts",
+                            "verse": "7:1-38"
+                        },
+                        {
+                            "book": "Acts",
+                            "verse": "7:39-50"
+                        },
+                        {
+                            "book": "Acts",
+                            "verse": "7:51-53"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_5_7",
+                    "questionText": "7. How did Stephen turn the Sanhedrin's charge against him into an indictment against them?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_8",
+                    "questionText": "8. Compare Stephen's words and actions to those of the Sanhedrin. How does Stephen balance grace and truth in his response?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Acts 7:1-53.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "7:1-53"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_5_9",
+                    "questionText": "9. What stands out to you about God and His plan through Stephen's address?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_10",
+                    "questionText": "10. Compare the holiness and righteousness of God with the sinfulness of people. Who is our only hope? (See John 3:16, 14:6-7.)",
+                    "quotes": [
+                        {
+                            "book": "John",
+                            "verse": "3:16"
+                        },
+                        {
+                            "book": "John",
+                            "verse": "14:6-7"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_5_11",
+                    "questionText": "11. Which truth about God is difficult for you to believe and rightly respond to?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Acts 7:54-60.\nStephen was put to death.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "7:54-60"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_5_12",
+                    "questionText": "12. How did God comfort Stephen during his persecution?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_13a",
+                    "questionText": "13. a. How did Stephen show the likeness of Christ as he was put to death? (See Luke 23:34.)",
+                    "quotes": [
+                        {
+                            "book": "Luke",
+                            "verse": "23:34"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_5_13b",
+                    "questionText": "13. b. When is it difficult for you to show the likeness of Christ to others?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_5_14",
+                    "questionText": "14. What lessons do you learn from the end of Stephen's life? What hope does it give you?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Acts 6:8-7:60.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "6:8-7:60"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_5_15",
+                    "questionText": "15. What is the most important or challenging thing you learned this week?",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

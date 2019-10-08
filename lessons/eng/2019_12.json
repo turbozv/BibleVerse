@@ -1,0 +1,182 @@
+{
+    "id": "2019_12",
+    "name": "",
+    "memoryVerse": "\"While they were worshiping the Lord and fasting, the Holy Spirit said, 'Set apart for me Barnabas and Saul for the work to which I have called them.'\" – Acts 13:2",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2019_12_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Acts 15:1-11.\nPaul and Barnabas traveled to Jerusalem to settle a dispute.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "15:1-11"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_12_3",
+                    "questionText": "3. What dispute arose in the church in Antioch? How did the church respond?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_4a",
+                    "questionText": "4. a. Why did the Jewish Christians insist the Gentiles be circumcised? (For help, see Genesis 17:1-14.)",
+                    "quotes": [
+                        {
+                            "book": "Genesis",
+                            "verse": "17:1-14"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_12_4b",
+                    "questionText": "4. b. What do you learn about salvation?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_5",
+                    "questionText": "5. Why was it important to resolve the question of salvation first?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Acts 15:12-21.\nThe Church leaders discussed their dispute and reached a resolution.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "15:12-21"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_12_6",
+                    "questionText": "6. Remembering past lessons, which of God's confirming signs and wonders might Paul and Barnabas have shared? What have you seen God do in your life during this study?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_7a",
+                    "questionText": "7. a. What did James suggest as a solution to the controversy about the Gentiles?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_7b",
+                    "questionText": "7. b. On what authority did James reach His conclusion?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_7c",
+                    "questionText": "7. c. Why might James have included the particular items in verse 20?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_8",
+                    "questionText": "8. What do you learn about the discussion of controversial matters and conflict resolution within your church and among other believers?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Acts 15:22-35.\nChurch leaders wrote a letter to their fellow believers.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "15:22-35"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_12_9",
+                    "questionText": "9. Who delivered the letter? What were the results of their delivering the letter?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_10a",
+                    "questionText": "10. a. What were the long-term accomplishments of this event (often referred to as the Jerusalem Council)?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_10b",
+                    "questionText": "10. b. What do you learn about the Holy Spirit?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_11",
+                    "questionText": "11. How do you know what or when to compromise to advance the cause of Christ? In which situation are you willing to reach a compromise to accomplish unity?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Galatians 2.\nPaul rebuked Peter for failure to live by the decision in Acts 15.",
+            "readVerse": [
+                {
+                    "book": "Galatians",
+                    "verse": "2:1-21"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_12_12",
+                    "questionText": "12. What did Peter do that resulted in Paul's rebuke? What negative impact did Peter's action have on others?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_13",
+                    "questionText": "13. What do you learn from Paul's rebuke? (See also 2 Peter 3:15-16.)",
+                    "quotes": [
+                        {
+                            "book": "2 Peter",
+                            "verse": "3:15-16"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_12_14",
+                    "questionText": "14. How could you apply this passage to your life today?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Acts 15:1-35.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "15:1-35"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_12_15",
+                    "questionText": "15. What did you learn about God, and what did you learn about yourself?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_12_16",
+                    "questionText": "16. Passage Discovery (homiletics, word study, etc.) for group and administrative leaders: Acts 15:1-35",
+                    "quotes": [
+                        {
+                            "book": "Acts",
+                            "verse": "15:1-35"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

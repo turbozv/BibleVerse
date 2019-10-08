@@ -1,0 +1,160 @@
+{
+    "id": "2019_13",
+    "name": "",
+    "memoryVerse": "\"¡No puede ser! Más bien, como ellos, creemos que somos salvos por la gracia de nuestro Señor Jesús\". – Hechos 15:11",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_13_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_2",
+                    "questionText": "2. ¿Qué fue lo que más le impactó de las notas, las conferencias, al compartir en grupo o el estudio personal en la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hebreos 1.\nJesucristo es superior a toda la creación.",
+            "readVerse": [
+                {
+                    "book": "Hebreos",
+                    "verse": "1:1-14"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_13_3",
+                    "questionText": "3. Describa la supremacía y los atributos de Jesús. ¿Cómo le alienta, consuela o desafía esto?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_4",
+                    "questionText": "4. Compare a Jesús con los ángeles. ¿Qué aprende?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_5",
+                    "questionText": "5. ¿Qué importancia tienen las referencias del Antiguo Testamento que describen a Jesús y Su obra? ¿Qué confianza le da esto en Jesús y Su Palabra?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hebreos 2.\nJesús se hizo humano para salvar a Su pueblo.",
+            "readVerse": [
+                {
+                    "book": "Hebreos",
+                    "verse": "2:1-18"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_13_6",
+                    "questionText": "6. ¿Por qué era necesario que Jesús se hiciera humano? ¿Qué aprende acerca de Jesús y la salvación que Él provee?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_7",
+                    "questionText": "7. ¿Cuál es la advertencia en los versículos 1-4? ¿Cuál es la consecuencia de ignorar la advertencia?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_8",
+                    "questionText": "8. ¿Con qué temores y tentaciones lucha usted? ¿De qué manera la verdad de la muerte de Jesús le trae libertad?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hebreos 3.\nJesús es más grande que Moisés.",
+            "readVerse": [
+                {
+                    "book": "Hebreos",
+                    "verse": "3:1-19"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_13_9",
+                    "questionText": "9. ¿Cuáles son las similitudes y diferencias entre Jesús y Moisés?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_10",
+                    "questionText": "10. ¿Cuáles son las maneras prácticas en que una persona puede fijar sus pensamientos en Jesús? ¿Porque es importante hacer esto?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_11",
+                    "questionText": "11. ¿Cómo ayuda la comunidad cristiana a los creyentes a protegerse contra un corazón endurecido?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hebreos 4:1-13.\nLa promesa de Dios de entrar en reposo sigue en pie.",
+            "readVerse": [
+                {
+                    "book": "Hebreos",
+                    "verse": "4:1-13"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_13_12a",
+                    "questionText": "12. a. ¿De qué maneras se usa el término \"reposo\" en estos versículos?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_12b",
+                    "questionText": "12. b. ¿Cómo entra una persona en el reposo de Dios? ¿Ha entrado en este reposo? (¿Si no, porque no?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_13",
+                    "questionText": "13. ¿Qué aprende acerca de la Palabra de Dios? ¿Cómo podría esto impactar la forma en que lee y escucha lo que la Biblia dice?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hebreos 1:1 4:13.",
+            "readVerse": [
+                {
+                    "book": "Hebreos",
+                    "verse": "1:1"
+                },
+                {
+                    "book": "Hebreos",
+                    "verse": "4:13"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_13_14",
+                    "questionText": "14. ¿Cuál es la cosa más importante o desafiante que aprendió esta semana?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_13_15",
+                    "questionText": "15. Descubrir el pasaje (homilética, estudio de palabras, etc.) para líderes de grupo y administrativos: Hebreos 1:1 4:13 .",
+                    "quotes": [
+                        {
+                            "book": "Hebreos",
+                            "verse": "1:1"
+                        },
+                        {
+                            "book": "Hebreos",
+                            "verse": "4:13"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,162 @@
+{
+    "id": "2019_4",
+    "name": "",
+    "memoryVerse": "\"After they prayed, the place where they were meeting was shaken. And they were all filled with the Holy Spirit and spoke the word of God boldly.\" – Acts 4:31",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2019_4_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Acts 5:1-11.\nAnanias and Sapphira brought a partial offering to the apostles.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "5:1-11"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_3",
+                    "questionText": "3. What phrases describe Ananias and Sapphira's actions?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_4",
+                    "questionText": "4. What was sinful about Ananias and Sapphira's actions? (Review Acts 4:32-37)",
+                    "quotes": [
+                        {
+                            "book": "Acts",
+                            "verse": "4:32-37"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_4_5",
+                    "questionText": "5. What do you learn about God?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Acts 5:12-16.\nThe apostles healed many, and many more came to faith.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "5:12-16"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_6",
+                    "questionText": "6. What stands out to you about the apostle's ministry?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_7a",
+                    "questionText": "7. a. What were the various responses by the people?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_7b",
+                    "questionText": "7. b. What has been your response as you see God at work?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Acts 5:17-42.\nThe religious officials arrested, jailed and punished the apostles.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "5:17-42"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_8",
+                    "questionText": "8. What clear signs of the power of God did the religious leaders appear to miss or ignore? (See also John 15:26-27.)",
+                    "quotes": [
+                        {
+                            "book": "John",
+                            "verse": "15:26-27"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_4_9a",
+                    "questionText": "9. a. How did the apostles demonstrate their faith and love for Christ?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_9b",
+                    "questionText": "9. b. What do you learn about suffering?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_10",
+                    "questionText": "10. How could you demonstrate love for Christ when it seems easier to stay silent or do nothing?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Acts 6:1-7.\nAs the numbers and diversity of followers grew, a dispute arose among them.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "6:1-7"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_11",
+                    "questionText": "11. What crisis threatened to distract the apostles from their God-given call? What was the wisdom behind the solution?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_12",
+                    "questionText": "12. What was the primary requirements for those who would serve the Lord? Why is this important?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_13a",
+                    "questionText": "13. a. What need in your church have you been asked to meet or were made aware of?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_13b",
+                    "questionText": "13. b. How could you help those in your community who are hungry or lack food resources?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Acts 5:1-6:7.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "5:1-6:7"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_14",
+                    "questionText": "14. What was your biggest takeaway from your personal study of this week's lesson?",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

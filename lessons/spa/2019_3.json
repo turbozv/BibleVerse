@@ -1,0 +1,172 @@
+{
+    "id": "2019_3",
+    "name": "",
+    "memoryVerse": "\"Exaltado por el poder de Dios, y habiendo recibido del Padre el Espíritu Santo prometido, ha derramado esto que ustedes ahora ven y oyen\". – Hechos 2:33",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_3_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hechos 3:1-10.\nPedro sanó al mendigo que estaba lisiado.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "3:1-10"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_3_3",
+                    "questionText": "3. Describa lo que le pasó al mendigo. ¿Cuál fue la respuesta de los demás?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_4",
+                    "questionText": "4. Lea Juan 10:10; Romanos 10:17; Efesios 2:1, 5, 8. ¿De qué manera la curación del hombre apunta a la curación espiritual que Jesucristo obra en una persona?",
+                    "quotes": [
+                        {
+                            "book": "Juan",
+                            "verse": "10:10"
+                        },
+                        {
+                            "book": "Romanos",
+                            "verse": "10:17"
+                        },
+                        {
+                            "book": "Efesios",
+                            "verse": "2:1"
+                        },
+                        {
+                            "book": "Efesios",
+                            "verse": "2:5"
+                        },
+                        {
+                            "book": "Efesios",
+                            "verse": "2:8"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_3_5",
+                    "questionText": "5. ¿Qué obra ha hecho Dios en su vida por la que puede alabarle?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_6",
+                    "questionText": "6. ¿Qué persona o personas marginadas en su comunidad necesitan la misma ayuda y esperanza que Pedro le dio al mendigo?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hechos 3:11-26.\nPedro desafió a los espectadores a arrepentirse y ser salvos.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "3:11-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_3_7",
+                    "questionText": "7. ¿Qué parte tuvo el pueblo en la muerte de Jesús? ¿Qué parte tuvo Dios en la muerte y resurrección de Su Hijo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_8",
+                    "questionText": "8. ¿Qué esperanza ofreció Pedro a la gente? ¿Cómo se aplica la convicción y la misericordia de este pasaje a las personas hoy?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_9",
+                    "questionText": "9. ¿Cómo afecta el cumplimiento de la profecía su confianza en las promesas de Dios hoy? ¿En que área de su vida se le dificulta confiar en Dios y Sus promesas?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 4:1-22.\nPedro y Juan fueron arrestados y testificaron.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "4:1-22"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_3_10",
+                    "questionText": "10. ¿Cuál es el mensaje central que proclamó Pedro? ¿Qué diferencia hace dicho mensaje?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_11a",
+                    "questionText": "11. a. ¿Cuáles fueron los resultados de las acciones y el testimonio de Juan y Pedro?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_11b",
+                    "questionText": "11. b. ¿Qué lecciones puede aplicar a su vida hoy?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hechos 4:23-31.\nLos creyentes se reunieron para compartir alabanzas, oraciones y sus posesiones.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "4:23-31"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_3_12",
+                    "questionText": "12. ¿Qué se incluyó en la oración en los versículos 24-30? ¿Cómo podría aplicar esto a sus oraciones?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_13a",
+                    "questionText": "13. a. ¿Qué cambios personales ocurrieron cuando los creyentes fueron llenos del Espíritu Santo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_3_13b",
+                    "questionText": "13. b. ¿Qué cambios ha hecho el Espíritu Santo en usted?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 3:1 4:31.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "3:1"
+                },
+                {
+                    "book": "Hechos",
+                    "verse": "4:31"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_3_14",
+                    "questionText": "14. ¿Qué le gustaría ver a Dios hacer en su vida esta semana? (No hay homilética para líderes de grupo o administrativos) .",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

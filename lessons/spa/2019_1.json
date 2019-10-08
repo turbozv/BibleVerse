@@ -1,0 +1,175 @@
+{
+    "id": "2019_1",
+    "name": "",
+    "memoryVerse": "\"Pero, cuando venga el Espíritu Santo sobre ustedes, recibirán poder y serán mis testigos tanto en Jerusalén como en toda Judea y Samaria, y hasta los confines de la tierra\". – Hechos 1:8",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_1_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hechos 1:1-4; Lucas 24:13-49.\nDespués de la muerte y resurrección de Jesús, Él apareció ante los discípulos durante 40 días.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "1:1-4"
+                },
+                {
+                    "book": "Lucas",
+                    "verse": "24:13-49"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_3",
+                    "questionText": "3. ¿Qué trato tuvo el Señor Jesucristo con Sus seguidores en los días después de Su muerte y resurrección?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_4",
+                    "questionText": "4. ¿Por qué era importante que Jesús pasara tiempo, 40 días, solo con los discípulos después de Su resurrección y antes de Su ascensión? Si Jesús estuviera físicamente con nosotros ahora, ¿qué le gustaría preguntarle o de qué le gustaría hablar con Él?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_5",
+                    "questionText": "5. ¿Cómo le pueden ayudar las pruebas de la resurrección de Jesús cuando la vida es difícil o surgen dudas?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hechos1:4-8.\nJesús prometió que el Espíritu Santo vendría pronto.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "1:4-8"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_6",
+                    "questionText": "6. ¿Qué mandato les dio Jesús? ¿Qué iban a poder hacer los apóstoles cuando viniera el Espíritu Santo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_7a",
+                    "questionText": "7. a. ¿Qué diferencia hace el Espíritu Santo en la vida de una persona? (Para ayuda, vea Romanos 8:9, 14-16; 2 Corintios 1:21-22; Gálatas 5:22-23.)",
+                    "quotes": [
+                        {
+                            "book": "Romanos",
+                            "verse": "8:9"
+                        },
+                        {
+                            "book": "Romanos",
+                            "verse": "8:14-16"
+                        },
+                        {
+                            "book": "2 Corintios",
+                            "verse": "1:21-22"
+                        },
+                        {
+                            "book": "Gálatas",
+                            "verse": "5:22-23"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_1_7b",
+                    "questionText": "7. b. Si ha profesado su fe en Jesucristo, ¿qué diferencia ha hecho el Espíritu Santo en su vida? (Sea específico).",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 1:4-11, Juan 14:1-3, 16-18; 16:12-15.\nDespués de 40 días, Jesús ascendió al cielo.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "1:4-11"
+                },
+                {
+                    "book": "Juan",
+                    "verse": "14:1-3"
+                },
+                {
+                    "book": "Juan",
+                    "verse": "14:16-18"
+                },
+                {
+                    "book": "Juan",
+                    "verse": "16:12-15"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_8",
+                    "questionText": "8. ¿Por qué fue necesario que Jesús dejara a los apóstoles?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_9",
+                    "questionText": "9. ¿Qué verdades ve usted sobre el regreso de Jesucristo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_10",
+                    "questionText": "10. ¿Qué consuelo y seguridad podrían haber recibido los apóstoles a través de las promesas de este pasaje?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hechos 1:12-26.\nLos apóstoles se reunieron y eligieron el reemplazo de Judas.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "1:12-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_11",
+                    "questionText": "11. ¿Quiénes eran las personas que oraban juntas? ¿Qué aprende de esto?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_12",
+                    "questionText": "12. ¿Qué le llama la atención sobre el reemplazo de Judas por Matías?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_13",
+                    "questionText": "13. ¿Cómo ve a Dios obrando en estos versículos?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 1.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "1:1-25"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_14",
+                    "questionText": "14. ¿Cómo ha afectado el estudio de esta semana su manera de pensar y su confianza en la voluntad y momento oportuno del Señor? (No hay homilética para líderes de grupo o administrativos) .",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

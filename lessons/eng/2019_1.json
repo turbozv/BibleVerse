@@ -1,0 +1,175 @@
+{
+    "id": "2019_1",
+    "name": "",
+    "memoryVerse": "\"But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.\" – Acts 1:8",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2019_1_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Acts 1:1-4; Luke 24:13-49.\nAfter Jesus' death and resurrection, He appeared before the disciples for 40 days.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "1:1-4"
+                },
+                {
+                    "book": "Luke",
+                    "verse": "24:13-49"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_3",
+                    "questionText": "3. How did the Lord engage with His followers in the days after Jesus' death and resurrection?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_4",
+                    "questionText": "4. Why was it important that Jesus spend time – 40 days – alone with the disciples after His resurrection and before His ascension? If Jesus were physically with us now, what would you want to ask Him or talk about?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_5",
+                    "questionText": "5. How could the proofs of Jesus' resurrection help you when life is difficult or doubts arise?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Acts 1:4-8.\nJesus promised the Holy Spirit would come soon.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "1:4-8"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_6",
+                    "questionText": "6. What was Jesus' command? What would the coming Spirit empower the apostles to do?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_7a",
+                    "questionText": "7. a. What difference does the Holy Spirit make in a person's life? (For help, see Romans 8:9, 14-16; 2 Corinthians 1:21-22; Galatians 5:22-23.)",
+                    "quotes": [
+                        {
+                            "book": "Romans",
+                            "verse": "8:9"
+                        },
+                        {
+                            "book": "Romans",
+                            "verse": "8:14-16"
+                        },
+                        {
+                            "book": "2 Corinthians",
+                            "verse": "1:21-22"
+                        },
+                        {
+                            "book": "Galatians",
+                            "verse": "5:22-23"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_1_7b",
+                    "questionText": "7. b. If you have professed your faith in Jesus Christ, what difference has the Holy Spirit made in your life? (Be specific.)",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Acts 1:4-11, John 14:1-3, 16-18; 16:12-15.\nAfter 40 days, Jesus ascended to heaven.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "1:4-11"
+                },
+                {
+                    "book": "John",
+                    "verse": "14:1-3"
+                },
+                {
+                    "book": "John",
+                    "verse": "14:16-18"
+                },
+                {
+                    "book": "John",
+                    "verse": "16:12-15"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_8",
+                    "questionText": "8. Why was it necessary for Jesus to leave the apostles?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_9",
+                    "questionText": "9. What truths about the return of Jesus Christ do you see?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_10",
+                    "questionText": "10. What comfort and assurance might the apostles have received through the promises of this passage?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Acts 1:12-26.\nThe apostles gathered and chose Judas' replacement.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "1:12-26"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_11",
+                    "questionText": "11. Who were the people who prayed together? What do you learn from this?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_12",
+                    "questionText": "12. What stands out to you about the replacement of Judas with Matthias?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_1_13",
+                    "questionText": "13. How do you see God at work in these verses?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Acts 1.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "1:1-25"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_1_14",
+                    "questionText": "14. How has this week's study impacted your thinking and trust in the Lord's will and timing?",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

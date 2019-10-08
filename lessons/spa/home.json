@@ -1,254 +1,311 @@
 ﻿{
-	"booklist": [
-		{
-			"title": "El pueblo de la Tierra Prometida I2018-19",
-			"lessons": [
-				{
-					"id": "2018_1",
-					"name": "Lección1 Josué1:1-5:12 (09/10)"
-				},
-				{
-					"id": "2018_2",
-					"name": "Lección2 Josué5:13-9:27 (09/17)"
-				},
-				{
-					"id": "2018_3",
-					"name": "Lección3 Josué10-12 (09/24)"
-				},
-				{
-					"id": "2018_4",
-					"name": "Lección4 Josué13-21 (10/1)"
-				},
-				{
-					"id": "2018_5",
-					"name": "Lección5 Josué22-24 (10/08)"
-				},
-				{
-					"id": "2018_6",
-					"name": "Lección6 Ruth (10/15)"
-				},
-				{
-					"id": "2018_7",
-					"name": "Lección7 1Samuel1-3 (10/22)"
-				},
-				{
-					"id": "2018_8",
-					"name": "Lección8 1Samuel4-8 (10/29)"
-				},
-				{
-					"id": "2018_9",
-					"name": "Lección9 1Samuel9-15 (11/05)"
-				},
-				{
-					"id": "2018_10",
-					"name": "Lección10 1Samuel16-17 (11/12)"
-				},
-				{
-					"id": "2018_11",
-					"name": "Lección11 Psalms (11/19)"
-				},
-				{
-					"id": "2018_12",
-					"name": "Lección12 1Samuel18-20 (11/26)"
-				},
-				{
-					"id": "2018_13",
-					"name": "Lección13 1Samuel21-24 (12/03)"
-				},
-				{
-					"id": "2018_14",
-					"name": "Lección14 1Samuel25-27 (12/10)"
-				},
-				{
-					"id": "2018_15",
-					"name": "Lección15 1Samuel28-31 (01/07)"
-				},
-				{
-					"id": "2018_16",
-					"name": "Lección16 2Samuel1-4 (01/14)"
-				},
-				{
-					"id": "2018_17",
-					"name": "Lección17 2Samuel5-6;1Chronicles3:1-9;11-16 (01/21)"
-				},
-				{
-					"id": "2018_18",
-					"name": "Lección18 2Samuel7;1Chronicles17 (01/28)"
-				},
-				{
-					"id": "2018_19",
-					"name": "Lección19 2Samuel8-10 (02/04)"
-				},
-				{
-					"id": "2018_20",
-					"name": "Lección20 2Samuel11-12 (02/11)"
-				},
-				{
-					"id": "2018_21",
-					"name": "Lección21 2Samuel13-18 (02/18)"
-				},
-				{
-					"id": "2018_22",
-					"name": "Lección22 2Samuel19-24 (02/25)"
-				},
-				{
-					"id": "2018_23",
-					"name": "Lección23 1Kings1-2;1Chronicles22,28-29 (03/04)"
-				},
-				{
-					"id": "2018_24",
-					"name": "Lección24 1Kings3-4 (03/11)"
-				},
-				{
-					"id": "2018_25",
-					"name": "Lección25 Proverbs (03/18)"
-				},
-				{
-					"id": "2018_26",
-					"name": "Lección26 1Kings5-6 (03/25)"
-				},
-				{
-					"id": "2018_27",
-					"name": "Lección27 1Kings7-8;2Chronicles4:1-7:10 (04/1)"
-				},
-				{
-					"id": "2018_28",
-					"name": "Lección28 1Kings9-10 (04/15)"
-				},
-				{
-					"id": "2018_29",
-					"name": "Lección29 1Kings11 (04/22)"
-				},
-				{
-					"id": "2018_30",
-					"name": "Lección30 Joshua-1Kings11 (04/29)"
-				}
-			]
-		},
-		{
-			"title": "Romanos 2017-18",
-			"lessons": [
-				{
-					"id": "2017_1",
-					"name": "Lección1 Romanos1:1-17 (09/18)"
-				},
-				{
-					"id": "2017_2",
-					"name": "Lección2 Romanos1:18-32 (09/25)"
-				},
-				{
-					"id": "2017_3",
-					"name": "Lección3 Romanos2 (10/02)"
-				},
-				{
-					"id": "2017_4",
-					"name": "Lección4 Romanos3:1-20 (10/09)"
-				},
-				{
-					"id": "2017_5",
-					"name": "Lección5 Romanos3:21-26 (10/16)"
-				},
-				{
-					"id": "2017_6",
-					"name": "Lección6 Romanos3:27-31 (10/23)"
-				},
-				{
-					"id": "2017_7",
-					"name": "Lección7 Romanos4 (10/30)"
-				},
-				{
-					"id": "2017_8",
-					"name": "Lección8 Romanos5:1-11 (11/06)"
-				},
-				{
-					"id": "2017_9",
-					"name": "Lección9 Romanos5:12-21 (11/13)"
-				},
-				{
-					"id": "2017_10",
-					"name": "Lección10 Romanos6:1-11 (11/20)"
-				},
-				{
-					"id": "2017_11",
-					"name": "Lección11 Romanos6:12-23 (11/27)"
-				},
-				{
-					"id": "2017_12",
-					"name": "Lección12 Romanos7 (12/04)"
-				},
-				{
-					"id": "2017_13",
-					"name": "Lección13 Romanos8:1-17 (12/11)"
-				},
-				{
-					"id": "2017_14",
-					"name": "Lección14 Romanos8:18-27 (01/08)"
-				},
-				{
-					"id": "2017_15",
-					"name": "Lección15 Romanos8:28-39 (01/15)"
-				},
-				{
-					"id": "2017_16",
-					"name": "Lección16 Romanos9:1-29 (01/22)"
-				},
-				{
-					"id": "2017_17",
-					"name": "Lección17 Romanos9:30-10:13 (01/29)"
-				},
-				{
-					"id": "2017_18",
-					"name": "Lección18 Romanos10:14-21 (02/05)"
-				},
-				{
-					"id": "2017_19",
-					"name": "Lección19 Romanos11:1-32 (02/12)"
-				},
-				{
-					"id": "2017_20",
-					"name": "Lección20 Romanos11:33-36 (02/19)"
-				},
-				{
-					"id": "2017_21",
-					"name": "Lección21 Romanos12:1-2 (02/26)"
-				},
-				{
-					"id": "2017_22",
-					"name": "Lección22 Romanos12:3-8 (03/05)"
-				},
-				{
-					"id": "2017_23",
-					"name": "Lección23 Romanos12:9-21 (03/12)"
-				},
-				{
-					"id": "2017_24",
-					"name": "Lección24 Romanos13:1-7 (03/19)"
-				},
-				{
-					"id": "2017_25",
-					"name": "Lección25 Romanos13:8-14 (03/26)"
-				},
-				{
-					"id": "2017_26",
-					"name": "Lección26 Romanos14 (04/02)"
-				},
-				{
-					"id": "2017_27",
-					"name": "Lección27 Romanos15:1-13 (04/16)"
-				},
-				{
-					"id": "2017_28",
-					"name": "Lección28 Romanos15:14-33 (04/23)"
-				},
-				{
-					"id": "2017_29",
-					"name": "Lección29 Romanos16 (04/30)"
-				},
-				{
-					"id": "2017_30",
-					"name": "Lección30 Reflection (05/07)"
-				}
-			]
-		}
-	]
+  "booklist": [
+    {
+      "title": "Hechos y las cartas de los apóstoles2019",
+      "lessons": [
+        {
+          "id": "2019_1",
+          "name": "Lección1 Hechos1 (09/16)"
+        },
+        {
+          "id": "2019_2",
+          "name": "Lección2 Hechos2 (09/23)"
+        },
+        {
+          "id": "2019_3",
+          "name": "Lección3 Hechos3-4 (09/30)"
+        },
+        {
+          "id": "2019_4",
+          "name": "Lección4 Hechos4:32-6:7 (10/07)"
+        },
+        {
+          "id": "2019_5",
+          "name": "Lección5 Hechos6:8-7:60 (10/14)"
+        },
+        {
+          "id": "2019_6",
+          "name": "Lección6 Hechos8:1-9:30 (10/21)"
+        },
+        {
+          "id": "2019_7",
+          "name": "Lección7 Hechos9:31-11:30 (10/28)"
+        },
+        {
+          "id": "2019_8",
+          "name": "Lección8 Hechos12 (11/04)"
+        },
+        {
+          "id": "2019_9",
+          "name": "Lección9 1Pedro1-2 (11/11)"
+        },
+        {
+          "id": "2019_10",
+          "name": "Lección10 1Pedro3-5 (11/18)"
+        },
+        {
+          "id": "2019_11",
+          "name": "Lección11 Hechos13-14 (11/25)"
+        },
+        {
+          "id": "2019_12",
+          "name": "Lección12 Hechos15:1-35 (12/02)"
+        },
+        {
+          "id": "2019_13",
+          "name": "Lección13 Hebreos1:1-4:13 (12/09)"
+        }
+      ]
+    },
+    {
+      "title": "El pueblo de la Tierra Prometida I2018-19",
+      "lessons": [
+        {
+          "id": "2018_1",
+          "name": "Lección1 Josué1:1-5:12 (09/10)"
+        },
+        {
+          "id": "2018_2",
+          "name": "Lección2 Josué5:13-9:27 (09/17)"
+        },
+        {
+          "id": "2018_3",
+          "name": "Lección3 Josué10-12 (09/24)"
+        },
+        {
+          "id": "2018_4",
+          "name": "Lección4 Josué13-21 (10/1)"
+        },
+        {
+          "id": "2018_5",
+          "name": "Lección5 Josué22-24 (10/08)"
+        },
+        {
+          "id": "2018_6",
+          "name": "Lección6 Ruth (10/15)"
+        },
+        {
+          "id": "2018_7",
+          "name": "Lección7 1Samuel1-3 (10/22)"
+        },
+        {
+          "id": "2018_8",
+          "name": "Lección8 1Samuel4-8 (10/29)"
+        },
+        {
+          "id": "2018_9",
+          "name": "Lección9 1Samuel9-15 (11/05)"
+        },
+        {
+          "id": "2018_10",
+          "name": "Lección10 1Samuel16-17 (11/12)"
+        },
+        {
+          "id": "2018_11",
+          "name": "Lección11 Psalms (11/19)"
+        },
+        {
+          "id": "2018_12",
+          "name": "Lección12 1Samuel18-20 (11/26)"
+        },
+        {
+          "id": "2018_13",
+          "name": "Lección13 1Samuel21-24 (12/03)"
+        },
+        {
+          "id": "2018_14",
+          "name": "Lección14 1Samuel25-27 (12/10)"
+        },
+        {
+          "id": "2018_15",
+          "name": "Lección15 1Samuel28-31 (01/07)"
+        },
+        {
+          "id": "2018_16",
+          "name": "Lección16 2Samuel1-4 (01/14)"
+        },
+        {
+          "id": "2018_17",
+          "name": "Lección17 2Samuel5-6;1Chronicles3:1-9;11-16 (01/21)"
+        },
+        {
+          "id": "2018_18",
+          "name": "Lección18 2Samuel7;1Chronicles17 (01/28)"
+        },
+        {
+          "id": "2018_19",
+          "name": "Lección19 2Samuel8-10 (02/04)"
+        },
+        {
+          "id": "2018_20",
+          "name": "Lección20 2Samuel11-12 (02/11)"
+        },
+        {
+          "id": "2018_21",
+          "name": "Lección21 2Samuel13-18 (02/18)"
+        },
+        {
+          "id": "2018_22",
+          "name": "Lección22 2Samuel19-24 (02/25)"
+        },
+        {
+          "id": "2018_23",
+          "name": "Lección23 1Kings1-2;1Chronicles22,28-29 (03/04)"
+        },
+        {
+          "id": "2018_24",
+          "name": "Lección24 1Kings3-4 (03/11)"
+        },
+        {
+          "id": "2018_25",
+          "name": "Lección25 Proverbs (03/18)"
+        },
+        {
+          "id": "2018_26",
+          "name": "Lección26 1Kings5-6 (03/25)"
+        },
+        {
+          "id": "2018_27",
+          "name": "Lección27 1Kings7-8;2Chronicles4:1-7:10 (04/1)"
+        },
+        {
+          "id": "2018_28",
+          "name": "Lección28 1Kings9-10 (04/15)"
+        },
+        {
+          "id": "2018_29",
+          "name": "Lección29 1Kings11 (04/22)"
+        },
+        {
+          "id": "2018_30",
+          "name": "Lección30 Joshua-1Kings11 (04/29)"
+        }
+      ]
+    },
+    {
+      "title": "Romanos 2017-18",
+      "lessons": [
+        {
+          "id": "2017_1",
+          "name": "Lección1 Romanos1:1-17 (09/18)"
+        },
+        {
+          "id": "2017_2",
+          "name": "Lección2 Romanos1:18-32 (09/25)"
+        },
+        {
+          "id": "2017_3",
+          "name": "Lección3 Romanos2 (10/02)"
+        },
+        {
+          "id": "2017_4",
+          "name": "Lección4 Romanos3:1-20 (10/09)"
+        },
+        {
+          "id": "2017_5",
+          "name": "Lección5 Romanos3:21-26 (10/16)"
+        },
+        {
+          "id": "2017_6",
+          "name": "Lección6 Romanos3:27-31 (10/23)"
+        },
+        {
+          "id": "2017_7",
+          "name": "Lección7 Romanos4 (10/30)"
+        },
+        {
+          "id": "2017_8",
+          "name": "Lección8 Romanos5:1-11 (11/06)"
+        },
+        {
+          "id": "2017_9",
+          "name": "Lección9 Romanos5:12-21 (11/13)"
+        },
+        {
+          "id": "2017_10",
+          "name": "Lección10 Romanos6:1-11 (11/20)"
+        },
+        {
+          "id": "2017_11",
+          "name": "Lección11 Romanos6:12-23 (11/27)"
+        },
+        {
+          "id": "2017_12",
+          "name": "Lección12 Romanos7 (12/04)"
+        },
+        {
+          "id": "2017_13",
+          "name": "Lección13 Romanos8:1-17 (12/11)"
+        },
+        {
+          "id": "2017_14",
+          "name": "Lección14 Romanos8:18-27 (01/08)"
+        },
+        {
+          "id": "2017_15",
+          "name": "Lección15 Romanos8:28-39 (01/15)"
+        },
+        {
+          "id": "2017_16",
+          "name": "Lección16 Romanos9:1-29 (01/22)"
+        },
+        {
+          "id": "2017_17",
+          "name": "Lección17 Romanos9:30-10:13 (01/29)"
+        },
+        {
+          "id": "2017_18",
+          "name": "Lección18 Romanos10:14-21 (02/05)"
+        },
+        {
+          "id": "2017_19",
+          "name": "Lección19 Romanos11:1-32 (02/12)"
+        },
+        {
+          "id": "2017_20",
+          "name": "Lección20 Romanos11:33-36 (02/19)"
+        },
+        {
+          "id": "2017_21",
+          "name": "Lección21 Romanos12:1-2 (02/26)"
+        },
+        {
+          "id": "2017_22",
+          "name": "Lección22 Romanos12:3-8 (03/05)"
+        },
+        {
+          "id": "2017_23",
+          "name": "Lección23 Romanos12:9-21 (03/12)"
+        },
+        {
+          "id": "2017_24",
+          "name": "Lección24 Romanos13:1-7 (03/19)"
+        },
+        {
+          "id": "2017_25",
+          "name": "Lección25 Romanos13:8-14 (03/26)"
+        },
+        {
+          "id": "2017_26",
+          "name": "Lección26 Romanos14 (04/02)"
+        },
+        {
+          "id": "2017_27",
+          "name": "Lección27 Romanos15:1-13 (04/16)"
+        },
+        {
+          "id": "2017_28",
+          "name": "Lección28 Romanos15:14-33 (04/23)"
+        },
+        {
+          "id": "2017_29",
+          "name": "Lección29 Romanos16 (04/30)"
+        },
+        {
+          "id": "2017_30",
+          "name": "Lección30 Reflection (05/07)"
+        }
+      ]
+    }
+  ]
 }

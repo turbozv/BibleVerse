@@ -1,0 +1,150 @@
+{
+    "id": "2019_2",
+    "name": "",
+    "memoryVerse": "\"No se alejen de Jerusalén, sino esperen la promesa del Padre, de la cual les he hablado\". – Hechos 1:4b",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_2_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hechos 2:1-13.\nEn Pentecostés, el Espíritu Santo vino y entró en los apóstoles.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "2:1-13"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_3",
+                    "questionText": "3. ¿Qué visiones y sonidos externos experimentaron los discípulos para ayudarlos a reconocer una nueva realidad? ¿Cuál era la realidad interna y oculta?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_4",
+                    "questionText": "4. Comparta un momento en el que experimentó la unidad que trae el Espíritu.",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_5",
+                    "questionText": "5. ¿Por qué fue necesario que hubiera lenguajes distintos y que se pudieran entender claramente en esta ocasión?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hechos 2:14-21.\nPedro se dirigió a la multitud, recordándoles la promesa del Espíritu Santo.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "2:14-21"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_6a",
+                    "questionText": "6. a. Según Pedro ¿Sobre quién se iba a derramar el Espíritu Santo? ¿Cuándo lo recibirían?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_6b",
+                    "questionText": "6. b. ¿En qué se basó Pedro para hacer esta afirmación? (Vea Joel 2:28-32; Juan 7:37-39).",
+                    "quotes": [
+                        {
+                            "book": "Joel",
+                            "verse": "2:28-32"
+                        },
+                        {
+                            "book": "Juan",
+                            "verse": "7:37-39"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_2_7",
+                    "questionText": "7. ¿Quién recibe el Espíritu Santo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_8",
+                    "questionText": "8. Si el Espíritu Santo mora en usted, ¿cómo le alienta y le obliga este pasaje a compartir la verdad y la invitación de Dios?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 2:22-35.\nPedro relató la muerte y resurrección de Jesús.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "2:22-35"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_9",
+                    "questionText": "9. ¿Cómo describió Pedro los roles de Dios, las personas y la profecía en la muerte y resurrección de Jesús?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_10",
+                    "questionText": "10. ¿Cuál es el significado de la referencia de Pedro al patriarca David en este pasaje?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_11",
+                    "questionText": "11. Subraye en su Biblia o anote en este espacio los atributos (o características) de Dios: Padre, Hijo y Espíritu Santo que encuentra en el pasaje de hoy. ¿A qué conclusiones llega acerca de Dios?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea hechos 2:36-47.\nMuchos creyeron en Jesucristo como Salvador y Señor de sus vidas a través de la enseñanza de Pedro.",
+            "questions": [
+                {
+                    "id": "2019_2_12",
+                    "questionText": "12. ¿Qué dijo Pedro que el pueblo debía hacer en respuesta a la declaración de Pedro en el versículo 36? ¿Cuándo y cómo ha respondido usted a esa declaración?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_13a",
+                    "questionText": "13. a. ¿Qué hicieron los creyentes que nos muestra cómo vivir la vida cristiana? ¿Qué dice esto acerca de la unidad de la Iglesia?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_13b",
+                    "questionText": "13. b. ¿Cómo se deja ver esto en la iglesia de hoy? ¿Cómo se deja ver esto en su vida?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 2.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "2:1-47"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_14",
+                    "questionText": "14. A través de la lección de esta semana, ¿cómo le está guiando Dios para que se involucre con el mundo? (No hay homilética para líderes de grupo o administrativos) .",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

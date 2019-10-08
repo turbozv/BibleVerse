@@ -1,0 +1,156 @@
+{
+    "id": "2019_2",
+    "name": "",
+    "memoryVerse": "\"Do not leave Jerusalem, but wait for the gift my Father promised, which you have heard me speak about.\" – Acts 1:4b",
+    "dayQuestions": {
+        "one": {
+            "title": "FIRST DAY: Read the notes and the references.",
+            "questions": [
+                {
+                    "id": "2019_2_1",
+                    "questionText": "1. Use this space to record how you have seen God's activity during the week. (How has He provided, answered, comforted, reconciled, guided, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_2",
+                    "questionText": "2. What from the notes, lecture, group sharing or personal study impacted you most in the past week?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SECOND DAY: Read Acts 2:1-13.\nAt Pentecost, the Holy Spirit came and entered the apostles.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "2:1-13"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_3",
+                    "questionText": "3. What external sights and sounds did the disciples experience to help them recognize a new reality? What was the inward and unseen reality?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_4",
+                    "questionText": "4. Share a time when you experienced the unity the Spirit brings.",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_5",
+                    "questionText": "5. Why were separate, clearly understood languages necessary on this occasion?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "THIRD DAY: Read Acts 2:14-21.\nPeter addressed the crowd, reminding them of the promise of the Holy Spirit.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "2:14-21"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_6a",
+                    "questionText": "6. a. Whom did Peter say would receive the Holy Spirit. When would they receive Him?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_6b",
+                    "questionText": "6. b. On what basis did Peter make this claim? (See Joel 2:28-32; John 7:37-39.)",
+                    "quotes": [
+                        {
+                            "book": "Joel",
+                            "verse": "2:28-32"
+                        },
+                        {
+                            "book": "John",
+                            "verse": "7:37-39"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_2_7",
+                    "questionText": "7. Who receives the Holy Spirit?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_8",
+                    "questionText": "8. If the Holy Spirit dwells in you, how does this passage encourage and compel you to share the truth and invitation of God?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "FOURTH DAY: Read Acts 2:22-35.\nPeter recounted the death and resurrection of Jesus.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "2:22-35"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_9",
+                    "questionText": "9. How did Peter describe the roles of God, people and prophecy in the death and resurrection of Jesus?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_10",
+                    "questionText": "10. What is the significance of Peter's reference to the patriarch David in this passage?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_11",
+                    "questionText": "11. Highlight in your Bible or record in this space attributes (or characteristics) of God – Father, Son and Holy Spirit – you find in today's passage. What conclusions do you draw about God?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "FIFTH DAY: Read Acts 2:36-47.\nMany believed in Jesus Christ as Savior and Lord of their lives through Peter's teaching.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "2:36-47"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_12",
+                    "questionText": "12. What did Peter say the people must do as a response to Peter's convicting declaration in verse 36? When and how have you responded to that declaration?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_13a",
+                    "questionText": "13. a. What did the believers do that tell us about living the Christian life? What does this say about unity of the Church?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_2_13b",
+                    "questionText": "13. b. What does this look like in today's Church? What does this look like in your life?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SIXTH DAY: Review Acts 2.",
+            "readVerse": [
+                {
+                    "book": "Acts",
+                    "verse": "2:1-47"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_2_14",
+                    "questionText": "14. Through this week's lesson, how is God moving you to engage with the world?",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}

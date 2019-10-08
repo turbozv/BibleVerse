@@ -1,0 +1,157 @@
+{
+    "id": "2019_8",
+    "name": "",
+    "memoryVerse": "\"¡Así que también a los gentiles les ha concedido Dios el arrepentimiento para vida!\" – Hechos 11:18",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_8_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hechos 12:1-5.\nHerodes persiguió a la iglesia en Jerusalén.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "12:1-5"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_8_3",
+                    "questionText": "3. Describa a Herodes y sus actividades.",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_4",
+                    "questionText": "4. ¿Qué ha aprendido sobre buscar la aprobación del mundo? ¿En qué se diferencia esto de lo que los cristianos valoran o buscan? (Vea Gálatas 1:6-10.)",
+                    "quotes": [
+                        {
+                            "book": "Gálatas",
+                            "verse": "1:6-10"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_8_5",
+                    "questionText": "5. ¿Cómo le afecta que otros sean perseguidos? ¿Cómo podría orar por los creyentes que están sufriendo?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hechos 12:6-11.\nDios rescato milagrosamente a Pedro.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "12:6-11"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_8_6",
+                    "questionText": "6. Describa la fuga de Pedro. ¿Qué es lo que más le interesa de la fuga?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_7a",
+                    "questionText": "7. a. ¿Qué le enseña la fuga de Pedro y la muerte de Jacobo sobre la obediencia?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_7b",
+                    "questionText": "7. b. ¿En que área se le dificulta aceptar los caminos de Dios? ¿Qué ha aprendido de Dios que pueda ayudarle?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 12:12-17.\nPedro se reunió con sus compañeros creyentes.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "12:12-17"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_8_8",
+                    "questionText": "8. ¿Qué ha aprendido acerca de la oración? (Ver 12:5)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_9a",
+                    "questionText": "9. a. ¿De que manera moldea este pasaje lo que usted cree sobre el poder de la oración?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_9b",
+                    "questionText": "9. b. ¿Cómo afecta este pasaje el contenido de sus oraciones?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hechos 12:18-25.\nHerodes murió, y la Iglesia prosperó.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "12:18-25"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_8_10",
+                    "questionText": "10. Describa en sus propias palabras el final de Herodes.",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_11",
+                    "questionText": "11. ¿Qué ha aprendido sobre Dios? ¿Qué ha aprendido sobre las personas?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_12",
+                    "questionText": "12. ¿Dónde está floreciendo la Palabra de Dios en su iglesia y comunidad? ¿Qué le está pidiendo Dios que haga para difundir Su Palabra?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 12.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "12:1-25"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_8_13",
+                    "questionText": "13. ¿Qué atributo de Dios resalta más en su estudio del pasaje de esta semana y cómo podemos ver ese atributo desplegado en el mundo de hoy?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_8_14",
+                    "questionText": "14. Estudio de pasajes (homilética, estudio de palabras, etc.) para líderes de grupo y administrativos: Hechos 12 .",
+                    "quotes": [
+                        {
+                            "book": "Hechos",
+                            "verse": "12:1-25"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

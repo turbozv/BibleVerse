@@ -1,0 +1,166 @@
+{
+    "id": "2019_4",
+    "name": "",
+    "memoryVerse": "\"Después de haber orado, tembló el lugar en que estaban reunidos; todos fueron llenos del Espíritu Santo, y proclamaban la palabra de Dios sin temor alguno\". – Hechos 4:31",
+    "dayQuestions": {
+        "one": {
+            "title": "PRIMER DÍA: lea las notas y las referencias.",
+            "questions": [
+                {
+                    "id": "2019_4_1",
+                    "questionText": "1. Anote cómo ha visto la actividad de Dios durante la semana. (¿Cómo ha Dios provisto, contestado, consolado, reconciliado, guiado, etc.?)",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_2",
+                    "questionText": "2. ¿Qué fue lo que tuvo un mayor efecto en su vida de las notas, la conferencia, al compartir en grupo o del estudio personal de la semana pasada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "two": {
+            "title": "SEGUNDO DÍA: lea Hechos 5:1-11.\nAnanías y Safira trajeron una ofrenda parcial a los apóstoles.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "5:1-11"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_3",
+                    "questionText": "3. ¿Qué frases describen las acciones de Ananías y Safira?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_4",
+                    "questionText": "4. ¿Por qué fueron pecaminosas las acciones de Ananías y Safira? (Repase Hechos 4:32-37).",
+                    "quotes": [
+                        {
+                            "book": "Hechos",
+                            "verse": "4:32-37"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_4_5",
+                    "questionText": "5. ¿Qué ha aprendido acerca de Dios?",
+                    "quotes": []
+                }
+            ]
+        },
+        "three": {
+            "title": "TERCER DÍA: lea Hechos 5:12-16.\nLos apóstoles sanaron a muchos, y muchos más vinieron a la fe.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "5:12-16"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_6",
+                    "questionText": "6. ¿Qué le llama la atención sobre el ministerio del apóstol Pedro?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_7a",
+                    "questionText": "7. a. ¿Cuáles fueron las diversas respuestas del pueblo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_7b",
+                    "questionText": "7. b. ¿Cuál ha sido su respuesta al ver a Dios en acción?",
+                    "quotes": []
+                }
+            ]
+        },
+        "four": {
+            "title": "CUARTO DÍA: lea Hechos 5:17-42.\nLos funcionarios religiosos arrestaron, encarcelaron y castigaron a los apóstoles.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "5:17-42"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_8",
+                    "questionText": "8. ¿Qué señales claras del poder de Dios parecían no ver o ignorar los líderes religiosos? (Vea también Juan 15:26-27).",
+                    "quotes": [
+                        {
+                            "book": "Juan",
+                            "verse": "15:26-27"
+                        }
+                    ]
+                },
+                {
+                    "id": "2019_4_9a",
+                    "questionText": "9. a. ¿Cómo demostraron los apóstoles su fe y amor por Cristo?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_9b",
+                    "questionText": "9. b. ¿Qué aprende sobre el sufrimiento?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_10",
+                    "questionText": "10. ¿Cómo puede demostrar amor por Cristo cuando parece más fácil guardar silencio o no hacer nada?",
+                    "quotes": []
+                }
+            ]
+        },
+        "five": {
+            "title": "QUINTO DÍA: lea Hechos 6:1-7.\nA medida que crecían en número y en diversidad los creyentes, surgió una disputa entre ellos.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "6:1-7"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_11",
+                    "questionText": "11. ¿Qué crisis amenazó con distraer a los apóstoles del llamado que Dios les había dado? ¿Cuál fue la sabiduría detrás de la solución?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_12",
+                    "questionText": "12. ¿Cuáles fueron los requisitos principales para aquellos que servirían al Señor? ¿Porque es esto importante?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_13a",
+                    "questionText": "13. a. ¿Qué necesidad de su iglesia le han pedido suplir o le han dado a conocer?",
+                    "quotes": []
+                },
+                {
+                    "id": "2019_4_13b",
+                    "questionText": "13. b. ¿Cómo podría ayudar a aquellos en su comunidad que tienen hambre o carecen de alimento?",
+                    "quotes": []
+                }
+            ]
+        },
+        "six": {
+            "title": "SEXTO DÍA: repase Hechos 5:1 6:7.",
+            "readVerse": [
+                {
+                    "book": "Hechos",
+                    "verse": "5:1"
+                },
+                {
+                    "book": "Hechos",
+                    "verse": "6:7"
+                }
+            ],
+            "questions": [
+                {
+                    "id": "2019_4_14",
+                    "questionText": "14. ¿Cuál fue su conclusión más importante de su estudio personal de la lección de esta semana? (No hay homilética para líderes de grupo o administrativos) .",
+                    "quotes": []
+                }
+            ]
+        }
+    }
+}
