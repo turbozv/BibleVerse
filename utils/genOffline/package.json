@@ -11,7 +11,7 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "fs-sync": "^1.0.4",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.6.1",
     "sync-request": "^4.1.0"
   }
 }
